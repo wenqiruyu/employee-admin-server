@@ -2,9 +2,6 @@ package com.employee.admin.interceptor;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import org.apache.ibatis.reflection.MetaObject;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -25,13 +22,10 @@ public class CustomMetaObjectHandler implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {
 
+        System.out.println("的发生范德萨打法师的地方");
         // 添加时自动填充公共对象的信息
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (null != authentication) {
-            User user = (User) authentication.getPrincipal();
-            setInsertFieldValByName("lastUpdateBy", "admin", metaObject);
-            setInsertFieldValByName("createBy", "admin", metaObject);
-        }
+        setInsertFieldValByName("lastUpdateBy", "admin", metaObject);
+        setInsertFieldValByName("createBy", "admin", metaObject);
         setInsertFieldValByName("createTime", new Date(), metaObject);
     }
 
@@ -39,10 +33,7 @@ public class CustomMetaObjectHandler implements MetaObjectHandler {
     public void updateFill(MetaObject metaObject) {
 
         // 修改时自动填充公共对象的信息
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (null != authentication) {
-            User user = (User) authentication.getPrincipal();
-            setUpdateFieldValByName("lastUpdateBy", "admin", metaObject);
-        }
+        setFieldValByName("updateTime", new Date(), metaObject);
+        setUpdateFieldValByName("lastUpdateBy", "admin", metaObject);
     }
 }

@@ -1,7 +1,7 @@
 package com.employee.admin.vo;
 
 /**
- * 项目名称：venus
+ * 项目名称：employee-admin-server
  * 类名称：LoginUserVO
  * 类描述：TODO
  * 创建人：yingx

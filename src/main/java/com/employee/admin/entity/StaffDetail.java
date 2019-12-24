@@ -1,16 +1,21 @@
-package com.employee.admin.vo;
+package com.employee.admin.entity;
+
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+
+import java.time.LocalDateTime;
 
 /**
  * 项目名称：employee-admin-server
- * 类名称：RegisterUserVO
- * 类描述：TODO
+ * 类名称：StaffDetail
+ * 类描述：企业员工详细信息
  * 创建人：yingx
- * 创建时间： 2019/10/25
+ * 创建时间： 2019/12/24
  * 修改人：yingx
- * 修改时间： 2019/10/25
+ * 修改时间： 2019/12/24
  * 修改备注：
  */
-public class RegisterUserVO {
+public class StaffDetail {
 
     /**
      * 用户id
@@ -96,6 +101,35 @@ public class RegisterUserVO {
      * 备注
      */
     private String remark;
+
+    /**
+     * 数据状态
+     */
+    private Integer deleteFlag;
+
+    /**
+     * 创建时间
+     */
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
+
+    /**
+     * 修改时间
+     */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime updateTime;
+
+    /**
+     * 创建人
+     */
+    @TableField(fill = FieldFill.INSERT)
+    private String createBy;
+
+    /**
+     * 修改人
+     */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private String lastUpdateBy;
 
     public Long getUserId() {
         return userId;
@@ -233,9 +267,49 @@ public class RegisterUserVO {
         this.remark = remark;
     }
 
+    public Integer getDeleteFlag() {
+        return deleteFlag;
+    }
+
+    public void setDeleteFlag(Integer deleteFlag) {
+        this.deleteFlag = deleteFlag;
+    }
+
+    public LocalDateTime getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
+    }
+
+    public LocalDateTime getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(LocalDateTime updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public String getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
+    }
+
+    public String getLastUpdateBy() {
+        return lastUpdateBy;
+    }
+
+    public void setLastUpdateBy(String lastUpdateBy) {
+        this.lastUpdateBy = lastUpdateBy;
+    }
+
     @Override
     public String toString() {
-        return "RegisterUserVO{" +
+        return "StaffDetail{" +
                 "userId=" + userId +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
@@ -253,6 +327,11 @@ public class RegisterUserVO {
                 ", education='" + education + '\'' +
                 ", userface='" + userface + '\'' +
                 ", remark='" + remark + '\'' +
+                ", deleteFlag=" + deleteFlag +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", createBy='" + createBy + '\'' +
+                ", lastUpdateBy='" + lastUpdateBy + '\'' +
                 '}';
     }
 }

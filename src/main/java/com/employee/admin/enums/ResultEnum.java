@@ -23,7 +23,8 @@ public enum ResultEnum {
     UNKNOWN_USER(1000L, "用户名不存在或密码错误"),
     INVALID_ACCESS(1001L, "用户无权访问"),
     USER_NEED_AUTHORITIES(1002L, "用户未进行登录"),
-    USER_LOGOUT_SUCCESS(1003L, "用户注销登录成功");
+    USER_LOGOUT_SUCCESS(1003L, "用户注销登录成功"),
+    UNKNOWN_USER_INFO(1004L, "用户信息不存在"),;
 
     private Long code;
 

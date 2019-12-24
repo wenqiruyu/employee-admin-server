@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.core.config.GlobalConfig;
+import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import com.employee.admin.interceptor.CustomMetaObjectHandler;
@@ -29,7 +30,7 @@ import javax.sql.DataSource;
  * 修改备注：
  */
 @Configuration
-@MapperScan("com.server.venus.mapper")
+@MapperScan("com.employee.admin.mapper")
 public class MybatisPlusConfig {
 
     @Autowired
@@ -37,6 +38,11 @@ public class MybatisPlusConfig {
 
     @Autowired
     private CustomMetaObjectHandler customMetaObjectHandler;
+
+    @Bean
+    public MetaObjectHandler metaObjectHandler() {
+        return new CustomMetaObjectHandler();
+    }
 
     /**
      * mybatis分页插件
@@ -93,7 +99,7 @@ public class MybatisPlusConfig {
         globalConfig.setDbConfig(dbConfig);
         //刷新配置
 //		globalConfig.setRefresh(true);
-        globalConfig.setMetaObjectHandler(customMetaObjectHandler);
+        globalConfig.setMetaObjectHandler(metaObjectHandler());
 
         return globalConfig;
     }

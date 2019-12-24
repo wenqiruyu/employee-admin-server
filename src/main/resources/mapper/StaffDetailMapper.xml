@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.employee.admin.mapper.IStaffDetailMapper">
+    <resultMap id="staffDetailMap" type="com.employee.admin.vo.RegisterUserVO">
+        <result column="user_id" jdbcType="BIGINT" property="userId" />
+        <result column="username" jdbcType="VARCHAR" property="username" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="phone" jdbcType="VARCHAR" property="phone" />
+        <result column="telePhone" jdbcType="VARCHAR" property="telePhone" />
+        <result column="address" jdbcType="VARCHAR" property="address" />
+        <result column="userFace" jdbcType="VARCHAR" property="userFace" />
+        <result column="remark" jdbcType="VARCHAR" property="remark" />
+
+    </resultMap>
+
+    <insert id="addStaffDetail">
+        insert into
+        employee_staff_detail_t(user_id, username, password, sex, phone, telephone, province, city, county, address,
+        current_address, politics, national, marriage, education, userface, remark, delete_flag, create_time,
+        update_time, create_by, last_update_by)
+        values(#{userId}, #{username}, #{password}, #{sex}, #{phone}, #{telephone}, #{province}, #{city}, #{county},
+        #{address}, #{currentAddress}, #{politics}, #{national}, #{marriage}, #{education}, #{userface}, #{remark},
+        #{deleteFlag}, #{createTime}, #{updateTime}, #{createBy}, #{lastUpdateBy})
+    </insert>
+
+</mapper>
