@@ -23,4 +23,7 @@
         #{deleteFlag}, #{createTime}, #{updateTime}, #{createBy}, #{lastUpdateBy})
     </insert>
 
+    <select id="">
+
+    </select>
 </mapper>

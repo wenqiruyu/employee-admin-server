@@ -116,7 +116,7 @@ public class StaffDetail {
     /**
      * 修改时间
      */
-    @TableField(fill = FieldFill.INSERT_UPDATE)
+    @TableField(fill = FieldFill.UPDATE)
     private LocalDateTime updateTime;
 
     /**
@@ -128,7 +128,7 @@ public class StaffDetail {
     /**
      * 修改人
      */
-    @TableField(fill = FieldFill.INSERT_UPDATE)
+    @TableField(fill = FieldFill.UPDATE)
     private String lastUpdateBy;
 
     public Long getUserId() {

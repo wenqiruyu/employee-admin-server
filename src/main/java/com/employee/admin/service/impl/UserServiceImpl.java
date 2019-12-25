@@ -33,7 +33,6 @@ public class UserServiceImpl implements IUserService {
 
         JSONObject jsonObject = (JSONObject) JSON.toJSON(registerUserVO);
         StaffDetail staffDetail = jsonObject.toJavaObject(StaffDetail.class);
-//        StaffDetail staffDetail = (StaffDetail) JSON.toJSON(jsonObject);
         staffDetail.setDeleteFlag(0);
         staffDetailMapper.addStaffDetail(staffDetail);
     }

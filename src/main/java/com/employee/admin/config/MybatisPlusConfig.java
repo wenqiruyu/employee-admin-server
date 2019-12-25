@@ -98,8 +98,7 @@ public class MybatisPlusConfig {
         GlobalConfig globalConfig = new GlobalConfig();
         globalConfig.setDbConfig(dbConfig);
         //刷新配置
-//		globalConfig.setRefresh(true);
-        globalConfig.setMetaObjectHandler(metaObjectHandler());
+        globalConfig.setMetaObjectHandler(new CustomMetaObjectHandler());
 
         return globalConfig;
     }

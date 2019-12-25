@@ -24,16 +24,15 @@ public class CustomMetaObjectHandler implements MetaObjectHandler {
 
         System.out.println("的发生范德萨打法师的地方");
         // 添加时自动填充公共对象的信息
-        setInsertFieldValByName("lastUpdateBy", "admin", metaObject);
-        setInsertFieldValByName("createBy", "admin", metaObject);
-        setInsertFieldValByName("createTime", new Date(), metaObject);
+        this.setInsertFieldValByName("createBy", "admin", metaObject);
+        this.setInsertFieldValByName("createTime", new Date(), metaObject);
     }
 
     @Override
     public void updateFill(MetaObject metaObject) {
 
         // 修改时自动填充公共对象的信息
-        setFieldValByName("updateTime", new Date(), metaObject);
-        setUpdateFieldValByName("lastUpdateBy", "admin", metaObject);
+        this.setFieldValByName("updateTime", new Date(), metaObject);
+        this.setUpdateFieldValByName("lastUpdateBy", "admin", metaObject);
     }
 }
