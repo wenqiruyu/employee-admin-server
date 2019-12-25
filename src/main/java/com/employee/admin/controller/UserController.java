@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -55,7 +56,15 @@ public class UserController {
     @CrossOrigin
     public ResultVO userLogin(@RequestBody LoginUserVO loginUserVO) {
 
-        return null;
+        logger.info("UserController login start ... Username:{}, Password:{}",
+                loginUserVO.getUsername(), StringUtils.isBlank(loginUserVO.getPassword()) ? null : "******");
+        if (StringUtils.isBlank(loginUserVO.getUsername()) || StringUtils.isBlank(loginUserVO.getPassword())) {
+            throw new ExtenException("login", ExceptionEnum.PARAM_VALIDATED_UN_PASS_NULL.getCode(),
+                    ExceptionEnum.PARAM_VALIDATED_UN_PASS_NULL.getMessage());
+        }
+        userService.userLogin(loginUserVO);
+        logger.info("UserController login end ...");
+        return new ResultVO();
     }
 
     /**
@@ -77,7 +86,7 @@ public class UserController {
                     ExceptionEnum.PARAM_VALIDATED_UN_PASS_NULL.getMessage());
         }
         // 用户注册需将用户密码进行加密
-//        registerUserVO.setPassword(new BCryptPasswordEncoder().encode(registerUserVO.getPassword()));
+        registerUserVO.setPassword(new BCryptPasswordEncoder().encode(registerUserVO.getPassword()));
         QueryUserVO queryUserVO = new QueryUserVO();
         queryUserVO.setUsername(registerUserVO.getUsername());
         // 排除昵称同名的情况
@@ -102,14 +111,21 @@ public class UserController {
         }
     }
 
+    /**
+     * 通过用户名、用户id进行用户信息查询
+     *
+     * @param queryUserVO
+     * @return com.employee.admin.vo.ResultVO
+     * @author yingx
+     * @date 2019/12/25
+     */
     @PostMapping("/getUser")
     @CrossOrigin
     public ResultVO getUserInfo(@RequestBody QueryUserVO queryUserVO) {
 
-        logger.info("UserController getUserInfo start ... UserId:{}, Username:{}, empId:{}",
-                queryUserVO.getUserId(), queryUserVO.getUsername(), queryUserVO.getEmpId());
-        if (StringUtils.isBlank(queryUserVO.getUserId().toString()) && StringUtils.isBlank(queryUserVO.getUsername())
-            && StringUtils.isBlank(queryUserVO.getEmpId())) {
+        logger.info("UserController getUserInfo start ... UserId:{}, Username:{}",
+                queryUserVO.getUserId(), queryUserVO.getUsername());
+        if (StringUtils.isBlank(queryUserVO.getUserId().toString()) && StringUtils.isBlank(queryUserVO.getUsername())) {
             throw new ExtenException("register", ExceptionEnum.PARAM_VALIDATED_UN_PASS_NULL.getCode(),
                     ExceptionEnum.PARAM_VALIDATED_UN_PASS_NULL.getMessage());
         }
@@ -117,7 +133,34 @@ public class UserController {
         if (user != null) {
             logger.info("UserController getUserInfo end ... StaffDetailVO:{}", user);
             return new ResultVO(user);
-        }else{
+        } else {
+            logger.info("UserController getUserInfo end ... result:{}", "查找用户信息失败，该用户信息不存在");
+            return new ResultVO(ResultEnum.UNKNOWN_USER_INFO.getCode(), ResultEnum.UNKNOWN_USER_INFO.getMsg());
+        }
+    }
+
+    /**
+     * 通过员工号进行用户信息查询
+     *
+     * @param empParamVO
+     * @return com.employee.admin.vo.ResultVO
+     * @author yingx
+     * @date 2019/12/25
+     */
+    @PostMapping("/getUser/employee")
+    @CrossOrigin
+    public ResultVO getUserInfoByEmpId(@RequestBody EmpParamVO empParamVO) {
+
+        logger.info("UserController getUserInfoByEmpId start ... EmpId:{}", empParamVO.getEmpId());
+        if (StringUtils.isBlank(empParamVO.getEmpId())) {
+            throw new ExtenException("getUserInfoByEmpId", ExceptionEnum.PARAM_VALIDATED_UN_PASS_NULL.getCode(),
+                    ExceptionEnum.PARAM_VALIDATED_UN_PASS_NULL.getMessage());
+        }
+        StaffDetailVO user = userService.getUserByEmpId(empParamVO.getEmpId());
+        if (user != null) {
+            logger.info("UserController getUserInfo end ... StaffDetailVO:{}", user);
+            return new ResultVO(user);
+        } else {
             logger.info("UserController getUserInfo end ... result:{}", "查找用户信息失败，该用户信息不存在");
             return new ResultVO(ResultEnum.UNKNOWN_USER_INFO.getCode(), ResultEnum.UNKNOWN_USER_INFO.getMsg());
         }

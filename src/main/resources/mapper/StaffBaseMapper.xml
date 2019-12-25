@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.employee.admin.mapper.IStaffBaseMapper">
+    <resultMap id="staffBaseResultMap" type="com.employee.admin.vo.StaffBaseVO">
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="emp_id" jdbcType="VARCHAR" property="empId"/>
+        <result column="emp_name" jdbcType="VARCHAR" property="empName"/>
+        <result column="participate_time" jdbcType="VARCHAR" property="participateTime"/>
+        <result column="leave_time" jdbcType="VARCHAR" property="leaveTime"/>
+        <result column="leave_reason" jdbcType="VARCHAR" property="leaveReason"/>
+    </resultMap>
+
+    <sql id="staffBaseList">
+        user_id, emp_id, emp_name, participate_time, leave_time, leave_reason
+    </sql>
+
+</mapper>

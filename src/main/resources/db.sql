@@ -131,3 +131,26 @@ CREATE TABLE `employee_position_t` (
 (16,5,'人事部主管','负责人事工作制度的制定与完善','admin','2016-07-03 14:39:39','2016-07-03 14:42:23')
 (17,6,'采购部部长','负责部门的相关方案拟定、检查、监督、控制与执行。','admin','2016-07-03 14:43:40','2016-07-03 14:43:40')
 (18,6,'采购部经理','负责汇总设计部的申请采购，编制采购计划，经过采购总监的审核后组织实施;','admin','2016-07-03 14:44:21','2016-07-03 14:44:28');
+
+DROP TABLE IF EXISTS `employee_staff_user_t`;
+CREATE TABLE `employee_staff_user_t`(
+	`user_id` bigint(20) DEFAULT NULL COMMENT '用户id,用于后台系统',
+  `emp_id` varchar(255) DEFAULT NULL COMMENT '员工号'
+)ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8 COMMENT='企业员工和后台管理系统用户关联表';
+
+DROP TABLE IF EXISTS `employee_menu_t`;
+CREATE TABLE `employee_menu_t`(
+	`id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `icon` varchar(64) DEFAULT NULL COMMENT '菜单图标',
+  `index` varchar(64) DEFAULT NULL COMMENT '菜单名称 vue的页面名称',
+  `title` varchar(64) DEFAULT NULL COMMENT '菜单名称',
+  `is_sub` tinyint(1) DEFAULT NULL COMMENT '是否子菜单 0为根菜单 1为子菜单',
+  `parent_id` int(11) DEFAULT NULL COMMENT '父菜单id',
+  `role` varchar(64) DEFAULT NULL COMMENT '菜单权限 菜单开放权限',
+  `delete_flag` tinyint(1) DEFAULT '1' COMMENT '是否有效',
+  `create_time` datetime DEFAULT NULL,
+  `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `create_by` varchar(20) NOT NULL DEFAULT 'admin' COMMENT '创建者，记录创建者信息',
+  `last_update_by` varchar(20) NOT NULL DEFAULT 'admin' COMMENT '修改者，记录修改者信息',
+  PRIMARY KEY (`id`)
+)ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8 COMMENT='企业员工和后台管理系统菜单管理表';

@@ -37,7 +37,7 @@ public class ExceptionResolver {
 
     private static final Logger logger = LoggerFactory.getLogger(ExceptionResolver.class);
 
-    private String domain = "venus";
+    private String domain = "employee-admin-server";
 
     /**
      * 针对业务异常的处理

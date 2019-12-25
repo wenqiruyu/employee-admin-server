@@ -22,11 +22,6 @@ public class QueryUserVO {
      */
     private String username;
 
-    /**
-     * 员工号
-     */
-    private String empId;
-
     public Long getUserId() {
         return userId;
     }
@@ -43,20 +38,11 @@ public class QueryUserVO {
         this.username = username;
     }
 
-    public String getEmpId() {
-        return empId;
-    }
-
-    public void setEmpId(String empId) {
-        this.empId = empId;
-    }
-
     @Override
     public String toString() {
         return "QueryUserVO{" +
                 "userId=" + userId +
                 ", username='" + username + '\'' +
-                ", empId=" + empId +
                 '}';
     }
 }

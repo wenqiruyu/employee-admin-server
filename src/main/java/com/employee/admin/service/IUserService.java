@@ -1,6 +1,7 @@
 package com.employee.admin.service;
 
 import com.employee.admin.entity.StaffRole;
+import com.employee.admin.vo.LoginUserVO;
 import com.employee.admin.vo.QueryUserVO;
 import com.employee.admin.vo.RegisterUserVO;
 import com.employee.admin.vo.StaffDetailVO;
@@ -19,7 +20,11 @@ public interface IUserService {
 
     void userRegister(RegisterUserVO registerUserVO);
 
+    void userLogin(LoginUserVO loginUserVO);
+
     StaffDetailVO getUser(QueryUserVO queryUserVO);
+
+    StaffDetailVO getUserByEmpId(String empId);
 
     void addStaffRole(StaffRole staffRole);
 }

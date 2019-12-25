@@ -1,6 +1,7 @@
 package com.employee.admin.mapper;
 
 import com.employee.admin.entity.StaffDetail;
+import com.employee.admin.vo.StaffDetailVO;
 
 /**
  * 项目名称：employee-admin-server
@@ -15,4 +16,10 @@ import com.employee.admin.entity.StaffDetail;
 public interface IStaffDetailMapper {
 
     void addStaffDetail(StaffDetail staffDetail);
+
+    String getUserPassword(String username);
+
+    StaffDetailVO getStaffDetail(StaffDetail staffDetail);
+
+    StaffDetailVO getStaffDetailByEmpId(String empId);
 }
