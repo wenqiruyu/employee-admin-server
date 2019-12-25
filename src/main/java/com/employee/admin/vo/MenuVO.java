@@ -32,7 +32,7 @@ public class MenuVO {
     /**
      * 子菜单列表
      */
-    private List<MenuSubVO> subMenuList;
+    private List<MenuSubVO> subMenu;
 
     public String getIcon() {
         return icon;
@@ -58,12 +58,12 @@ public class MenuVO {
         this.title = title;
     }
 
-    public List<MenuSubVO> getSubMenuList() {
-        return subMenuList;
+    public List<MenuSubVO> getSubMenu() {
+        return subMenu;
     }
 
-    public void setSubMenuList(List<MenuSubVO> subMenuList) {
-        this.subMenuList = subMenuList;
+    public void setSubMenu(List<MenuSubVO> subMenu) {
+        this.subMenu = subMenu;
     }
 
     @Override
@@ -72,7 +72,7 @@ public class MenuVO {
                 "icon='" + icon + '\'' +
                 ", index='" + index + '\'' +
                 ", title='" + title + '\'' +
-                ", subMenuList=" + subMenuList +
+                ", subMenu=" + subMenu +
                 '}';
     }
 }

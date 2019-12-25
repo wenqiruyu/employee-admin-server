@@ -6,16 +6,16 @@
         <result column="index" jdbcType="VARCHAR" property="index"/>
         <result column="title" jdbcType="VARCHAR" property="title"/>
 
-        <collection property="subMenuList" resultMap="menuSubResultMap" />
+        <collection property="subMenu" resultMap="menuSubResultMap" />
     </resultMap>
 
     <resultMap id="menuSubResultMap" type="com.employee.admin.vo.MenuSubVO">
-        <result column="icon" jdbcType="BIGINT" property="icon"/>
-        <result column="index" jdbcType="VARCHAR" property="index"/>
-        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="subIcon" jdbcType="BIGINT" property="subIcon"/>
+        <result column="subIndex" jdbcType="VARCHAR" property="subIndex"/>
+        <result column="subTitle" jdbcType="VARCHAR" property="subTitle"/>
     </resultMap>
 
-    <select id="getAllMenu" resultMap="menuResultMap">
+    <select id="getAllMenu" resultMap="menuResultMap"><![CDATA[
         select par.icon,par.index,par.title,sub.icon,sub.index,sub.title
         from (
             select *
@@ -27,5 +27,30 @@
             where delete_flag = 0
             and is_sub = 0) par
         where par.id = sub.parent_id
+    ]]></select>
+
+    <select id="getMenuByUser" resultMap="menuResultMap" parameterType="com.employee.admin.vo.QueryUserVO">
+        select par.icon,par.index,par.title,sub.icon as subIcon,sub.index as subIndex,sub.title as subTitle
+        from (
+            select *
+            from employee_menu_t
+            where delete_flag = 0
+            and is_sub = 1) sub,(
+            select *
+            from employee_menu_t
+            where delete_flag = 0
+            and is_sub = 0) par,(
+            select role_id
+            from employee_staff_role_t
+            <where>
+                delete_flag = 0
+                <if test="userId != null and userId != ''">
+                    and user_id = #{userId}
+                </if>
+            </where>
+            ) role
+        where par.id = sub.parent_id
+        and sub.role <![CDATA[ >= ]]> role.role_id
+        and par.role <![CDATA[ >= ]]> role.role_id
     </select>
 </mapper>

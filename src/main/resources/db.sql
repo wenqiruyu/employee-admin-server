@@ -7,7 +7,7 @@ CREATE TABLE `employee_staff_base_t` (
   `participate_time` varchar(12) DEFAULT NULL COMMENT '入职时间',
   `leave_time` varchar(12) DEFAULT NULL COMMENT '离职时间',
   `leave_reason` varchar(1024) DEFAULT NULL COMMENT '离职原因',
-  `delete_flag` tinyint(1) DEFAULT NULL COMMENT '信息状态，是否在职',
+  `delete_flag` tinyint(1) DEFAULT '0' COMMENT '信息状态，是否在职 0在职 1离职',
   `create_time` datetime DEFAULT NULL,
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `create_by` varchar(20) NOT NULL DEFAULT 'admin' COMMENT '创建者，记录创建者信息',
@@ -35,7 +35,7 @@ CREATE TABLE `employee_staff_detail_t` (
   `education` varchar(64) DEFAULT NULL COMMENT '学历 小学 初中 高中 本科 研究生 博士',
   `userface` varchar(255) DEFAULT NULL COMMENT '头像',
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
-  `delete_flag` tinyint(1) DEFAULT NULL COMMENT '信息状态，是否在职',
+  `delete_flag` tinyint(1) DEFAULT '0' COMMENT '是否有效 0有效 1删除',
   `create_time` datetime DEFAULT NULL,
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `create_by` varchar(20) NOT NULL DEFAULT 'admin' COMMENT '创建者，记录创建者信息',
@@ -48,7 +48,7 @@ CREATE TABLE `employee_role_t` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `role_name_en` varchar(64) DEFAULT NULL COMMENT '角色名称',
   `role_name_zh` varchar(64) DEFAULT NULL COMMENT '角色名称 中文',
-  `delete_flag` tinyint(1) DEFAULT '1' COMMENT '是否有效',
+  `delete_flag` tinyint(1) DEFAULT '0' COMMENT '是否有效 0有效 1删除',
   `create_time` datetime DEFAULT NULL,
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `create_by` varchar(20) NOT NULL DEFAULT 'admin' COMMENT '创建者，记录创建者信息',
@@ -60,7 +60,7 @@ DROP TABLE IF EXISTS `employee_staff_role_t`;
 CREATE TABLE `employee_staff_role_t` (
   `user_id` bigint(20) DEFAULT NULL COMMENT '用户表id',
   `role_id` int(11) DEFAULT NULL COMMENT '角色表id',
-  `delete_flag` tinyint(1) DEFAULT '1' COMMENT '是否有效'
+  `delete_flag` tinyint(1) DEFAULT '0' COMMENT '是否有效 0有效 1删除'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='企业员工用户角色映射表';
 
 DROP TABLE IF EXISTS `employee_dept_t`;
@@ -72,7 +72,7 @@ CREATE TABLE `employee_dept_t` (
   `principal_user_id` varchar(64) DEFAULT NULL COMMENT '部门负责人,userid',
   `principal_emp_id` varchar(64) DEFAULT NULL COMMENT '部门负责人,userid',
   `principal_name` varchar(64) DEFAULT NULL COMMENT '部门负责人',
-  `delete_flag` tinyint(1) DEFAULT '1' COMMENT '是否有效',
+  `delete_flag` tinyint(1) DEFAULT '0' COMMENT '是否有效 0有效 1删除',
   `create_time` datetime DEFAULT NULL,
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `create_by` varchar(20) NOT NULL DEFAULT 'admin' COMMENT '创建者，记录创建者信息',
@@ -97,7 +97,7 @@ CREATE TABLE `employee_staff_dept_t` (
   `user_id` bigint(20) DEFAULT NULL COMMENT '用户表id',
   `super_user_id` bigint(20) DEFAULT NULL COMMENT '员工上级id',
   `dept_id` int(11) DEFAULT NULL COMMENT '角色表id',
-  `delete_flag` tinyint(1) DEFAULT '1' COMMENT '是否有效'
+  `delete_flag` tinyint(1) DEFAULT '0' COMMENT '是否有效 0有效 1删除'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='企业员工用户部门映射表';
 
 DROP TABLE IF EXISTS `employee_position_t`;
@@ -106,7 +106,7 @@ CREATE TABLE `employee_position_t` (
   `dept_id` bigint(20) DEFAULT NULL COMMENT '部门id',
   `position_name` varchar(128) DEFAULT NULL COMMENT '职位名称',
   `position_desc` varchar(1024) DEFAULT NULL COMMENT '职位简介',
-  `delete_flag` tinyint(1) DEFAULT '1' COMMENT '是否有效',
+  `delete_flag` tinyint(1) DEFAULT '0' COMMENT '是否有效 0有效 1删除',
   `create_time` datetime DEFAULT NULL,
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `create_by` varchar(20) NOT NULL DEFAULT 'admin' COMMENT '创建者，记录创建者信息',
@@ -147,7 +147,7 @@ CREATE TABLE `employee_menu_t`(
   `is_sub` tinyint(1) DEFAULT NULL COMMENT '是否子菜单 0为根菜单 1为子菜单',
   `parent_id` int(11) DEFAULT NULL COMMENT '父菜单id',
   `role` varchar(64) DEFAULT NULL COMMENT '菜单权限 菜单开放权限',
-  `delete_flag` tinyint(1) DEFAULT '1' COMMENT '是否有效',
+  `delete_flag` tinyint(1) DEFAULT '0' COMMENT '是否有效 0有效 1删除',
   `create_time` datetime DEFAULT NULL,
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `create_by` varchar(20) NOT NULL DEFAULT 'admin' COMMENT '创建者，记录创建者信息',

@@ -15,48 +15,48 @@ public class MenuSubVO {
     /**
      * icon菜单图标
      */
-    private String icon;
+    private String subIcon;
 
     /**
      * 菜单名称 vue文件名
      */
-    private String index;
+    private String subIndex;
 
     /**
      * 菜单名
      */
-    private String title;
+    private String subTitle;
 
-    public String getIcon() {
-        return icon;
+    public String getSubIcon() {
+        return subIcon;
     }
 
-    public void setIcon(String icon) {
-        this.icon = icon;
+    public void setSubIcon(String subIcon) {
+        this.subIcon = subIcon;
     }
 
-    public String getIndex() {
-        return index;
+    public String getSubIndex() {
+        return subIndex;
     }
 
-    public void setIndex(String index) {
-        this.index = index;
+    public void setSubIndex(String subIndex) {
+        this.subIndex = subIndex;
     }
 
-    public String getTitle() {
-        return title;
+    public String getSubTitle() {
+        return subTitle;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setSubTitle(String subTitle) {
+        this.subTitle = subTitle;
     }
 
     @Override
     public String toString() {
         return "MenuSubVO{" +
-                "icon='" + icon + '\'' +
-                ", index='" + index + '\'' +
-                ", title='" + title + '\'' +
+                "subIcon='" + subIcon + '\'' +
+                ", subIndex='" + subIndex + '\'' +
+                ", subTitle='" + subTitle + '\'' +
                 '}';
     }
 }
