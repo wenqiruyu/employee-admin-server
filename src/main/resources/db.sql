@@ -24,6 +24,8 @@ CREATE TABLE `employee_staff_detail_t` (
   `sex` tinyint(1) DEFAULT NULL COMMENT '性别 1男 0女',
   `phone` char(11) DEFAULT NULL COMMENT '手机号码',
   `telephone` varchar(16) DEFAULT NULL COMMENT '住宅电话',
+	`email` varchar(64) DEFAULT NULL COMMENT '邮箱',
+	`birthday` datetime DEFAULT NULL COMMENT '出生日期',
   `province` varchar(64) DEFAULT NULL COMMENT '省',
   `city` varchar(64) DEFAULT NULL COMMENT '市',
   `county` varchar(64) DEFAULT NULL COMMENT '区',

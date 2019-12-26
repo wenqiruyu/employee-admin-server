@@ -125,8 +125,8 @@ public class UserController {
 
         logger.info("UserController getUserInfo start ... UserId:{}, Username:{}",
                 queryUserVO.getUserId(), queryUserVO.getUsername());
-        if (StringUtils.isBlank(queryUserVO.getUserId().toString()) && StringUtils.isBlank(queryUserVO.getUsername())) {
-            throw new ExtenException("register", ExceptionEnum.PARAM_VALIDATED_UN_PASS_NULL.getCode(),
+        if (StringUtils.isBlank(queryUserVO.getUserId() + "") && StringUtils.isBlank(queryUserVO.getUsername())) {
+            throw new ExtenException("getUserInfo", ExceptionEnum.PARAM_VALIDATED_UN_PASS_NULL.getCode(),
                     ExceptionEnum.PARAM_VALIDATED_UN_PASS_NULL.getMessage());
         }
         StaffDetailVO user = userService.getUser(queryUserVO);
@@ -158,10 +158,10 @@ public class UserController {
         }
         StaffDetailVO user = userService.getUserByEmpId(empParamVO.getEmpId());
         if (user != null) {
-            logger.info("UserController getUserInfo end ... StaffDetailVO:{}", user);
+            logger.info("UserController getUserInfoByEmpId end ... StaffDetailVO:{}", user);
             return new ResultVO(user);
         } else {
-            logger.info("UserController getUserInfo end ... result:{}", "查找用户信息失败，该用户信息不存在");
+            logger.info("UserController getUserInfoByEmpId end ... result:{}", "查找用户信息失败，该用户信息不存在");
             return new ResultVO(ResultEnum.UNKNOWN_USER_INFO.getCode(), ResultEnum.UNKNOWN_USER_INFO.getMsg());
         }
     }
@@ -171,6 +171,8 @@ public class UserController {
         return null;
     }
 
+    @PostMapping("/updateUser")
+    @CrossOrigin
     public ResultVO updateUser() {
 
         return null;

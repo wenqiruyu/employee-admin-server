@@ -7,6 +7,8 @@
         <result column="sex" jdbcType="INTEGER" property="sex"/>
         <result column="phone" jdbcType="VARCHAR" property="phone"/>
         <result column="telePhone" jdbcType="VARCHAR" property="telePhone"/>
+        <result column="email" jdbcType="VARCHAR" property="email"/>
+        <result column="birthday" jdbcType="DATE" property="birthday"/>
         <result column="province" jdbcType="VARCHAR" property="province"/>
         <result column="city" jdbcType="VARCHAR" property="city"/>
         <result column="county" jdbcType="VARCHAR" property="county"/>
@@ -21,18 +23,18 @@
     </resultMap>
 
     <sql id="staffDetailList">
-        user_id, username, sex, phone, telephone, province, city, county, address,
+        user_id, username, sex, phone, telephone, email, birthday, province, city, county, address,
         current_address, politics, national, marriage, education, userface, remark
     </sql>
 
     <insert id="addStaffDetail">
         insert into
-        employee_staff_detail_t(user_id, username, password, sex, phone, telephone, province, city, county, address,
-        current_address, politics, national, marriage, education, userface, remark, delete_flag, create_time,
-        update_time)
-        values(#{userId}, #{username}, #{password}, #{sex}, #{phone}, #{telephone}, #{province}, #{city}, #{county},
-        #{address}, #{currentAddress}, #{politics}, #{national}, #{marriage}, #{education}, #{userface}, #{remark},
-        #{deleteFlag}, #{createTime}, #{updateTime})
+        employee_staff_detail_t(user_id, username, password, sex, phone, telephone, email, birthday, province, city,
+        county, address,current_address, politics, national, marriage, education, userface, remark, delete_flag,
+        create_time, update_time)
+        values(#{userId}, #{username}, #{password}, #{sex}, #{phone}, #{telephone}, #{email}, #{birthday}, #{province},
+        #{city}, #{county}, #{address}, #{currentAddress}, #{politics}, #{national}, #{marriage}, #{education},
+        #{userface}, #{remark}, #{deleteFlag}, #{createTime}, #{updateTime})
     </insert>
 
     <select id="getUserPassword" resultType="String">

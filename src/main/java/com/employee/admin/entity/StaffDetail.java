@@ -48,6 +48,16 @@ public class StaffDetail {
     private String telephone;
 
     /**
+     * 邮箱
+     */
+    private String email;
+
+    /**
+     * 出生日期
+     */
+    private LocalDateTime birthday;
+
+    /**
      * 省
      */
     private String province;
@@ -177,6 +187,22 @@ public class StaffDetail {
 
     public void setTelephone(String telephone) {
         this.telephone = telephone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public LocalDateTime getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(LocalDateTime birthday) {
+        this.birthday = birthday;
     }
 
     public String getProvince() {
@@ -316,6 +342,8 @@ public class StaffDetail {
                 ", sex=" + sex +
                 ", phone='" + phone + '\'' +
                 ", telephone='" + telephone + '\'' +
+                ", email='" + email + '\'' +
+                ", birthday=" + birthday +
                 ", province='" + province + '\'' +
                 ", city='" + city + '\'' +
                 ", county='" + county + '\'' +

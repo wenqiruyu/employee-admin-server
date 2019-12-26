@@ -1,5 +1,7 @@
 package com.employee.admin.vo;
 
+import java.time.LocalDateTime;
+
 /**
  * 项目名称：employee-admin-server
  * 类名称：StaffDetailVO
@@ -41,6 +43,16 @@ public class StaffDetailVO {
      * 住宅电话
      */
     private String telephone;
+
+    /**
+     * 邮箱
+     */
+    private String email;
+
+    /**
+     * 出生日期
+     */
+    private LocalDateTime birthday;
 
     /**
      * 省
@@ -145,6 +157,22 @@ public class StaffDetailVO {
         this.telephone = telephone;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public LocalDateTime getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(LocalDateTime birthday) {
+        this.birthday = birthday;
+    }
+
     public String getProvince() {
         return province;
     }
@@ -242,6 +270,8 @@ public class StaffDetailVO {
                 ", sex=" + sex +
                 ", phone='" + phone + '\'' +
                 ", telephone='" + telephone + '\'' +
+                ", email='" + email + '\'' +
+                ", birthday=" + birthday +
                 ", province='" + province + '\'' +
                 ", city='" + city + '\'' +
                 ", county='" + county + '\'' +
