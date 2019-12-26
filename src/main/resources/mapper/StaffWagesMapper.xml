@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.employee.admin.mapper.IStaffWagesMapper">
+    <resultMap id="staffWagesResultMap" type="com.employee.admin.vo.StaffWagesVO">
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="period" jdbcType="VARCHAR" property="period"/>
+        <result column="base_wages" jdbcType="DECIMAL" property="baseWages"/>
+        <result column="subsidy" jdbcType="DECIMAL" property="subsidy"/>
+        <result column="tax" jdbcType="DECIMAL" property="tax"/>
+        <result column="real_wages" jdbcType="DECIMAL" property="realWages"/>
+    </resultMap>
+
+    <sql id="staffWages">
+        user_id, period, base_wages, subsidy, tax, real_wages
+    </sql>
+
+    <insert id="addAllStaffWages" parameterType="java.util.List">
+        insert into employee_staff_wages_t(user_id, period, base_wages, subsidy, tax, real_wages, delete_flag,
+        create_time, update_time)
+        <foreach collection ="list" item ="item" index ="index" open="("  close=")"  separator ="union all">
+            select
+            #{item.userId},
+            #{item.period},
+            #{item.baseWages}
+            #{item.subsidy}
+            #{item.tax}
+            #{item.deleteFlag}
+            #{item.createTime}
+            #{item.updateTime}
+            from dual
+        </foreach >
+    </insert>
+
+    <select id="getAllStaffWages" resultMap="staffWagesResultMap">
+        select
+        <include refid="staffWages"/>
+        from employee_staff_wages_t
+        where delete_flag = 0
+    </select>
+
+    <select id="getStaffWagesByUserId" resultMap="staffWagesResultMap" parameterType="Long">
+        select
+        <include refid="staffWages"/>
+        from employee_staff_wages_t
+        where delete_flag = 0
+        and user_id = #{userId}
+    </select>
+</mapper>
+

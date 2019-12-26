@@ -154,3 +154,20 @@ CREATE TABLE `employee_menu_t`(
   `last_update_by` varchar(20) NOT NULL DEFAULT 'admin' COMMENT '修改者，记录修改者信息',
   PRIMARY KEY (`id`)
 )ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8 COMMENT='企业员工和后台管理系统菜单管理表';
+
+DROP TABLE IF EXISTS `employee_staff_wages_t`;
+CREATE TABLE `employee_staff_wages_t`(
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `user_id` bigint(20) DEFAULT NULL COMMENT '用户id',
+  `period` varchar(64) DEFAULT NULL COMMENT '薪资发放期间',
+  `base_wages` double DEFAULT NULL COMMENT '基本工资',
+  `subsidy` double DEFAULT NULL COMMENT '补贴',
+  `tax` double DEFAULT NULL COMMENT '税前扣款',
+  `real_wages` double DEFAULT NULL COMMENT '实发工资',
+  `delete_flag` tinyint(1) DEFAULT '0' COMMENT '是否有效 0有效 1删除',
+  `create_time` datetime DEFAULT NULL,
+  `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `create_by` varchar(20) NOT NULL DEFAULT 'admin' COMMENT '创建者，记录创建者信息',
+  `last_update_by` varchar(20) NOT NULL DEFAULT 'admin' COMMENT '修改者，记录修改者信息',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8 COMMENT='企业员工薪资表';
