@@ -3,7 +3,6 @@ package com.employee.admin.controller;
 import com.employee.admin.enums.ExceptionEnum;
 import com.employee.admin.exception.ExtenException;
 import com.employee.admin.service.IStaffWagesService;
-import com.employee.admin.vo.MenuVO;
 import com.employee.admin.vo.QueryUserVO;
 import com.employee.admin.vo.ResultVO;
 import com.employee.admin.vo.StaffWagesVO;
@@ -11,7 +10,10 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -39,13 +41,13 @@ public class StaffWagesController {
     @CrossOrigin
     public ResultVO addAllWages(List<StaffWagesVO> staffWagesVOS) {
 
-        logger.info("UserController addAllWages start ...");
+        logger.info("StaffWagesController addAllWages start ...");
         if (staffWagesVOS == null || staffWagesVOS.size() == 0) {
             throw new ExtenException("addAllWages", ExceptionEnum.PARAM_VALIDATED_UN_PASS_NULL.getCode(),
                     ExceptionEnum.PARAM_VALIDATED_UN_PASS_NULL.getMessage());
         }
         staffWagesService.addAllStaffWages(staffWagesVOS);
-        logger.info("UserController addAllWages end ...");
+        logger.info("StaffWagesController addAllWages end ...");
         return new ResultVO();
     }
 
@@ -53,13 +55,13 @@ public class StaffWagesController {
     @CrossOrigin
     public ResultVO addWages(StaffWagesVO staffWagesVO) {
 
-        logger.info("UserController addWages start ...");
+        logger.info("StaffWagesController addWages start ...");
         if (staffWagesVO == null) {
             throw new ExtenException("addWages", ExceptionEnum.PARAM_VALIDATED_UN_PASS_NULL.getCode(),
                     ExceptionEnum.PARAM_VALIDATED_UN_PASS_NULL.getMessage());
         }
         staffWagesService.addStaffWages(staffWagesVO);
-        logger.info("UserController addWages end ...");
+        logger.info("StaffWagesController addWages end ...");
         return new ResultVO();
     }
 
@@ -67,9 +69,9 @@ public class StaffWagesController {
     @CrossOrigin
     public ResultVO getAllWages() {
 
-        logger.info("UserController getAllWages start ...");
+        logger.info("StaffWagesController getAllWages start ...");
         List<StaffWagesVO> allStaffWages = staffWagesService.getAllStaffWages();
-        logger.info("UserController getAllWages end ... result:{}", allStaffWages);
+        logger.info("StaffWagesController getAllWages end ... result:{}", allStaffWages);
         return new ResultVO(allStaffWages);
     }
 
@@ -77,13 +79,13 @@ public class StaffWagesController {
     @CrossOrigin
     public ResultVO getWages(QueryUserVO queryUserVO) {
 
-        logger.info("UserController getWages start ...");
+        logger.info("StaffWagesController getWages start ...");
         if (StringUtils.isBlank(queryUserVO.getUserId().toString())) {
             throw new ExtenException("getWages", ExceptionEnum.PARAM_VALIDATED_UN_PASS_NULL.getCode(),
                     ExceptionEnum.PARAM_VALIDATED_UN_PASS_NULL.getMessage());
         }
         List<StaffWagesVO> allStaffWages = staffWagesService.getAllStaffWages();
-        logger.info("UserController getWages end ... result:{}", allStaffWages);
+        logger.info("StaffWagesController getWages end ... result:{}", allStaffWages);
         return new ResultVO(allStaffWages);
     }
 }

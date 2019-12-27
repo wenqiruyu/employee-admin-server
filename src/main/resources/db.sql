@@ -1,7 +1,6 @@
 DROP TABLE IF EXISTS `employee_staff_base_t`;
 CREATE TABLE `employee_staff_base_t` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `user_id` bigint(20) DEFAULT NULL COMMENT '用户id,用于后台系统',
   `emp_id` varchar(255) DEFAULT NULL COMMENT '员工号',
   `emp_name` varchar(255) DEFAULT NULL COMMENT '员工名',
   `participate_time` varchar(12) DEFAULT NULL COMMENT '入职时间',
@@ -18,7 +17,7 @@ CREATE TABLE `employee_staff_base_t` (
 DROP TABLE IF EXISTS `employee_staff_detail_t`;
 CREATE TABLE `employee_staff_detail_t` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `user_id` bigint(20) DEFAULT NULL COMMENT '用户id',
+  `user_id` bigint(20) DEFAULT NULL COMMENT '用户id 用于后台系统',
   `username` varchar(255) DEFAULT NULL COMMENT '昵称',
   `password` varchar(255) DEFAULT NULL COMMENT '密码',
   `sex` tinyint(1) DEFAULT NULL COMMENT '性别 1男 0女',
@@ -136,13 +135,13 @@ CREATE TABLE `employee_position_t` (
 
 DROP TABLE IF EXISTS `employee_staff_user_t`;
 CREATE TABLE `employee_staff_user_t`(
-	`user_id` bigint(20) DEFAULT NULL COMMENT '用户id,用于后台系统',
+  `user_id` bigint(20) DEFAULT NULL COMMENT '用户id,用于后台系统',
   `emp_id` varchar(255) DEFAULT NULL COMMENT '员工号'
 )ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8 COMMENT='企业员工和后台管理系统用户关联表';
 
 DROP TABLE IF EXISTS `employee_menu_t`;
 CREATE TABLE `employee_menu_t`(
-	`id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `icon` varchar(64) DEFAULT NULL COMMENT '菜单图标',
   `index` varchar(64) DEFAULT NULL COMMENT '菜单名称 vue的页面名称',
   `title` varchar(64) DEFAULT NULL COMMENT '菜单名称',

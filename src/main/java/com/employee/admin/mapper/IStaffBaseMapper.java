@@ -1,6 +1,7 @@
 package com.employee.admin.mapper;
 
 import com.employee.admin.entity.StaffBase;
+import com.employee.admin.vo.StaffBaseVO;
 
 /**
  * 项目名称：employee-admin-server
@@ -14,5 +15,7 @@ import com.employee.admin.entity.StaffBase;
  */
 public interface IStaffBaseMapper {
 
-    StaffBase getStaffBase(StaffBase staffBase);
+    int addStaffBase(StaffBase staffBase);
+
+    StaffBaseVO getStaffBase(StaffBaseVO staffBaseVO);
 }

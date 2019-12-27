@@ -15,11 +15,6 @@ import java.time.LocalDateTime;
 public class StaffBase {
 
     /**
-     * 用户id
-     */
-    private Long userId;
-
-    /**
      * 员工号
      */
     private String empId;
@@ -68,14 +63,6 @@ public class StaffBase {
      * 修改人
      */
     private String lastUpdateBy;
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
 
     public String getEmpId() {
         return empId;
@@ -160,7 +147,6 @@ public class StaffBase {
     @Override
     public String toString() {
         return "StaffBase{" +
-                "userId=" + userId +
                 ", empId='" + empId + '\'' +
                 ", empName='" + empName + '\'' +
                 ", participateTime='" + participateTime + '\'' +

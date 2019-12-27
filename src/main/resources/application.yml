@@ -17,12 +17,12 @@ spring:
     username: root
     password: root
   # Elasticsearch配置文件，和Elasticsearch中的Elasticsearch.yml相关联
-  data:
-    elasticsearch:
-      cluster-name: employee-admin-server
-      cluster-nodes: 122.51.166.19:9300
-      repositories:
-        enabled: true
+#  data:
+#    elasticsearch:
+#      cluster-name: employee-admin-server
+#      cluster-nodes: 122.51.166.19:9300
+#      repositories:
+#        enabled: true
 
 #分布式唯一ID生成器 workerId 机器ID datacenterId 数据标识ID
 idWorker:

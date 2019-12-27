@@ -12,12 +12,6 @@ package com.employee.admin.vo;
  */
 public class StaffBaseVO {
 
-
-    /**
-     * 用户id
-     */
-    private Long userId;
-
     /**
      * 员工号
      */
@@ -47,15 +41,6 @@ public class StaffBaseVO {
      * 是否离职
      */
     private Integer deleteFlag;
-
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
 
     public String getEmpId() {
         return empId;
@@ -109,7 +94,6 @@ public class StaffBaseVO {
     @Override
     public String toString() {
         return "StaffBaseVO{" +
-                "userId=" + userId +
                 ", empId='" + empId + '\'' +
                 ", empName='" + empName + '\'' +
                 ", participateTime='" + participateTime + '\'' +
