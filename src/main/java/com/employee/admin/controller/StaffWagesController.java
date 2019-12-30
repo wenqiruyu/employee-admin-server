@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * 项目名称：employee-admin-server
  * 类名称：StaffWagesController
- * 类描述：TODO
+ * 类描述：职工薪资Cotroller类
  * 创建人：yingx
  * 创建时间： 2019/12/26
  * 修改人：yingx
