@@ -155,6 +155,21 @@ CREATE TABLE `employee_menu_t`(
   `last_update_by` varchar(20) NOT NULL DEFAULT 'admin' COMMENT '修改者，记录修改者信息',
   PRIMARY KEY (`id`)
 )ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8 COMMENT='企业员工和后台管理系统菜单管理表';
+INSERT INTO `employee_menu_t` (`id`, `icon`, `index`, `title`, `is_sub`, `parent_id`, `role`, `create_time`)
+VALUES ('100', 'iconfont icon-wen-home', 'index', '用户管理', '0', NULL, NULL, '2020-01-02 17:53:14');
+
+INSERT INTO `employee_menu_t` (`id`, `icon`, `index`, `title`, `is_sub`, `parent_id`, `role`, `create_time`)
+VALUES ('101', 'iconfont icon-wen-home', 'menus', '菜单管理', '0', NULL, NULL, '2020-01-02 17:53:14');
+
+INSERT INTO `employee_menu_t` (`id`, `icon`, `index`, `title`, `is_sub`, `parent_id`, `role`, `create_time`)
+VALUES ('102', 'iconfont icon-wen-home', 'wages', '薪资管理', '0', NULL, NULL, '2020-01-02 17:53:14');
+INSERT INTO `employee_menu_t` (`id`, `icon`, `index`, `title`, `is_sub`, `parent_id`, `role`, `create_time`)
+VALUES ('103', 'iconfont icon-wen-home', 'wages', '发放薪资', '102', NULL, NULL, '2020-01-02 17:53:14');
+INSERT INTO `employee_menu_t` (`id`, `icon`, `index`, `title`, `is_sub`, `parent_id`, `role`, `create_time`)
+VALUES ('104', 'iconfont icon-wen-home', 'wages', '薪资查询', '102', NULL, NULL, '2020-01-02 17:53:14');
+INSERT INTO `employee_menu_t` (`id`, `icon`, `index`, `title`, `is_sub`, `parent_id`, `role`, `create_time`)
+VALUES ('105', 'iconfont icon-wen-home', 'wages', '薪资变更', '102', NULL, NULL, '2020-01-02 17:53:14');
+
 
 DROP TABLE IF EXISTS `employee_staff_wages_t`;
 CREATE TABLE `employee_staff_wages_t`(
