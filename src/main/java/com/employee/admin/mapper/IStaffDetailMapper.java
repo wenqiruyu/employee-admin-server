@@ -1,7 +1,10 @@
 package com.employee.admin.mapper;
 
 import com.employee.admin.entity.StaffDetail;
+import com.employee.admin.vo.StaffDetailAllUserVO;
 import com.employee.admin.vo.StaffDetailVO;
+
+import java.util.List;
 
 /**
  * 项目名称：employee-admin-server
@@ -14,6 +17,8 @@ import com.employee.admin.vo.StaffDetailVO;
  * 修改备注：
  */
 public interface IStaffDetailMapper {
+
+    List<StaffDetailAllUserVO> getAllUserId();
 
     void addStaffDetail(StaffDetail staffDetail);
 

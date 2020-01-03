@@ -5,6 +5,7 @@
         <result column="icon" jdbcType="BIGINT" property="icon"/>
         <result column="index" jdbcType="VARCHAR" property="index"/>
         <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="role" jdbcType="VARCHAR" property="role"/>
 
         <collection property="subMenu" resultMap="menuSubResultMap" />
     </resultMap>
@@ -13,10 +14,11 @@
         <result column="subIcon" jdbcType="BIGINT" property="subIcon"/>
         <result column="subIndex" jdbcType="VARCHAR" property="subIndex"/>
         <result column="subTitle" jdbcType="VARCHAR" property="subTitle"/>
+        <result column="subRole" jdbcType="VARCHAR" property="subRole"/>
     </resultMap>
 
     <select id="getAllMenu" resultMap="menuResultMap"><![CDATA[
-        select par.icon,par.index,par.title,sub.icon,sub.index,sub.title
+        select par.icon,par.index,par.title,sub.icon as subIcon,sub.index as subIndex,sub.title as subTitle
         from (
             select *
             from employee_menu_t
@@ -31,16 +33,21 @@
     ]]></select>
 
     <select id="getMenuByUser" resultMap="menuResultMap" parameterType="com.employee.admin.vo.QueryUserVO">
-        select par.icon,par.index,par.title,sub.icon as subIcon,sub.index as subIndex,sub.title as subTitle
+        select menu.icon, menu.index, menu.title, menu.role, menu.subIcon, menu.subIndex, menu.subTitle, menu.subRole
         from (
-            select *
-            from employee_menu_t
-            where delete_flag = 0
-            and is_sub = 1) sub,(
-            select *
-            from employee_menu_t
-            where delete_flag = 0
-            and is_sub = 0) par,(
+            select par.id, par.icon,par.index,par.title,par.role,sub.icon as subIcon,sub.index as subIndex,sub.title as subTitle,sub.role as subRole
+            from (
+                select *
+                from employee_menu_t
+                where delete_flag = 0
+                and is_sub = 0) par
+            left join (
+                select *
+                from employee_menu_t
+                where delete_flag = 0
+                and is_sub = 1) sub
+            on par.id = sub.parent_id
+            ) menu, (
             select role_id
             from employee_staff_role_t
             <where>
@@ -50,9 +57,8 @@
                 </if>
             </where>
             ) role
-        where par.id = sub.parent_id
-        and sub.role <![CDATA[ >= ]]> role.role_id
-        and par.role <![CDATA[ >= ]]> role.role_id
-
+        where menu.role <![CDATA[ >= ]]> role.role_id
+        and if(subRole is null, menu.role, subRole) <![CDATA[ >= ]]> role.role_id
+        order by menu.id asc
     </select>
 </mapper>

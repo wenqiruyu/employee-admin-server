@@ -29,7 +29,7 @@ public class MenusController {
 
         logger.info("MenusController getMenu start ... Username:{}, UserId:{}",
                 queryUserVO.getUsername(), queryUserVO.getUserId());
-        if (StringUtils.isBlank(queryUserVO.getUserId().toString()) && StringUtils.isBlank(queryUserVO.getUsername())) {
+        if (StringUtils.isBlank(queryUserVO.getUserId()) && StringUtils.isBlank(queryUserVO.getUsername())) {
             throw new ExtenException("login", ExceptionEnum.PARAM_VALIDATED_UN_PASS_NULL.getCode(),
                     ExceptionEnum.PARAM_VALIDATED_UN_PASS_NULL.getMessage());
         }

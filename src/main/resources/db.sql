@@ -187,3 +187,20 @@ CREATE TABLE `employee_staff_wages_t`(
   `last_update_by` varchar(20) NOT NULL DEFAULT 'admin' COMMENT '修改者，记录修改者信息',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8 COMMENT='企业员工薪资表';
+
+DROP TABLE IF EXISTS `employee_work_attendance_t`;
+CREATE TABLE `employee_work_attendance_t`(
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `user_id` bigint(20) DEFAULT NULL COMMENT '用户id',
+  `start_time` datetime DEFAULT NULL COMMENT '签到时间',
+  `end_time` datetime DEFAULT NULL COMMENT '最后一次签退时间',
+  `start_ip` varchar(20) DEFAULT NULL COMMENT '签到电脑ip',
+  `end_ip` varchar(20) DEFAULT NULL COMMENT '签退电脑ip',
+  `reason` varchar(64) DEFAULT NULL COMMENT '缺勤原因',
+  `delete_flag` tinyint(1) DEFAULT '0' COMMENT '是否有效 0有效 1删除',
+  `create_time` datetime DEFAULT NULL,
+  `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `create_by` varchar(20) NOT NULL DEFAULT 'admin' COMMENT '创建者，记录创建者信息',
+  `last_update_by` varchar(20) NOT NULL DEFAULT 'admin' COMMENT '修改者，记录修改者信息',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8 COMMENT='企业员工考勤表';

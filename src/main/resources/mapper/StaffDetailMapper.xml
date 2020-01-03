@@ -22,6 +22,11 @@
         <result column="remark" jdbcType="VARCHAR" property="remark"/>
     </resultMap>
 
+    <resultMap id="staffDetailAllUserResultMap" type="com.employee.admin.vo.StaffDetailAllUserVO">
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="createTime" jdbcType="DATE" property="createTime"/>
+    </resultMap>
+
     <sql id="staffDetailList">
         user_id, username, sex, phone, telephone, email, birthday, province, city, county, address,
         current_address, politics, national, marriage, education, userface, remark
@@ -42,6 +47,12 @@
         from employee_staff_detail_t
         where delete_flag = 0
         and username = #{username}
+    </select>
+
+    <select id="getAllUserId" resultMap="staffDetailAllUserResultMap">
+        select user_id, now() as createTime
+        from employee_staff_detail_t
+        where delete_flag = 0
     </select>
 
     <select id="getStaffDetail" resultMap="staffDetailResultMap" parameterType="com.employee.admin.entity.StaffDetail">

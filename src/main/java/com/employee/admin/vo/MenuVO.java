@@ -30,6 +30,11 @@ public class MenuVO {
     private String title;
 
     /**
+     * 菜单权限
+     */
+    private String role;
+
+    /**
      * 子菜单列表
      */
     private List<MenuSubVO> subMenu;
@@ -58,6 +63,14 @@ public class MenuVO {
         this.title = title;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public List<MenuSubVO> getSubMenu() {
         return subMenu;
     }
@@ -72,6 +85,7 @@ public class MenuVO {
                 "icon='" + icon + '\'' +
                 ", index='" + index + '\'' +
                 ", title='" + title + '\'' +
+                ", role='" + role + '\'' +
                 ", subMenu=" + subMenu +
                 '}';
     }

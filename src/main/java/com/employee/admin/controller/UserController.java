@@ -125,7 +125,7 @@ public class UserController {
 
         logger.info("UserController getUserInfo start ... UserId:{}, Username:{}",
                 queryUserVO.getUserId(), queryUserVO.getUsername());
-        if (StringUtils.isBlank(queryUserVO.getUserId() + "") && StringUtils.isBlank(queryUserVO.getUsername())) {
+        if (StringUtils.isBlank(queryUserVO.getUserId()) && StringUtils.isBlank(queryUserVO.getUsername())) {
             throw new ExtenException("getUserInfo", ExceptionEnum.PARAM_VALIDATED_UN_PASS_NULL.getCode(),
                     ExceptionEnum.PARAM_VALIDATED_UN_PASS_NULL.getMessage());
         }

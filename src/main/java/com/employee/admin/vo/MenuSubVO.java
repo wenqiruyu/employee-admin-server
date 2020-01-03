@@ -27,6 +27,11 @@ public class MenuSubVO {
      */
     private String subTitle;
 
+    /**
+     * 菜单权限
+     */
+    private String subRole;
+
     public String getSubIcon() {
         return subIcon;
     }
@@ -51,12 +56,21 @@ public class MenuSubVO {
         this.subTitle = subTitle;
     }
 
+    public String getSubRole() {
+        return subRole;
+    }
+
+    public void setSubRole(String subRole) {
+        this.subRole = subRole;
+    }
+
     @Override
     public String toString() {
         return "MenuSubVO{" +
                 "subIcon='" + subIcon + '\'' +
                 ", subIndex='" + subIndex + '\'' +
                 ", subTitle='" + subTitle + '\'' +
+                ", subRole='" + subRole + '\'' +
                 '}';
     }
 }
