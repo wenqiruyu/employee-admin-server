@@ -57,6 +57,10 @@ CREATE TABLE `employee_role_t` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8 COMMENT='企业员工角色配置表';
 
+INSERT INTO `employee_role_t` VALUES (100, 'superAdmin', '超级管理员', 0, '2019-12-25 23:49:33', NULL, 'admin', 'admin');
+INSERT INTO `employee_role_t` VALUES (101, 'admin', '普通管理员', 0, '2019-12-25 23:49:59', NULL, 'admin', 'admin');
+INSERT INTO `employee_role_t` VALUES (102, 'employee', '企业员工', 0, '2019-12-25 23:50:25', NULL, 'admin', 'admin');
+
 DROP TABLE IF EXISTS `employee_staff_role_t`;
 CREATE TABLE `employee_staff_role_t` (
   `user_id` bigint(20) DEFAULT NULL COMMENT '用户表id',
@@ -169,6 +173,14 @@ INSERT INTO `employee_menu_t` (`id`, `icon`, `index`, `title`, `is_sub`, `parent
 VALUES ('104', 'iconfont icon-wen-home', 'wages', '薪资查询', '102', NULL, NULL, '2020-01-02 17:53:14');
 INSERT INTO `employee_menu_t` (`id`, `icon`, `index`, `title`, `is_sub`, `parent_id`, `role`, `create_time`)
 VALUES ('105', 'iconfont icon-wen-home', 'wages', '薪资变更', '102', NULL, NULL, '2020-01-02 17:53:14');
+
+INSERT INTO `employee_menu_t` VALUES (100, 'iconfont icon-wen-home', 'index', '员工管理', 0, NULL, '100', 0, '2020-01-02 17:53:14', '2020-01-05 23:51:40', 'admin', 'admin');
+INSERT INTO `employee_menu_t` VALUES (101, 'iconfont icon-wen-home', 'menus', '菜单管理', 0, NULL, '101', 0, '2020-01-02 17:53:14', '2020-01-05 20:42:54', 'admin', 'admin');
+INSERT INTO `employee_menu_t` VALUES (102, 'iconfont icon-wen-home', 'wages', '薪资管理', 0, NULL, '102', 0, '2020-01-02 17:53:14', '2020-01-05 20:42:40', 'admin', 'admin');
+INSERT INTO `employee_menu_t` VALUES (103, 'iconfont icon-wen-home', 'wagesGrant', '发放薪资', 1, 102, '100', 0, '2020-01-02 17:53:14', '2020-01-05 20:50:36', 'admin', 'admin');
+INSERT INTO `employee_menu_t` VALUES (104, 'iconfont icon-wen-home', 'wagesQuery', '薪资查询', 1, 102, '102', 0, '2020-01-02 17:53:14', '2020-01-05 20:50:46', 'admin', 'admin');
+INSERT INTO `employee_menu_t` VALUES (105, 'iconfont icon-wen-home', 'wagesChange', '薪资变更', 1, 102, '102', 0, '2020-01-02 17:53:14', '2020-01-05 20:50:53', 'admin', 'admin');
+INSERT INTO `employee_menu_t` VALUES (106, 'iconfont icon-wen-home', 'userList', '员工列表', 1, 100, '101', 0, '2020-01-05 23:14:05', '2020-01-05 23:51:46', 'admin', 'admin');
 
 
 DROP TABLE IF EXISTS `employee_staff_wages_t`;
