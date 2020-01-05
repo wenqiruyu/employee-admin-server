@@ -1,5 +1,6 @@
 package com.employee.admin.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.employee.admin.entity.StaffRole;
 import com.employee.admin.enums.ExceptionEnum;
 import com.employee.admin.enums.ResultEnum;
@@ -125,7 +126,7 @@ public class UserController {
 
         logger.info("UserController getUserInfo start ... UserId:{}, Username:{}",
                 queryUserVO.getUserId(), queryUserVO.getUsername());
-        if (StringUtils.isBlank(queryUserVO.getUserId()) && StringUtils.isBlank(queryUserVO.getUsername())) {
+        if (StringUtils.isBlank(queryUserVO.getUserId() + "") && StringUtils.isBlank(queryUserVO.getUsername())) {
             throw new ExtenException("getUserInfo", ExceptionEnum.PARAM_VALIDATED_UN_PASS_NULL.getCode(),
                     ExceptionEnum.PARAM_VALIDATED_UN_PASS_NULL.getMessage());
         }
@@ -166,6 +167,32 @@ public class UserController {
         }
     }
 
+    /**
+     * 分页查询全部用户信息
+     *
+     * @param pageVO
+     * @return com.employee.admin.vo.ResultVO
+     * @author yingx
+     * @date 2019/12/25
+     */
+    @PostMapping("/getAllUser")
+    @CrossOrigin
+    public ResultVO getAllUser(@RequestBody PageVO pageVO) {
+
+        logger.info("UserController getAllUser start ...page:{},pageSize:{}", pageVO.getPage(), pageVO.getPageSize());
+        List<StaffDetailVO> records = null;
+        try {
+            IPage<StaffDetailVO> allUser = userService.getAllUser(new StaffDetailVO(), pageVO.getPage(), pageVO.getPageSize());
+            records = allUser.getRecords();
+        } catch (Exception e) {
+            logger.error("UserController getAllUser error ...", e);
+            throw new ExtenException("getAllUser", ExceptionEnum.UNEXPECTED_ERROR.getCode(), ExceptionEnum.UNEXPECTED_ERROR.getMessage());
+        }
+        logger.info("VenusUserController getAllUser end ...result:{}", records);
+        return new ResultVO(records);
+    }
+
+
     public ResultVO deleteUser() {
 
         return null;
@@ -173,9 +200,15 @@ public class UserController {
 
     @PostMapping("/updateUser")
     @CrossOrigin
-    public ResultVO updateUser() {
+    public ResultVO updateUser(@RequestBody StaffDetailVO staffDetailVO) {
 
-        return null;
+        logger.info("UserController updateUser start ... StaffDetailVO:{}", staffDetailVO);
+        if (staffDetailVO == null) {
+            throw new ExtenException("updateUser", ExceptionEnum.PARAM_VALIDATED_UN_PASS_NULL.getCode(),
+                    ExceptionEnum.PARAM_VALIDATED_UN_PASS_NULL.getMessage());
+        }
+        userService.updateUser(staffDetailVO);
+        return new ResultVO();
     }
 
     public ResultVO logout() {

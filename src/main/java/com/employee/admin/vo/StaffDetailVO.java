@@ -1,6 +1,10 @@
 package com.employee.admin.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * 项目名称：employee-admin-server
@@ -17,7 +21,7 @@ public class StaffDetailVO {
     /**
      * 用户id
      */
-    private Long userId;
+    private String userId;
 
     /**
      * 昵称
@@ -52,7 +56,9 @@ public class StaffDetailVO {
     /**
      * 出生日期
      */
-    private LocalDateTime birthday;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date birthday;
 
     /**
      * 省
@@ -109,11 +115,11 @@ public class StaffDetailVO {
      */
     private String remark;
 
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -165,11 +171,13 @@ public class StaffDetailVO {
         this.email = email;
     }
 
-    public LocalDateTime getBirthday() {
+    @JsonFormat(pattern="yyyy-MM-dd")
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(LocalDateTime birthday) {
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 

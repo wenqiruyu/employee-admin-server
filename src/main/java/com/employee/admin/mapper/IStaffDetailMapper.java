@@ -1,5 +1,6 @@
 package com.employee.admin.mapper;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.employee.admin.entity.StaffDetail;
 import com.employee.admin.vo.StaffDetailAllUserVO;
 import com.employee.admin.vo.StaffDetailVO;
@@ -27,4 +28,8 @@ public interface IStaffDetailMapper {
     StaffDetailVO getStaffDetail(StaffDetail staffDetail);
 
     StaffDetailVO getStaffDetailByEmpId(String empId);
+
+    List<StaffDetailVO> getPageUser(Page<StaffDetailVO> venusUserPage, StaffDetailVO venusUser);
+
+    int updateStaffDate(StaffDetailVO staffDetailVO);
 }

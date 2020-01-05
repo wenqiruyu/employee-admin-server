@@ -2,8 +2,13 @@ package com.employee.admin.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.employee.admin.entity.StaffDetail;
 import com.employee.admin.entity.StaffRole;
+import com.employee.admin.enums.ExceptionEnum;
+import com.employee.admin.enums.ResultEnum;
+import com.employee.admin.exception.ExtenException;
 import com.employee.admin.mapper.IStaffBaseMapper;
 import com.employee.admin.mapper.IStaffDetailMapper;
 import com.employee.admin.service.IUserService;
@@ -55,8 +60,9 @@ public class UserServiceImpl implements IUserService {
         String staffDetailResult = staffDetailMapper.getUserPassword(loginUserVO.getUsername());
         if (staffDetailResult != null) {
             boolean flag = new BCryptPasswordEncoder().matches(loginUserVO.getPassword(), staffDetailResult);
-            if (flag) {
-
+            if (!flag) {
+                throw new ExtenException("updateUser", ResultEnum.UNKNOWN_USER.getCode(),
+                        ResultEnum.UNKNOWN_USER.getMsg());
             }
         }
     }
@@ -76,6 +82,24 @@ public class UserServiceImpl implements IUserService {
 
         StaffDetailVO staffDetailByEmpId = staffDetailMapper.getStaffDetailByEmpId(empId);
         return staffDetailByEmpId;
+    }
+
+    @Override
+    public IPage<StaffDetailVO> getAllUser(StaffDetailVO staffDetailVO, int page, int pageSize) {
+
+        Page<StaffDetailVO> staffDetailVOPage = new Page<>(page, pageSize);
+        staffDetailVOPage.setRecords(staffDetailMapper.getPageUser(staffDetailVOPage, staffDetailVO));
+        return staffDetailVOPage;
+    }
+
+    @Override
+    public void updateUser(StaffDetailVO staffDetailVO) {
+
+        int result = staffDetailMapper.updateStaffDate(staffDetailVO);
+        if (result != 1) {
+            throw new ExtenException("updateUser", ExceptionEnum.UNEXPECTED_ERROR.getCode(),
+                    ExceptionEnum.UNEXPECTED_ERROR.getMessage());
+        }
     }
 
     @Override

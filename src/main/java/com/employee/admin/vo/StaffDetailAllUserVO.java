@@ -17,18 +17,18 @@ public class StaffDetailAllUserVO {
     /**
      * 用户id
      */
-    private String userId;
+    private Long userId;
 
     /**
      * 创建时间
      */
     private LocalDateTime createTime;
 
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

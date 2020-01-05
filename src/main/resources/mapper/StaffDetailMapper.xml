@@ -80,4 +80,36 @@
             where emp_id = #{empId})
         and delete_flag = 0
     </select>
+
+    <select id="getPageUser" resultMap="staffDetailResultMap">
+        SELECT
+        <include refid="staffDetailList"/>
+        FROM employee_staff_detail_t
+        where delete_flag = 0
+    </select>
+
+    <update id="updateStaffDate"  parameterType="com.employee.admin.vo.StaffDetailVO">
+        update employee_staff_detail_t
+        <set>
+            <if test="username != null and username != ''">
+                username=#{username}
+            </if>
+            <if test="sex != null">
+                ,sex=#{sex}
+            </if>
+            <if test="phone != null and phone != ''">
+                ,phone=#{phone}
+            </if>
+            <if test="email != null and email != ''">
+                ,email=#{email}
+            </if>
+            <if test="birthday != null">
+                ,birthday=#{birthday}
+            </if>
+            <if test="remark != null and remark != ''">
+                ,remark=#{remark}
+            </if>
+        </set>
+         where user_id=#{userId}
+    </update>
 </mapper>

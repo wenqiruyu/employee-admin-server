@@ -1,5 +1,6 @@
 package com.employee.admin.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.employee.admin.entity.StaffRole;
 import com.employee.admin.vo.LoginUserVO;
 import com.employee.admin.vo.QueryUserVO;
@@ -25,6 +26,10 @@ public interface IUserService {
     StaffDetailVO getUser(QueryUserVO queryUserVO);
 
     StaffDetailVO getUserByEmpId(String empId);
+
+    IPage<StaffDetailVO> getAllUser(StaffDetailVO staffDetailVO, int page, int pageSize);
+
+    void updateUser(StaffDetailVO staffDetailVO);
 
     void addStaffRole(StaffRole staffRole);
 }

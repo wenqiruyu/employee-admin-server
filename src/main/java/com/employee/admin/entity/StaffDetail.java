@@ -2,8 +2,11 @@ package com.employee.admin.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * 项目名称：employee-admin-server
@@ -55,7 +58,9 @@ public class StaffDetail {
     /**
      * 出生日期
      */
-    private LocalDateTime birthday;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date birthday;
 
     /**
      * 省
@@ -197,11 +202,13 @@ public class StaffDetail {
         this.email = email;
     }
 
-    public LocalDateTime getBirthday() {
+    @JsonFormat(pattern="yyyy-MM-dd")
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(LocalDateTime birthday) {
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 

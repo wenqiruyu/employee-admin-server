@@ -20,7 +20,7 @@ CREATE TABLE `employee_staff_detail_t` (
   `user_id` bigint(20) DEFAULT NULL COMMENT '用户id 用于后台系统',
   `username` varchar(255) DEFAULT NULL COMMENT '昵称',
   `password` varchar(255) DEFAULT NULL COMMENT '密码',
-  `sex` tinyint(1) DEFAULT NULL COMMENT '性别 1男 0女',
+  `sex` tinyint(1) DEFAULT '2' COMMENT '性别 1男 0女 保密',
   `phone` char(11) DEFAULT NULL COMMENT '手机号码',
   `telephone` varchar(16) DEFAULT NULL COMMENT '住宅电话',
 	`email` varchar(64) DEFAULT NULL COMMENT '邮箱',
