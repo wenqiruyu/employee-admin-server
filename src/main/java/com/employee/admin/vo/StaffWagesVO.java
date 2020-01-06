@@ -15,9 +15,14 @@ import java.math.BigDecimal;
 public class StaffWagesVO {
 
     /**
-     * userId用户id
+     * 员工号
      */
-    private Long userId;
+    private String empId;
+
+    /**
+     * 员工姓名
+     */
+    private String empName;
 
     /**
      * 薪资发放期间
@@ -44,12 +49,20 @@ public class StaffWagesVO {
      */
     private BigDecimal realWages;
 
-    public Long getUserId() {
-        return userId;
+    public String getEmpId() {
+        return empId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setEmpId(String empId) {
+        this.empId = empId;
+    }
+
+    public String getEmpName() {
+        return empName;
+    }
+
+    public void setEmpName(String empName) {
+        this.empName = empName;
     }
 
     public String getPeriod() {
@@ -95,7 +108,8 @@ public class StaffWagesVO {
     @Override
     public String toString() {
         return "StaffWagesVO{" +
-                "userId=" + userId +
+                "empId='" + empId + '\'' +
+                ", empName='" + empName + '\'' +
                 ", period='" + period + '\'' +
                 ", baseWages=" + baseWages +
                 ", subsidy=" + subsidy +

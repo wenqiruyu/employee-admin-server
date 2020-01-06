@@ -50,9 +50,18 @@
     </select>
 
     <select id="getAllUserId" resultMap="staffDetailAllUserResultMap">
-        select user_id, now() as createTime
-        from employee_staff_detail_t
+        select staffB.emp_id, staffB.emp_name, now() as createTime, DATE_FORMAT(now(),'%Y-%m-%d') as attendanceTime
+        from employee_staff_base_t staffB, (
+            select emp_id
+            from employee_staff_user_t staffU, (
+                select user_id
+                from employee_staff_detail_t
+                where delete_flag = 0
+            ) staffD
+            where staffU.user_id = staffD.user_id
+        ) staffA
         where delete_flag = 0
+        and staffA.emp_id = staffB.emp_id
     </select>
 
     <select id="getStaffDetail" resultMap="staffDetailResultMap" parameterType="com.employee.admin.entity.StaffDetail">

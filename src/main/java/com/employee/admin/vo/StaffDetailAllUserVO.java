@@ -15,21 +15,45 @@ import java.time.LocalDateTime;
 public class StaffDetailAllUserVO {
 
     /**
-     * 用户id
+     * 员工id
      */
-    private Long userId;
+    private String empId;
+
+    /** 员工名*/
+    private String empName;
+
+    /**
+     * 当天时间
+     */
+    private String attendanceTime;
 
     /**
      * 创建时间
      */
     private LocalDateTime createTime;
 
-    public Long getUserId() {
-        return userId;
+    public String getEmpId() {
+        return empId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setEmpId(String empId) {
+        this.empId = empId;
+    }
+
+    public String getEmpName() {
+        return empName;
+    }
+
+    public void setEmpName(String empName) {
+        this.empName = empName;
+    }
+
+    public String getAttendanceTime() {
+        return attendanceTime;
+    }
+
+    public void setAttendanceTime(String attendanceTime) {
+        this.attendanceTime = attendanceTime;
     }
 
     public LocalDateTime getCreateTime() {
@@ -43,7 +67,9 @@ public class StaffDetailAllUserVO {
     @Override
     public String toString() {
         return "StaffDetailAllUserVO{" +
-                "userId='" + userId + '\'' +
+                "empId='" + empId + '\'' +
+                ", empName='" + empName + '\'' +
+                ", attendanceTime='" + attendanceTime + '\'' +
                 ", createTime=" + createTime +
                 '}';
     }

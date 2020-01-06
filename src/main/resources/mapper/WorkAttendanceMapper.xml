@@ -2,23 +2,28 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.employee.admin.mapper.IWorkAttendanceMapper">
     <resultMap id="WorkAttendanceResultMap" type="com.employee.admin.vo.WorkAttendanceVO">
-        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="emp_id" jdbcType="VARCHAR" property="empId"/>
+        <result column="emp_name" jdbcType="VARCHAR" property="empName"/>
         <result column="start_time" jdbcType="DATE" property="startTime"/>
         <result column="end_time" jdbcType="VARCHAR" property="endTime"/>
         <result column="start_ip" jdbcType="VARCHAR" property="startIp"/>
         <result column="end_ip" jdbcType="VARCHAR" property="endIp"/>
+        <result column="absence_duty_flag" jdbcType="INTEGER" property="absenceDutyFlag"/>
         <result column="reason" jdbcType="VARCHAR" property="reason"/>
+        <result column="attendance_time" jdbcType="VARCHAR" property="attendanceTime"/>
     </resultMap>
 
     <sql id="WorkAttendance">
-        user_id, start_time, end_time, start_ip, end_ip, reason
+        emp_id, emp_name, start_time, end_time, start_ip, end_ip, reason, attendance_time
     </sql>
 
-    <insert id="addAllStaffWages" parameterType="java.util.List">
-        insert into employee_work_attendance_t(user_id, create_time)
+    <insert id="addAllWorkAttendance" parameterType="java.util.List">
+        insert into employee_work_attendance_t(emp_id, emp_name, attendance_time, create_time)
         <foreach collection ="list" item ="item" index ="index" open="("  close=")"  separator ="union all">
             select
-            #{item.userId},
+            #{item.empId},
+            #{item.empName},
+            #{item.attendanceTime},
             #{item.createTime}
             from dual
         </foreach >
@@ -29,6 +34,22 @@
         <include refid="WorkAttendance"/>
         from employee_work_attendance_t
         where delete_flag = 0
+    </select>
+
+    <select id="getWorkAttendance" resultMap="WorkAttendanceResultMap">
+        select
+        att.<include refid="WorkAttendance"/>
+        from employee_work_attendance_t att, (
+            select *
+            from employee_staff_user_t
+            <where>
+                <if test="userId != null">
+                    user_id = #{userId}
+                </if>
+            </where>
+        ) user
+        where delete_flag = 0
+        and user.emp_id = att.emp_id
     </select>
 </mapper>
 

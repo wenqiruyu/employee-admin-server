@@ -16,9 +16,14 @@ import java.time.LocalDateTime;
 public class StaffWages {
 
     /**
-     * userId用户id
+     * 员工号
      */
-    private Long userId;
+    private String empId;
+
+    /**
+     * 员工姓名
+     */
+    private String empName;
 
     /**
      * 薪资发放期间
@@ -70,12 +75,20 @@ public class StaffWages {
      */
     private String lastUpdateBy;
 
-    public Long getUserId() {
-        return userId;
+    public String getEmpId() {
+        return empId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setEmpId(String empId) {
+        this.empId = empId;
+    }
+
+    public String getEmpName() {
+        return empName;
+    }
+
+    public void setEmpName(String empName) {
+        this.empName = empName;
     }
 
     public String getPeriod() {
@@ -161,7 +174,8 @@ public class StaffWages {
     @Override
     public String toString() {
         return "StaffWages{" +
-                "userId=" + userId +
+                "empId='" + empId + '\'' +
+                ", empName='" + empName + '\'' +
                 ", period='" + period + '\'' +
                 ", baseWages=" + baseWages +
                 ", subsidy=" + subsidy +

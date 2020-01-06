@@ -37,6 +37,14 @@ public class StaffWagesController {
     @Autowired
     private IStaffWagesService staffWagesService;
 
+    /**
+     * 批量添加员工薪资 发放工资
+     *
+     * @param staffWagesVOS
+     * @return com.employee.admin.vo.ResultVO
+     * @author yingx
+     * @date 2020/1/6
+     */
     @PostMapping("/addAllWages")
     @CrossOrigin
     public ResultVO addAllWages(List<StaffWagesVO> staffWagesVOS) {
@@ -51,6 +59,14 @@ public class StaffWagesController {
         return new ResultVO();
     }
 
+    /**
+     * 单人发放工资
+     *
+     * @param staffWagesVO
+     * @return com.employee.admin.vo.ResultVO
+     * @author yingx
+     * @date 2020/1/6
+     */
     @PostMapping("/addWages")
     @CrossOrigin
     public ResultVO addWages(StaffWagesVO staffWagesVO) {
@@ -65,6 +81,14 @@ public class StaffWagesController {
         return new ResultVO();
     }
 
+    /**
+     * 管理员获取全部员工薪资信息
+     *
+     * @param
+     * @return com.employee.admin.vo.ResultVO
+     * @author yingx
+     * @date 2020/1/6
+     */
     @PostMapping("/getAllWages")
     @CrossOrigin
     public ResultVO getAllWages() {
@@ -75,6 +99,14 @@ public class StaffWagesController {
         return new ResultVO(allStaffWages);
     }
 
+    /**
+     * 员工获取本人薪资信息
+     *
+     * @param queryUserVO
+     * @return com.employee.admin.vo.ResultVO
+     * @author yingx
+     * @date 2020/1/6
+     */
     @PostMapping("/getWages")
     @CrossOrigin
     public ResultVO getWages(QueryUserVO queryUserVO) {

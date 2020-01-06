@@ -1,6 +1,7 @@
 package com.employee.admin.service;
 
 import com.employee.admin.entity.WorkAttendance;
+import com.employee.admin.vo.QueryUserVO;
 import com.employee.admin.vo.WorkAttendanceVO;
 
 import java.util.List;
@@ -18,6 +19,8 @@ import java.util.List;
 public interface IWorkAttendanceService {
 
     List<WorkAttendanceVO> getAllWorkAttendance();
+
+    WorkAttendanceVO getWorkAttendance(QueryUserVO queryUserVO);
 
     void addAllStaffWages(List<WorkAttendance> workAttendanceList);
 }

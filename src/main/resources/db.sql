@@ -186,7 +186,8 @@ INSERT INTO `employee_menu_t` VALUES (106, 'iconfont icon-wen-home', 'userList',
 DROP TABLE IF EXISTS `employee_staff_wages_t`;
 CREATE TABLE `employee_staff_wages_t`(
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `user_id` bigint(20) DEFAULT NULL COMMENT '用户id',
+  `emp_id` varchar(255) DEFAULT NULL COMMENT '员工号',
+  `emp_name` varchar(255) DEFAULT NULL COMMENT '员工姓名',
   `period` varchar(64) DEFAULT NULL COMMENT '薪资发放期间',
   `base_wages` double DEFAULT NULL COMMENT '基本工资',
   `subsidy` double DEFAULT NULL COMMENT '补贴',
@@ -203,12 +204,15 @@ CREATE TABLE `employee_staff_wages_t`(
 DROP TABLE IF EXISTS `employee_work_attendance_t`;
 CREATE TABLE `employee_work_attendance_t`(
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `user_id` bigint(20) DEFAULT NULL COMMENT '用户id',
+  `emp_id` varchar(255) DEFAULT NULL COMMENT '员工号',
+  `emp_name` varchar(255) DEFAULT NULL COMMENT '员工姓名',
   `start_time` datetime DEFAULT NULL COMMENT '签到时间',
   `end_time` datetime DEFAULT NULL COMMENT '最后一次签退时间',
   `start_ip` varchar(20) DEFAULT NULL COMMENT '签到电脑ip',
   `end_ip` varchar(20) DEFAULT NULL COMMENT '签退电脑ip',
+  `absence_duty_flag` tinyint(1) DEFAULT NULL COMMENT '缺勤标识 0正常 1未签到 2未签退',
   `reason` varchar(64) DEFAULT NULL COMMENT '缺勤原因',
+  `attendance_time` varchar(64) DEFAULT NULL COMMENT '考勤日期',
   `delete_flag` tinyint(1) DEFAULT '0' COMMENT '是否有效 0有效 1删除',
   `create_time` datetime DEFAULT NULL,
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,

@@ -1,5 +1,7 @@
 package com.employee.admin.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDateTime;
 
 /**
@@ -15,18 +17,25 @@ import java.time.LocalDateTime;
 public class WorkAttendance {
 
     /**
-     * 用户ID
+     * 员工号
      */
-    private Long userId;
+    private String empId;
+
+    /**
+     * 员工姓名
+     */
+    private String empName;
 
     /**
      * 签到时间
      */
+    @DateTimeFormat(pattern = "HH:mm:ss")
     private LocalDateTime startTime;
 
     /**
      * 签退时间
      */
+    @DateTimeFormat(pattern = "HH:mm:ss")
     private LocalDateTime endTime;
 
     /**
@@ -40,9 +49,19 @@ public class WorkAttendance {
     private String endIp;
 
     /**
+     * 考勤标识
+     */
+    private Integer absenceDutyFlag;
+
+    /**
      * 缺勤原因
      */
     private String reason;
+
+    /**
+     * 考勤日期
+     */
+    private String attendanceTime;
 
     /**
      * 数据状态
@@ -69,12 +88,20 @@ public class WorkAttendance {
      */
     private String lastUpdateBy;
 
-    public Long getUserId() {
-        return userId;
+    public String getEmpId() {
+        return empId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setEmpId(String empId) {
+        this.empId = empId;
+    }
+
+    public String getEmpName() {
+        return empName;
+    }
+
+    public void setEmpName(String empName) {
+        this.empName = empName;
     }
 
     public LocalDateTime getStartTime() {
@@ -109,12 +136,28 @@ public class WorkAttendance {
         this.endIp = endIp;
     }
 
+    public Integer getAbsenceDutyFlag() {
+        return absenceDutyFlag;
+    }
+
+    public void setAbsenceDutyFlag(Integer absenceDutyFlag) {
+        this.absenceDutyFlag = absenceDutyFlag;
+    }
+
     public String getReason() {
         return reason;
     }
 
     public void setReason(String reason) {
         this.reason = reason;
+    }
+
+    public String getAttendanceTime() {
+        return attendanceTime;
+    }
+
+    public void setAttendanceTime(String attendanceTime) {
+        this.attendanceTime = attendanceTime;
     }
 
     public Integer getDeleteFlag() {
@@ -160,12 +203,15 @@ public class WorkAttendance {
     @Override
     public String toString() {
         return "WorkAttendance{" +
-                "userId=" + userId +
+                "empId='" + empId + '\'' +
+                ", empName='" + empName + '\'' +
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
                 ", startIp='" + startIp + '\'' +
                 ", endIp='" + endIp + '\'' +
+                ", absenceDutyFlag=" + absenceDutyFlag +
                 ", reason='" + reason + '\'' +
+                ", attendanceTime='" + attendanceTime + '\'' +
                 ", deleteFlag=" + deleteFlag +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +

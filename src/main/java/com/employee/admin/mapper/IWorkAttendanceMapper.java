@@ -1,6 +1,7 @@
 package com.employee.admin.mapper;
 
 import com.employee.admin.entity.WorkAttendance;
+import com.employee.admin.vo.QueryUserVO;
 import com.employee.admin.vo.WorkAttendanceVO;
 
 import java.util.List;
@@ -19,5 +20,7 @@ public interface IWorkAttendanceMapper {
 
     List<WorkAttendanceVO> getAllWorkAttendance();
 
-    int addAllStaffWages(List<WorkAttendance> workAttendanceList);
+    WorkAttendanceVO getWorkAttendance(QueryUserVO queryUserVO);
+
+    int addAllWorkAttendance(List<WorkAttendance> workAttendanceList);
 }
