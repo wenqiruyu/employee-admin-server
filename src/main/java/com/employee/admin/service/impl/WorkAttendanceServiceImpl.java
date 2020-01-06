@@ -46,10 +46,20 @@ public class WorkAttendanceServiceImpl implements IWorkAttendanceService {
     }
 
     @Override
-    public void addAllStaffWages(List<WorkAttendance> workAttendanceList) {
+    public void addWorkAttendance(WorkAttendance workAttendance) {
+
+        int result = workAttendanceMapper.addWorkAttendance(workAttendance);
+        if (result != 1) {
+            throw new ExtenException("addAllStaffWages", ExceptionEnum.UNEXPECTED_ERROR.getCode(),
+                    ExceptionEnum.UNEXPECTED_ERROR.getMessage());
+        }
+    }
+
+    @Override
+    public void addAllWorkAttendance(List<WorkAttendance> workAttendanceList) {
 
         int result = workAttendanceMapper.addAllWorkAttendance(workAttendanceList);
-        if(result != 1){
+        if (result != 1) {
             throw new ExtenException("addAllStaffWages", ExceptionEnum.UNEXPECTED_ERROR.getCode(),
                     ExceptionEnum.UNEXPECTED_ERROR.getMessage());
         }

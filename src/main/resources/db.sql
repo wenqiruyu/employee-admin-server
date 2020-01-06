@@ -71,11 +71,10 @@ CREATE TABLE `employee_staff_role_t` (
 DROP TABLE IF EXISTS `employee_dept_t`;
 CREATE TABLE `employee_dept_t` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `dept_id` bigint(20) DEFAULT NULL COMMENT '部门id',
+  `dept_id` varchar(64) DEFAULT NULL COMMENT '部门id',
   `dept_name` varchar(64) DEFAULT NULL COMMENT '部门名称',
   `dept_description` varchar(64) DEFAULT NULL COMMENT '部门简介',
-  `principal_user_id` varchar(64) DEFAULT NULL COMMENT '部门负责人,userid',
-  `principal_emp_id` varchar(64) DEFAULT NULL COMMENT '部门负责人,userid',
+  `principal_emp_id` varchar(64) DEFAULT NULL COMMENT '部门负责人,empId',
   `principal_name` varchar(64) DEFAULT NULL COMMENT '部门负责人',
   `delete_flag` tinyint(1) DEFAULT '0' COMMENT '是否有效 0有效 1删除',
   `create_time` datetime DEFAULT NULL,
@@ -84,18 +83,30 @@ CREATE TABLE `employee_dept_t` (
   `last_update_by` varchar(20) NOT NULL DEFAULT 'admin' COMMENT '修改者，记录修改者信息',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8 COMMENT='企业员工部门配置表';
-(1,'财务部','2016-07-03 14:11:12','admin','根据公司资金运作情况，合理调配资金，确保公司资金正常运转。',0,'2016-07-03 14:20:22')
-(2,'技术研发部','2016-07-03 14:11:28','admin','研发部是公司的核心部门，肩负着研制、开发新产品，完善产品功能的任务。',0,'2016-07-03 14:22:39')
-(3,'产品设计部','2016-07-03 14:12:02','admin','负责公司策划设计制作、公司展览会议布置； ',0,'2016-07-03 14:23:05')
-(4,'行政部','2016-07-03 14:19:15','admin','公司行政部门广义上包括行政事务、办公事务、人力资源、财产会计四个方面；',0,'2016-07-03 14:19:15')
-(5,'人事部','2016-07-03 14:19:49','admin','负责制定公司人事管理制度，实施并提出合理化意见和建议；',0,'2016-07-03 14:29:06')
-(6,'采购部','2016-07-03 14:20:46','admin','直接对分管领导、公司负责，全面主持采购部工作，确保各项任务的顺利完成；',0,'2016-07-03 14:29:13')
-(7,'数据分析部','2016-07-03 14:21:30','admin','做出科学、合理的分析、以便正确决策；',0,'2016-07-03 14:21:30')
-(8,'软件测试部','2016-07-03 14:24:40','admin','负责以解决客户业务测试问题为目的的测试解决方案架构和研发工作；',0,'2016-07-03 14:29:01')
-(9,'前台接待部','2016-07-03 14:26:14','admin','负责公司前台接待工作、公司电话接转、收发传真、文档复印等工作。',0,'2016-07-03 14:26:14')
-(10,'产品运营部','2016-07-03 14:26:52','admin','收集经营信息，掌握市场动态，深入调查研究，为集团决策提供依据。',0,'2016-07-03 14:26:52')
-(11,'市场部','2016-07-03 14:27:47','admin','解决市场对企业产品的需求问题；',0,'2016-07-03 14:28:55')
-(12,'公关部','2016-07-03 14:28:12','admin','建立与维护公司与社区、公众媒介、行业协会、政府部门的公众关系；',0,'2016-07-03 14:28:22');
+INSERT INTO `employee_dept_t`( `dept_id`, `dept_name`, `dept_description`, `principal_emp_id`, `principal_name`, `delete_flag`, `create_time`)
+VALUES ('DEPT001', '财务部', '根据公司资金运作情况，合理调配资金，确保公司资金正常运转', NULL, NULL, 0, '2020-01-06 22:11:06');
+INSERT INTO `employee_dept_t`( `dept_id`, `dept_name`, `dept_description`, `principal_emp_id`, `principal_name`, `delete_flag`, `create_time`)
+VALUES ('DEPT002', '信息科技部', '信息科技部是公司的核心部门，肩负着研制、开发新产品，完善产品功能的任务', NULL, NULL, 0, '2020-01-06 22:11:06');
+INSERT INTO `employee_dept_t`( `dept_id`, `dept_name`, `dept_description`, `principal_emp_id`, `principal_name`, `delete_flag`, `create_time`)
+VALUES ('DEPT003', '产品设计部', '负责公司策划设计制作、公司展览会议布置', NULL, NULL, 0, '2020-01-06 22:11:06');
+INSERT INTO `employee_dept_t`( `dept_id`, `dept_name`, `dept_description`, `principal_emp_id`, `principal_name`, `delete_flag`, `create_time`)
+VALUES ('DEPT004', '行政部', '公司行政部门广义上包括行政事务、办公事务、人力资源、财产会计四个方面', NULL, NULL, 0, '2020-01-06 22:11:06');
+INSERT INTO `employee_dept_t`( `dept_id`, `dept_name`, `dept_description`, `principal_emp_id`, `principal_name`, `delete_flag`, `create_time`)
+VALUES ('DEPT005', '人事部', '负责制定公司人事管理制度，实施并提出合理化意见和建议', NULL, NULL, 0, '2020-01-06 22:11:06');
+INSERT INTO `employee_dept_t`( `dept_id`, `dept_name`, `dept_description`, `principal_emp_id`, `principal_name`, `delete_flag`, `create_time`)
+VALUES ('DEPT006', '采购部', '直接对分管领导、公司负责，全面主持采购部工作，确保各项任务的顺利完成', NULL, NULL, 0, '2020-01-06 22:11:06');
+INSERT INTO `employee_dept_t`( `dept_id`, `dept_name`, `dept_description`, `principal_emp_id`, `principal_name`, `delete_flag`, `create_time`)
+VALUES ('DEPT007', '数据分析部', '做出科学、合理的分析、以便正确决策', NULL, NULL, 0, '2020-01-06 22:11:06');
+INSERT INTO `employee_dept_t`( `dept_id`, `dept_name`, `dept_description`, `principal_emp_id`, `principal_name`, `delete_flag`, `create_time`)
+VALUES ('DEPT008', '软件测试部', '负责以解决客户业务测试问题为目的的测试解决方案架构和研发工作', NULL, NULL, 0, '2020-01-06 22:11:06');
+INSERT INTO `employee_dept_t`( `dept_id`, `dept_name`, `dept_description`, `principal_emp_id`, `principal_name`, `delete_flag`, `create_time`)
+VALUES ('DEPT009', '前台接待部', '负责公司前台接待工作、公司电话接转、收发传真、文档复印等工作', NULL, NULL, 0, '2020-01-06 22:11:06');
+INSERT INTO `employee_dept_t`( `dept_id`, `dept_name`, `dept_description`, `principal_emp_id`, `principal_name`, `delete_flag`, `create_time`)
+VALUES ('DEPT010', '产品运营部', '收集经营信息，掌握市场动态，深入调查研究，为集团决策提供依据', NULL, NULL, 0, '2020-01-06 22:11:06');
+INSERT INTO `employee_dept_t`( `dept_id`, `dept_name`, `dept_description`, `principal_emp_id`, `principal_name`, `delete_flag`, `create_time`)
+VALUES ('DEPT011', '市场部', '解决市场对企业产品的需求问题', NULL, NULL, 0, '2020-01-06 22:11:06');
+INSERT INTO `employee_dept_t`( `dept_id`, `dept_name`, `dept_description`, `principal_emp_id`, `principal_name`, `delete_flag`, `create_time`)
+VALUES ('DEPT012', '公关部', '建立与维护公司与社区、公众媒介、行业协会、政府部门的公众关系', NULL, NULL, 0, '2020-01-06 22:11:06');
 
 DROP TABLE IF EXISTS `employee_staff_dept_t`;
 CREATE TABLE `employee_staff_dept_t` (
@@ -159,20 +170,6 @@ CREATE TABLE `employee_menu_t`(
   `last_update_by` varchar(20) NOT NULL DEFAULT 'admin' COMMENT '修改者，记录修改者信息',
   PRIMARY KEY (`id`)
 )ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8 COMMENT='企业员工和后台管理系统菜单管理表';
-INSERT INTO `employee_menu_t` (`id`, `icon`, `index`, `title`, `is_sub`, `parent_id`, `role`, `create_time`)
-VALUES ('100', 'iconfont icon-wen-home', 'index', '用户管理', '0', NULL, NULL, '2020-01-02 17:53:14');
-
-INSERT INTO `employee_menu_t` (`id`, `icon`, `index`, `title`, `is_sub`, `parent_id`, `role`, `create_time`)
-VALUES ('101', 'iconfont icon-wen-home', 'menus', '菜单管理', '0', NULL, NULL, '2020-01-02 17:53:14');
-
-INSERT INTO `employee_menu_t` (`id`, `icon`, `index`, `title`, `is_sub`, `parent_id`, `role`, `create_time`)
-VALUES ('102', 'iconfont icon-wen-home', 'wages', '薪资管理', '0', NULL, NULL, '2020-01-02 17:53:14');
-INSERT INTO `employee_menu_t` (`id`, `icon`, `index`, `title`, `is_sub`, `parent_id`, `role`, `create_time`)
-VALUES ('103', 'iconfont icon-wen-home', 'wages', '发放薪资', '102', NULL, NULL, '2020-01-02 17:53:14');
-INSERT INTO `employee_menu_t` (`id`, `icon`, `index`, `title`, `is_sub`, `parent_id`, `role`, `create_time`)
-VALUES ('104', 'iconfont icon-wen-home', 'wages', '薪资查询', '102', NULL, NULL, '2020-01-02 17:53:14');
-INSERT INTO `employee_menu_t` (`id`, `icon`, `index`, `title`, `is_sub`, `parent_id`, `role`, `create_time`)
-VALUES ('105', 'iconfont icon-wen-home', 'wages', '薪资变更', '102', NULL, NULL, '2020-01-02 17:53:14');
 
 INSERT INTO `employee_menu_t` VALUES (100, 'iconfont icon-wen-home', 'index', '员工管理', 0, NULL, '100', 0, '2020-01-02 17:53:14', '2020-01-05 23:51:40', 'admin', 'admin');
 INSERT INTO `employee_menu_t` VALUES (101, 'iconfont icon-wen-home', 'menus', '菜单管理', 0, NULL, '101', 0, '2020-01-02 17:53:14', '2020-01-05 20:42:54', 'admin', 'admin');
@@ -206,8 +203,8 @@ CREATE TABLE `employee_work_attendance_t`(
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `emp_id` varchar(255) DEFAULT NULL COMMENT '员工号',
   `emp_name` varchar(255) DEFAULT NULL COMMENT '员工姓名',
-  `start_time` datetime DEFAULT NULL COMMENT '签到时间',
-  `end_time` datetime DEFAULT NULL COMMENT '最后一次签退时间',
+  `start_time` varchar(20) DEFAULT NULL COMMENT '签到时间',
+  `end_time` varchar(20) DEFAULT NULL COMMENT '最后一次签退时间',
   `start_ip` varchar(20) DEFAULT NULL COMMENT '签到电脑ip',
   `end_ip` varchar(20) DEFAULT NULL COMMENT '签退电脑ip',
   `absence_duty_flag` tinyint(1) DEFAULT NULL COMMENT '缺勤标识 0正常 1未签到 2未签退',

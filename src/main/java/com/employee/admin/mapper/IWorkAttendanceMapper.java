@@ -22,5 +22,7 @@ public interface IWorkAttendanceMapper {
 
     WorkAttendanceVO getWorkAttendance(QueryUserVO queryUserVO);
 
+    int addWorkAttendance(WorkAttendance workAttendance);
+
     int addAllWorkAttendance(List<WorkAttendance> workAttendanceList);
 }

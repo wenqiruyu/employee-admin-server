@@ -46,7 +46,6 @@ public class WorkAttendanceScheduled {
      * @date 2020/1/3
      */
     @Scheduled(cron = "0 0 0 * * ?")
-//    @Scheduled(cron = "0 9 15 * * ?")
     public void toAddWorkAttendance() throws Exception {
 
         logger.info("WorkAttendanceScheduled toAddWorkAttendance start ...");
@@ -55,7 +54,7 @@ public class WorkAttendanceScheduled {
             String json = JSON.toJSONString(allUserId);
             List<WorkAttendance> workAttendances = JSON.parseArray(json, WorkAttendance.class);
             logger.info("WorkAttendanceScheduled addAllStaffWages start ...param:{}", workAttendances);
-            workAttendanceService.addAllStaffWages(workAttendances);
+            workAttendanceService.addAllWorkAttendance(workAttendances);
             logger.info("WorkAttendanceScheduled toAddWorkAttendance end ...");
         } catch (Exception e) {
             logger.error("WorkAttendanceScheduled toAddWorkAttendance error ... message:{}", e);
@@ -82,7 +81,7 @@ public class WorkAttendanceScheduled {
             List<WorkAttendanceVO> allWorkAttendance = workAttendanceService.getAllWorkAttendance();
             for (WorkAttendanceVO workAttendanceVO : allWorkAttendance) {
                 if (workAttendanceVO.getStartTime() != null) {
-                    String format = workAttendanceVO.getStartTime().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+//                    String format = workAttendanceVO.getStartTime().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
                     /*if (localDateTime.isBefore()) {
 
                     }*/

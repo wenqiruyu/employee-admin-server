@@ -8,6 +8,8 @@ import com.employee.admin.enums.ExceptionEnum;
 import com.employee.admin.exception.ExtenException;
 import com.employee.admin.mapper.IStaffBaseMapper;
 import com.employee.admin.service.IStaffBaseService;
+import com.employee.admin.vo.EmpParamVO;
+import com.employee.admin.vo.QueryUserVO;
 import com.employee.admin.vo.StaffBaseVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,5 +51,19 @@ public class StaffBaseServiceImpl implements IStaffBaseService {
 
         StaffBaseVO staffBase = staffBaseMapper.getStaffBase(staffBaseVO);
         return staffBase;
+    }
+
+    @Override
+    public StaffBaseVO getStaffBaseByEmp(EmpParamVO empParamVO) {
+
+        StaffBaseVO staffBaseByEmp = staffBaseMapper.getStaffBaseByEmp(empParamVO);
+        return staffBaseByEmp;
+    }
+
+    @Override
+    public StaffBaseVO getStaffBaseByUser(QueryUserVO queryUserVO) {
+
+        StaffBaseVO staffBaseByUser = staffBaseMapper.getStaffBaseByUser(queryUserVO);
+        return staffBaseByUser;
     }
 }

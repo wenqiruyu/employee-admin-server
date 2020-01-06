@@ -17,6 +17,11 @@ public class EmpParamVO {
      */
     private String empId;
 
+    /**
+     * 员工名
+     */
+    private String empName;
+
     public String getEmpId() {
         return empId;
     }
@@ -25,10 +30,19 @@ public class EmpParamVO {
         this.empId = empId;
     }
 
+    public String getEmpName() {
+        return empName;
+    }
+
+    public void setEmpName(String empName) {
+        this.empName = empName;
+    }
+
     @Override
     public String toString() {
         return "EmpParamVO{" +
                 "empId='" + empId + '\'' +
+                ", empName='" + empName + '\'' +
                 '}';
     }
 }

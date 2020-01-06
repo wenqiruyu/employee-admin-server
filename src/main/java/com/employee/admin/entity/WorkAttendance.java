@@ -29,14 +29,12 @@ public class WorkAttendance {
     /**
      * 签到时间
      */
-    @DateTimeFormat(pattern = "HH:mm:ss")
-    private LocalDateTime startTime;
+    private String startTime;
 
     /**
      * 签退时间
      */
-    @DateTimeFormat(pattern = "HH:mm:ss")
-    private LocalDateTime endTime;
+    private String endTime;
 
     /**
      * 签到电脑IP
@@ -104,19 +102,19 @@ public class WorkAttendance {
         this.empName = empName;
     }
 
-    public LocalDateTime getStartTime() {
+    public String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(LocalDateTime startTime) {
+    public void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public LocalDateTime getEndTime() {
+    public String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(LocalDateTime endTime) {
+    public void setEndTime(String endTime) {
         this.endTime = endTime;
     }
 

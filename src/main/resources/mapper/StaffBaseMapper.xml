@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.employee.admin.mapper.IStaffBaseMapper">
     <resultMap id="staffBaseResultMap" type="com.employee.admin.vo.StaffBaseVO">
-        <result column="user_id" jdbcType="BIGINT" property="userId"/>
         <result column="emp_id" jdbcType="VARCHAR" property="empId"/>
         <result column="emp_name" jdbcType="VARCHAR" property="empName"/>
         <result column="participate_time" jdbcType="VARCHAR" property="participateTime"/>
@@ -11,7 +10,31 @@
     </resultMap>
 
     <sql id="staffBaseList">
-        user_id, emp_id, emp_name, participate_time, leave_time, leave_reason
+        emp_id, emp_name, participate_time, leave_time, leave_reason
     </sql>
 
+    <select id="getStaffBaseByEmp" resultMap="staffBaseResultMap">
+        select <include refid="staffBaseList"/>
+        from employee_staff_base_t
+        <where>
+            <if test="empId != null and empId != ''">
+                emp_id = #{empId}
+            </if>
+            <if test="empName != null and empName != ''">
+                and emp_name = #{empName}
+            </if>
+        </where>
+        and delete_flag = 0
+    </select>
+
+    <select id="getStaffBaseByUser" resultMap="staffBaseResultMap">
+        select staffB.<include refid="staffBaseList"/>
+        from employee_staff_base_t staffB, (
+            select emp_id
+            from employee_staff_user_t
+            where user_id = #{userId}
+        ) user
+        where user.emp_id = staffB.emp_id
+        and delete_flag = 0
+    </select>
 </mapper>

@@ -1,6 +1,8 @@
 package com.employee.admin.mapper;
 
 import com.employee.admin.entity.StaffBase;
+import com.employee.admin.vo.EmpParamVO;
+import com.employee.admin.vo.QueryUserVO;
 import com.employee.admin.vo.StaffBaseVO;
 
 /**
@@ -18,4 +20,8 @@ public interface IStaffBaseMapper {
     int addStaffBase(StaffBase staffBase);
 
     StaffBaseVO getStaffBase(StaffBaseVO staffBaseVO);
+
+    StaffBaseVO getStaffBaseByEmp(EmpParamVO empParamVO);
+
+    StaffBaseVO getStaffBaseByUser(QueryUserVO queryUserVO);
 }
