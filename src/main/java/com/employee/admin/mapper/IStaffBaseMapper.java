@@ -17,6 +17,8 @@ import com.employee.admin.vo.StaffBaseVO;
  */
 public interface IStaffBaseMapper {
 
+    int getStaffBaseNum();
+
     int addStaffBase(StaffBase staffBase);
 
     StaffBaseVO getStaffBase(StaffBaseVO staffBaseVO);

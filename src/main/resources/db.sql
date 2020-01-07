@@ -23,7 +23,7 @@ CREATE TABLE `employee_staff_detail_t` (
   `sex` tinyint(1) DEFAULT '2' COMMENT '性别 1男 0女 保密',
   `phone` char(11) DEFAULT NULL COMMENT '手机号码',
   `telephone` varchar(16) DEFAULT NULL COMMENT '住宅电话',
-	`email` varchar(64) DEFAULT NULL COMMENT '邮箱',
+    `email` varchar(64) DEFAULT NULL COMMENT '邮箱',
 	`birthday` datetime DEFAULT NULL COMMENT '出生日期',
   `province` varchar(64) DEFAULT NULL COMMENT '省',
   `city` varchar(64) DEFAULT NULL COMMENT '市',
@@ -110,9 +110,9 @@ VALUES ('DEPT012', '公关部', '建立与维护公司与社区、公众媒介�
 
 DROP TABLE IF EXISTS `employee_staff_dept_t`;
 CREATE TABLE `employee_staff_dept_t` (
-  `user_id` bigint(20) DEFAULT NULL COMMENT '用户表id',
-  `super_user_id` bigint(20) DEFAULT NULL COMMENT '员工上级id',
-  `dept_id` int(11) DEFAULT NULL COMMENT '角色表id',
+  `emp_id` varchar(64) DEFAULT NULL COMMENT '员工号',
+  `super_emp_id` varchar(64) DEFAULT NULL COMMENT '员工上级',
+  `dept_id` varchar(64) DEFAULT NULL COMMENT '部门id',
   `delete_flag` tinyint(1) DEFAULT '0' COMMENT '是否有效 0有效 1删除'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='企业员工用户部门映射表';
 

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.employee.admin.mapper.IDeptMapper">
+    <resultMap id="deptResultMap" type="com.employee.admin.vo.DeptVO">
+        <result column="dept_id" jdbcType="VARCHAR" property="deptId" />
+        <result column="dept_name" jdbcType="VARCHAR" property="deptName" />
+        <result column="dept_description" jdbcType="VARCHAR" property="deptDescription" />
+        <result column="principal_emp_id" jdbcType="VARCHAR" property="principalEmpId" />
+        <result column="principal_name" jdbcType="VARCHAR" property="principalName" />
+    </resultMap>
+
+    <sql id="deptList">
+        dept_id, dept_name, dept_description, principal_emp_id, principal_name
+    </sql>
+
+    <select id="getAllDept" resultMap="deptResultMap">
+        select <include refid="deptList" />
+        from employee_dept_t
+        where delete_flag = 0
+    </select>
+</mapper>

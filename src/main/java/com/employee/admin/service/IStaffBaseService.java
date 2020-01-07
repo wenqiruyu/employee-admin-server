@@ -1,5 +1,6 @@
 package com.employee.admin.service;
 
+import com.employee.admin.entity.StaffBase;
 import com.employee.admin.vo.EmpParamVO;
 import com.employee.admin.vo.QueryUserVO;
 import com.employee.admin.vo.StaffBaseVO;
@@ -16,7 +17,9 @@ import com.employee.admin.vo.StaffBaseVO;
  */
 public interface IStaffBaseService {
 
-    void addStaffBase(StaffBaseVO staffBaseVO);
+    int getStaffBaseNum();
+
+    void addStaffBase(StaffBase staffBase);
 
     StaffBaseVO getStaffBase(StaffBaseVO staffBaseVO);
 

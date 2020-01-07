@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.employee.admin.mapper.IStaffDeptMapper">
+    <resultMap id="staffDeptResultMap" type="com.employee.admin.vo.StaffDeptVO">
+        <result column="emp_id" jdbcType="VARCHAR" property="empId"/>
+        <result column="super_emp_id" jdbcType="VARCHAR" property="superEmpId"/>
+        <result column="dept_id" jdbcType="VARCHAR" property="deptId"/>
+    </resultMap>
+
+    <sql id="staffBaseList">
+        emp_id, super_emp_id, dept_id
+    </sql>
+
+    <insert id="addStaffDept" parameterType="StaffDept">
+        insert into employee_staff_dept_t(emp_id, super_emp_id, dept_id)
+        values (#{empId}, #{superEmpId}, #{deptId})
+    </insert>
+
+</mapper>

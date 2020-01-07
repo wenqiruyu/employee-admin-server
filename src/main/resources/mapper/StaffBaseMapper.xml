@@ -13,6 +13,16 @@
         emp_id, emp_name, participate_time, leave_time, leave_reason
     </sql>
 
+    <insert id="addStaffBase" parameterType="StaffBase">
+        insert into employee_staff_base_t(emp_id, emp_name, participate_time, create_time)
+        values (#{empId}, #{empName}, #{participateTime}, #{createTime})
+    </insert>
+
+    <select id="getStaffBaseNum" resultType="int">
+        select count(1)
+        from employee_staff_base_t
+    </select>
+
     <select id="getStaffBaseByEmp" resultMap="staffBaseResultMap">
         select <include refid="staffBaseList"/>
         from employee_staff_base_t
