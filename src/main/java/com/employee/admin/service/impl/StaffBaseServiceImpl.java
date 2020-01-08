@@ -33,11 +33,15 @@ public class StaffBaseServiceImpl implements IStaffBaseService {
     private IStaffBaseMapper staffBaseMapper;
 
     @Override
-    public void addStaffBase(StaffBaseVO staffBaseVO) {
+    public int getStaffBaseNum() {
 
-        JSONObject jsonObject = (JSONObject) JSON.toJSON(staffBaseVO);
-        StaffBase staffBase = jsonObject.toJavaObject(StaffBase.class);
-        staffBase.setDeleteFlag(0);
+        int staffBaseNum = staffBaseMapper.getStaffBaseNum();
+        return staffBaseNum;
+    }
+
+    @Override
+    public void addStaffBase(StaffBase staffBase) {
+
         staffBase.setCreateTime(LocalDateTime.now());
         int result = staffBaseMapper.addStaffBase(staffBase);
         if (result != 1) {
