@@ -11,7 +11,7 @@
         emp_id, super_emp_id, dept_id
     </sql>
 
-    <insert id="addStaffDept" parameterType="StaffDept">
+    <insert id="addStaffDept">
         insert into employee_staff_dept_t(emp_id, super_emp_id, dept_id)
         values (#{empId}, #{superEmpId}, #{deptId})
     </insert>

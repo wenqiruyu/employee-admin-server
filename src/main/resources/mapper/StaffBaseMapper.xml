@@ -13,7 +13,7 @@
         emp_id, emp_name, participate_time, leave_time, leave_reason
     </sql>
 
-    <insert id="addStaffBase" parameterType="StaffBase">
+    <insert id="addStaffBase">
         insert into employee_staff_base_t(emp_id, emp_name, participate_time, create_time)
         values (#{empId}, #{empName}, #{participateTime}, #{createTime})
     </insert>
