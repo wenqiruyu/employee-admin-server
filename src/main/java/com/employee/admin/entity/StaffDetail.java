@@ -56,6 +56,11 @@ public class StaffDetail {
     private String email;
 
     /**
+     * 身份证号
+     */
+    private String idCard;
+
+    /**
      * 出生日期
      */
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -200,6 +205,14 @@ public class StaffDetail {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getIdCard() {
+        return idCard;
+    }
+
+    public void setIdCard(String idCard) {
+        this.idCard = idCard;
     }
 
     @JsonFormat(pattern="yyyy-MM-dd")
@@ -350,6 +363,7 @@ public class StaffDetail {
                 ", phone='" + phone + '\'' +
                 ", telephone='" + telephone + '\'' +
                 ", email='" + email + '\'' +
+                ", idCard='" + idCard + '\'' +
                 ", birthday=" + birthday +
                 ", province='" + province + '\'' +
                 ", city='" + city + '\'' +

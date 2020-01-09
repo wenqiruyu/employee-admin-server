@@ -54,10 +54,15 @@ public class StaffDetailVO {
     private String email;
 
     /**
+     * 身份证号
+     */
+    private String idCard;
+
+    /**
      * 出生日期
      */
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
 
     /**
@@ -171,12 +176,18 @@ public class StaffDetailVO {
         this.email = email;
     }
 
-    @JsonFormat(pattern="yyyy-MM-dd")
+    public String getIdCard() {
+        return idCard;
+    }
+
+    public void setIdCard(String idCard) {
+        this.idCard = idCard;
+    }
+
     public Date getBirthday() {
         return birthday;
     }
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
@@ -272,13 +283,14 @@ public class StaffDetailVO {
     @Override
     public String toString() {
         return "StaffDetailVO{" +
-                "userId=" + userId +
+                "userId='" + userId + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", sex=" + sex +
                 ", phone='" + phone + '\'' +
                 ", telephone='" + telephone + '\'' +
                 ", email='" + email + '\'' +
+                ", idCard='" + idCard + '\'' +
                 ", birthday=" + birthday +
                 ", province='" + province + '\'' +
                 ", city='" + city + '\'' +
