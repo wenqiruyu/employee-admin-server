@@ -1,16 +1,16 @@
-package com.employee.admin.entity;
+package com.employee.admin.vo;
 
 /**
  * 项目名称：employee-admin-server
- * 类名称：StaffRole
- * 类描述：员工角色映射
+ * 类名称：StaffRoleVO
+ * 类描述：TODO
  * 创建人：yingx
  * 创建时间： 2019/12/24
  * 修改人：yingx
  * 修改时间： 2019/12/24
  * 修改备注：
  */
-public class StaffRole {
+public class StaffRoleVO {
 
     /**
      * 用户id
@@ -21,11 +21,6 @@ public class StaffRole {
      * 权限id
      */
     private String roleId;
-
-    /**
-     * 数据状态
-     */
-    private Integer deleteFlag;
 
     public Long getUserId() {
         return userId;
@@ -43,20 +38,11 @@ public class StaffRole {
         this.roleId = roleId;
     }
 
-    public Integer getDeleteFlag() {
-        return deleteFlag;
-    }
-
-    public void setDeleteFlag(Integer deleteFlag) {
-        this.deleteFlag = deleteFlag;
-    }
-
     @Override
     public String toString() {
-        return "StaffRole{" +
+        return "StaffRoleVO{" +
                 "userId=" + userId +
-                ", roleId=" + roleId +
-                ", deleteFlag=" + deleteFlag +
+                ", roleId='" + roleId + '\'' +
                 '}';
     }
 }

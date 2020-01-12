@@ -1,5 +1,7 @@
 package com.employee.admin.vo;
 
+import java.util.List;
+
 /**
  * 项目名称：employee-admin-server
  * 类名称：DeptVo
@@ -36,6 +38,8 @@ public class DeptVO {
      * 部门负责人
      */
     private String principalName;
+
+    private List<PositionVO> position;
 
     public String getDeptId() {
         return deptId;
@@ -77,14 +81,23 @@ public class DeptVO {
         this.principalName = principalName;
     }
 
+    public List<PositionVO> getPosition() {
+        return position;
+    }
+
+    public void setPosition(List<PositionVO> position) {
+        this.position = position;
+    }
+
     @Override
     public String toString() {
         return "DeptVO{" +
-                "deptId=" + deptId +
+                "deptId='" + deptId + '\'' +
                 ", deptName='" + deptName + '\'' +
                 ", deptDescription='" + deptDescription + '\'' +
                 ", principalEmpId='" + principalEmpId + '\'' +
                 ", principalName='" + principalName + '\'' +
+                ", position=" + position +
                 '}';
     }
 }

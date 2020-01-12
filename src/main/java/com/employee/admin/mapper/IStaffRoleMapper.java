@@ -1,5 +1,7 @@
 package com.employee.admin.mapper;
 
+import com.employee.admin.entity.StaffRole;
+
 /**
  * 项目名称：employee-admin-server
  * 类名称：IStaffRoleMapper
@@ -10,5 +12,7 @@ package com.employee.admin.mapper;
  * 修改时间： 2019/12/24
  * 修改备注：
  */
-public class IStaffRoleMapper {
+public interface IStaffRoleMapper {
+
+    int addStaffRole(StaffRole staffRole);
 }

@@ -13,19 +13,24 @@ package com.employee.admin.entity;
 public class StaffDept {
 
     /**
-     * 用户表id
+     * 员工id
      */
-    private Long userId;
+    private String empId;
+
+    /**
+     * 员工职称
+     */
+    private String empPosition;
 
     /**
      * 员工上级id
      */
-    private Long superUserId;
+    private String superEmpId;
 
     /**
      * 部门id
      */
-    private Long deptId;
+    private String deptId;
     /**
      * 部门名称
      */
@@ -36,27 +41,35 @@ public class StaffDept {
      */
     private Integer deleteFlag;
 
-    public Long getUserId() {
-        return userId;
+    public String getEmpId() {
+        return empId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setEmpId(String empId) {
+        this.empId = empId;
     }
 
-    public Long getSuperUserId() {
-        return superUserId;
+    public String getEmpPosition() {
+        return empPosition;
     }
 
-    public void setSuperUserId(Long superUserId) {
-        this.superUserId = superUserId;
+    public void setEmpPosition(String empPosition) {
+        this.empPosition = empPosition;
     }
 
-    public Long getDeptId() {
+    public String getSuperEmpId() {
+        return superEmpId;
+    }
+
+    public void setSuperEmpId(String superEmpId) {
+        this.superEmpId = superEmpId;
+    }
+
+    public String getDeptId() {
         return deptId;
     }
 
-    public void setDeptId(Long deptId) {
+    public void setDeptId(String deptId) {
         this.deptId = deptId;
     }
 
@@ -79,8 +92,9 @@ public class StaffDept {
     @Override
     public String toString() {
         return "StaffDept{" +
-                "userId=" + userId +
-                ", superUserId=" + superUserId +
+                "empId=" + empId +
+                ", empPosition='" + empPosition + '\'' +
+                ", superEmpId=" + superEmpId +
                 ", deptId=" + deptId +
                 ", deptName='" + deptName + '\'' +
                 ", deleteFlag=" + deleteFlag +

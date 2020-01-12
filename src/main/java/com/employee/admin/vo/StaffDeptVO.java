@@ -13,12 +13,17 @@ package com.employee.admin.vo;
 public class StaffDeptVO {
 
     /**
-     * 员工号
+     * 员工id
      */
     private String empId;
 
     /**
-     * 直接上级
+     * 员工职称
+     */
+    private String empPosition;
+
+    /**
+     * 员工上级id
      */
     private String superEmpId;
 
@@ -26,6 +31,10 @@ public class StaffDeptVO {
      * 部门id
      */
     private String deptId;
+    /**
+     * 部门名称
+     */
+    private String deptName;
 
     public String getEmpId() {
         return empId;
@@ -33,6 +42,14 @@ public class StaffDeptVO {
 
     public void setEmpId(String empId) {
         this.empId = empId;
+    }
+
+    public String getEmpPosition() {
+        return empPosition;
+    }
+
+    public void setEmpPosition(String empPosition) {
+        this.empPosition = empPosition;
     }
 
     public String getSuperEmpId() {
@@ -51,12 +68,22 @@ public class StaffDeptVO {
         this.deptId = deptId;
     }
 
+    public String getDeptName() {
+        return deptName;
+    }
+
+    public void setDeptName(String deptName) {
+        this.deptName = deptName;
+    }
+
     @Override
     public String toString() {
         return "StaffDeptVO{" +
-                "empId='" + empId + '\'' +
-                ", superEmpId='" + superEmpId + '\'' +
-                ", deptId='" + deptId + '\'' +
+                "empId=" + empId +
+                ", empPosition='" + empPosition + '\'' +
+                ", superEmpId=" + superEmpId +
+                ", deptId=" + deptId +
+                ", deptName='" + deptName + '\'' +
                 '}';
     }
 }

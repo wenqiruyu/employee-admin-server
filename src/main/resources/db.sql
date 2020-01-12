@@ -47,6 +47,7 @@ CREATE TABLE `employee_staff_detail_t` (
 DROP TABLE IF EXISTS `employee_role_t`;
 CREATE TABLE `employee_role_t` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `role_id` varchar(64) DEFAULT NULL COMMENT '角色id',
   `role_name_en` varchar(64) DEFAULT NULL COMMENT '角色名称',
   `role_name_zh` varchar(64) DEFAULT NULL COMMENT '角色名称 中文',
   `delete_flag` tinyint(1) DEFAULT '0' COMMENT '是否有效 0有效 1删除',
@@ -57,9 +58,9 @@ CREATE TABLE `employee_role_t` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8 COMMENT='企业员工角色配置表';
 
-INSERT INTO `employee_role_t` VALUES (100, 'superAdmin', '超级管理员', 0, '2019-12-25 23:49:33', NULL, 'admin', 'admin');
-INSERT INTO `employee_role_t` VALUES (101, 'admin', '普通管理员', 0, '2019-12-25 23:49:59', NULL, 'admin', 'admin');
-INSERT INTO `employee_role_t` VALUES (102, 'employee', '企业员工', 0, '2019-12-25 23:50:25', NULL, 'admin', 'admin');
+INSERT INTO `employee_role_t` VALUES (100, 'ROLE001', 'superAdmin', '超级管理员', 0, '2019-12-25 23:49:33', NULL, 'admin', 'admin');
+INSERT INTO `employee_role_t` VALUES (101, 'ROLE002', 'admin', '普通管理员', 0, '2019-12-25 23:49:59', NULL, 'admin', 'admin');
+INSERT INTO `employee_role_t` VALUES (102, 'ROLE003', 'employee', '企业员工', 0, '2019-12-25 23:50:25', NULL, 'admin', 'admin');
 
 DROP TABLE IF EXISTS `employee_staff_role_t`;
 CREATE TABLE `employee_staff_role_t` (
@@ -111,6 +112,7 @@ VALUES ('DEPT012', '公关部', '建立与维护公司与社区、公众媒介�
 DROP TABLE IF EXISTS `employee_staff_dept_t`;
 CREATE TABLE `employee_staff_dept_t` (
   `emp_id` varchar(64) DEFAULT NULL COMMENT '员工号',
+  `emp_position` varchar(64) DEFAULT NULL COMMENT '员工职位',
   `super_emp_id` varchar(64) DEFAULT NULL COMMENT '员工上级',
   `dept_id` varchar(64) DEFAULT NULL COMMENT '部门id',
   `delete_flag` tinyint(1) DEFAULT '0' COMMENT '是否有效 0有效 1删除'
@@ -119,7 +121,7 @@ CREATE TABLE `employee_staff_dept_t` (
 DROP TABLE IF EXISTS `employee_position_t`;
 CREATE TABLE `employee_position_t` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `dept_id` bigint(20) DEFAULT NULL COMMENT '部门id',
+  `dept_id` varchar(64) DEFAULT NULL COMMENT '部门id',
   `position_name` varchar(128) DEFAULT NULL COMMENT '职位名称',
   `position_desc` varchar(1024) DEFAULT NULL COMMENT '职位简介',
   `delete_flag` tinyint(1) DEFAULT '0' COMMENT '是否有效 0有效 1删除',
@@ -129,24 +131,47 @@ CREATE TABLE `employee_position_t` (
   `last_update_by` varchar(20) NOT NULL DEFAULT 'admin' COMMENT '修改者，记录修改者信息',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8 COMMENT='企业员工职位配置表';
-(1,2,'软件工程师','软件工程师是最基本的IT软件职位，但是他做的是最重要的底层的代码编写。','admin','2016-07-03 14:29:46','2016-07-03 14:29:46')
-(2,2,'软件设计师','软件设计师以前称呼为软件高级工程师','admin','2016-07-03 14:30:49','2016-07-03 14:40:49')
-(3,2,'架构师','架构师主要负责系统底层的分层分类，以及系统的众多接口问题','admin','2016-07-03 14:31:13','2016-07-03 14:40:55')
-(4,2,'技术经理','技术经理主要负责项目的各层次的方方面面','admin','2016-07-03 14:31:39','2016-07-03 14:31:39')
-(5,2,'技术总监','制定公司的技术体系，架构设计，各类规范，形成公司自己的技术方案标准等等。','admin','2016-07-03 14:32:06','2016-07-03 14:32:06')
-(6,1,'财务总监','负责整个财务的运作和公司的财务管理','admin','2016-07-03 14:33:26','2016-07-03 14:33:26')
-(7,1,'财务经理','负责公司的整个财务经营状况','admin','2016-07-03 14:33:45','2016-07-03 14:33:45')
-(8,1,'财务副经理','协助财务经理工作','admin','2016-07-03 14:33:56','2016-07-03 14:33:56')
-(9,1,'财务主管','负责总账等主要财务工作','admin','2016-07-03 14:34:08','2016-07-03 14:34:08')
-(10,1,'会计','应收会计、应付会计、材料会计、成本会计、税务会计、费用会计等等','admin','2016-07-03 14:34:24','2016-07-03 14:40:01')
-(11,1,'出纳','负责现金和银行的日记账','admin','2016-07-03 14:34:41','2016-07-03 14:34:41')
-(12,4,'行政主管','行政负责单位的直接工作，人事是分管人员安排，档案和人力资源的有效利用。','admin','2016-07-03 14:38:19','2016-07-03 14:39:52')
-(13,4,'行政经理','计划、指导和协调机构的支持性服务。','admin','2016-07-03 14:38:39','2016-07-03 14:40:27')
-(14,5,'人事部总监','定期与相关部门经理/总监审核并修订公司的组织结构图和人员编制','admin','2016-07-03 14:39:19','2016-07-03 14:41:32')
-(15,5,'人事部经理','组织并督促部门人员全面完成本部职责范围内各项工作任务;','admin','2016-07-03 14:39:29','2016-07-03 14:42:02')
-(16,5,'人事部主管','负责人事工作制度的制定与完善','admin','2016-07-03 14:39:39','2016-07-03 14:42:23')
-(17,6,'采购部部长','负责部门的相关方案拟定、检查、监督、控制与执行。','admin','2016-07-03 14:43:40','2016-07-03 14:43:40')
-(18,6,'采购部经理','负责汇总设计部的申请采购，编制采购计划，经过采购总监的审核后组织实施;','admin','2016-07-03 14:44:21','2016-07-03 14:44:28');
+INSERT INTO `db_employee_information`.`employee_position_t`(`dept_id`, `position_name`, `position_desc`, `delete_flag`, `create_time`)
+VALUES ('DEPT002', '软件工程师', '软件工程师是最基本的IT软件职位，但是他做的是最重要的底层的代码编写', 0, '2020-01-12 21:39:06');
+INSERT INTO `db_employee_information`.`employee_position_t`(`dept_id`, `position_name`, `position_desc`, `delete_flag`, `create_time`)
+VALUES ('DEPT002', '软件设计师', '软件设计师以前称呼为软件高级工程师', 0, '2020-01-12 21:39:06');
+INSERT INTO `db_employee_information`.`employee_position_t`(`dept_id`, `position_name`, `position_desc`, `delete_flag`, `create_time`)
+VALUES ('DEPT002', '架构师', '架构师主要负责系统底层的分层分类，以及系统的众多接口问题', 0, '2020-01-12 21:39:06');
+INSERT INTO `db_employee_information`.`employee_position_t`(`dept_id`, `position_name`, `position_desc`, `delete_flag`, `create_time`)
+VALUES ('DEPT002', '技术经理', '技术经理主要负责项目的各层次的方方面面', 0, '2020-01-12 21:39:06');
+INSERT INTO `db_employee_information`.`employee_position_t`(`dept_id`, `position_name`, `position_desc`, `delete_flag`, `create_time`)
+VALUES ('DEPT002', '技术总监', '制定公司的技术体系，架构设计，各类规范，形成公司自己的技术方案标准等等', 0, '2020-01-12 21:39:06');
+
+INSERT INTO `db_employee_information`.`employee_position_t`(`dept_id`, `position_name`, `position_desc`, `delete_flag`, `create_time`)
+VALUES ('DEPT001', '财务总监', '负责整个财务的运作和公司的财务管理', 0, '2020-01-12 21:39:06');
+INSERT INTO `db_employee_information`.`employee_position_t`(`dept_id`, `position_name`, `position_desc`, `delete_flag`, `create_time`)
+VALUES ('DEPT001', '财务经理', '负责公司的整个财务经营状况', 0, '2020-01-12 21:39:06');
+INSERT INTO `db_employee_information`.`employee_position_t`(`dept_id`, `position_name`, `position_desc`, `delete_flag`, `create_time`)
+VALUES ('DEPT001', '财务副经理', '协助财务经理工作', 0, '2020-01-12 21:39:06');
+INSERT INTO `db_employee_information`.`employee_position_t`(`dept_id`, `position_name`, `position_desc`, `delete_flag`, `create_time`)
+VALUES ('DEPT001', '财务主管', '负责总账等主要财务工作', 0, '2020-01-12 21:39:06');
+INSERT INTO `db_employee_information`.`employee_position_t`(`dept_id`, `position_name`, `position_desc`, `delete_flag`, `create_time`)
+VALUES ('DEPT001', '会计', '应收会计、应付会计、材料会计、成本会计、税务会计、费用会计等等', 0, '2020-01-12 21:39:06');
+INSERT INTO `db_employee_information`.`employee_position_t`(`dept_id`, `position_name`, `position_desc`, `delete_flag`, `create_time`)
+VALUES ('DEPT001', '出纳', '负责现金和银行的日记账', 0, '2020-01-12 21:39:06');
+
+
+INSERT INTO `db_employee_information`.`employee_position_t`(`dept_id`, `position_name`, `position_desc`, `delete_flag`, `create_time`)
+VALUES ('DEPT004', '行政主管', '行政负责单位的直接工作，人事是分管人员安排，档案和人力资源的有效利用', 0, '2020-01-12 21:39:06');
+INSERT INTO `db_employee_information`.`employee_position_t`(`dept_id`, `position_name`, `position_desc`, `delete_flag`, `create_time`)
+VALUES ('DEPT004', '行政经理', '计划、指导和协调机构的支持性服务', 0, '2020-01-12 21:39:06');
+
+INSERT INTO `db_employee_information`.`employee_position_t`(`dept_id`, `position_name`, `position_desc`, `delete_flag`, `create_time`)
+VALUES ('DEPT005', '人事部总监', '定期与相关部门经理/总监审核并修订公司的组织结构图和人员编制', 0, '2020-01-12 21:39:06');
+INSERT INTO `db_employee_information`.`employee_position_t`(`dept_id`, `position_name`, `position_desc`, `delete_flag`, `create_time`)
+VALUES ('DEPT005', '人事部经理', '组织并督促部门人员全面完成本部职责范围内各项工作任务', 0, '2020-01-12 21:39:06');
+INSERT INTO `db_employee_information`.`employee_position_t`(`dept_id`, `position_name`, `position_desc`, `delete_flag`, `create_time`)
+VALUES ('DEPT005', '人事部主管', '负责人事工作制度的制定与完善', 0, '2020-01-12 21:39:06');
+
+INSERT INTO `db_employee_information`.`employee_position_t`(`dept_id`, `position_name`, `position_desc`, `delete_flag`, `create_time`)
+VALUES ('DEPT006', '采购部部长', '负责部门的相关方案拟定、检查、监督、控制与执行', 0, '2020-01-12 21:39:06');
+INSERT INTO `db_employee_information`.`employee_position_t`(`dept_id`, `position_name`, `position_desc`, `delete_flag`, `create_time`)
+VALUES ('DEPT006', '采购部经理', '负责汇总设计部的申请采购，编制采购计划，经过采购总监的审核后组织实施', 0, '2020-01-12 21:39:06');
 
 DROP TABLE IF EXISTS `employee_staff_user_t`;
 CREATE TABLE `employee_staff_user_t`(
@@ -197,6 +222,9 @@ CREATE TABLE `employee_staff_wages_t`(
   `last_update_by` varchar(20) NOT NULL DEFAULT 'admin' COMMENT '修改者，记录修改者信息',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8 COMMENT='企业员工薪资表';
+INSERT INTO `db_employee_information`.`employee_staff_wages_t`(`emp_id`, `emp_name`, `period`, `base_wages`, `subsidy`, `tax`, `real_wages`, `delete_flag`, `create_time`)
+VALUES ('JXNC0001', '刘应兴', '2019-12', 8000, 0, 1666.54, 6333.46, 0, '2020-01-01 22:46:35');
+
 
 DROP TABLE IF EXISTS `employee_work_attendance_t`;
 CREATE TABLE `employee_work_attendance_t`(

@@ -20,6 +20,11 @@ public class Role {
     private Long id;
 
     /**
+     * 权限id
+     */
+    private String roleId;
+
+    /**
      * 角色名称
      */
     private String roleNameEn;
@@ -60,6 +65,14 @@ public class Role {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
     }
 
     public String getRoleNameEn() {
@@ -122,6 +135,7 @@ public class Role {
     public String toString() {
         return "Role{" +
                 "id=" + id +
+                ", roleId='" + roleId + '\'' +
                 ", roleNameEn='" + roleNameEn + '\'' +
                 ", roleNameZh='" + roleNameZh + '\'' +
                 ", deleteFlag=" + deleteFlag +

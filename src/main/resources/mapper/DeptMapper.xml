@@ -7,15 +7,24 @@
         <result column="dept_description" jdbcType="VARCHAR" property="deptDescription" />
         <result column="principal_emp_id" jdbcType="VARCHAR" property="principalEmpId" />
         <result column="principal_name" jdbcType="VARCHAR" property="principalName" />
+
+        <collection property="position" resultMap="positionResultMap" />
     </resultMap>
 
+    <resultMap id="positionResultMap" type="com.employee.admin.vo.PositionVO">
+        <result column="position_name" jdbcType="VARCHAR" property="positionName" />
+        <result column="position_desc" jdbcType="VARCHAR" property="positionDesc" />
+    </resultMap>
     <sql id="deptList">
         dept_id, dept_name, dept_description, principal_emp_id, principal_name
     </sql>
 
     <select id="getAllDept" resultMap="deptResultMap">
-        select <include refid="deptList" />
-        from employee_dept_t
-        where delete_flag = 0
+        select dept.<include refid="deptList" />, posi.position_name, posi.position_desc
+        from employee_dept_t dept
+        left join employee_position_t posi
+        on dept.dept_id = posi.dept_id
+        and dept.delete_flag = 0
+        and posi.delete_flag = 0
     </select>
 </mapper>

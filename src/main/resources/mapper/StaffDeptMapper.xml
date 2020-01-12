@@ -12,8 +12,8 @@
     </sql>
 
     <insert id="addStaffDept">
-        insert into employee_staff_dept_t(emp_id, super_emp_id, dept_id)
-        values (#{empId}, #{superEmpId}, #{deptId})
+        insert into employee_staff_dept_t(emp_id, emp_position, super_emp_id, dept_id)
+        values (#{empId}, #{empPosition}, #{superEmpId}, #{deptId})
     </insert>
 
 </mapper>

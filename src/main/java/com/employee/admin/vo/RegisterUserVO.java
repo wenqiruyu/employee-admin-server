@@ -93,6 +93,11 @@ public class RegisterUserVO {
     private String userface;
 
     /**
+     * 邮箱号
+     */
+    private String email;
+
+    /**
      * 备注
      */
     private String remark;
@@ -225,6 +230,14 @@ public class RegisterUserVO {
         this.userface = userface;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getRemark() {
         return remark;
     }
@@ -252,6 +265,7 @@ public class RegisterUserVO {
                 ", marriage='" + marriage + '\'' +
                 ", education='" + education + '\'' +
                 ", userface='" + userface + '\'' +
+                ", email='" + email + '\'' +
                 ", remark='" + remark + '\'' +
                 '}';
     }
