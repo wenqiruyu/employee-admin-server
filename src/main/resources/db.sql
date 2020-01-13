@@ -23,8 +23,9 @@ CREATE TABLE `employee_staff_detail_t` (
   `sex` tinyint(1) DEFAULT '2' COMMENT '性别 1男 0女 保密',
   `phone` char(11) DEFAULT NULL COMMENT '手机号码',
   `telephone` varchar(16) DEFAULT NULL COMMENT '住宅电话',
-    `email` varchar(64) DEFAULT NULL COMMENT '邮箱',
-	`birthday` datetime DEFAULT NULL COMMENT '出生日期',
+  `email` varchar(64) DEFAULT NULL COMMENT '邮箱',
+  `id_card` varchar(64) DEFAULT NULL COMMENT '身份证号',
+  `birthday` datetime DEFAULT NULL COMMENT '出生日期',
   `province` varchar(64) DEFAULT NULL COMMENT '省',
   `city` varchar(64) DEFAULT NULL COMMENT '市',
   `county` varchar(64) DEFAULT NULL COMMENT '区',
@@ -65,7 +66,7 @@ INSERT INTO `employee_role_t` VALUES (102, 'ROLE003', 'employee', '企业员工'
 DROP TABLE IF EXISTS `employee_staff_role_t`;
 CREATE TABLE `employee_staff_role_t` (
   `user_id` bigint(20) DEFAULT NULL COMMENT '用户表id',
-  `role_id` int(11) DEFAULT NULL COMMENT '角色表id',
+  `role_id` varchar(64) DEFAULT NULL COMMENT '角色表id',
   `delete_flag` tinyint(1) DEFAULT '0' COMMENT '是否有效 0有效 1删除'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='企业员工用户角色映射表';
 

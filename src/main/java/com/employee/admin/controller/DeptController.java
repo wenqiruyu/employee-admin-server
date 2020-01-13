@@ -24,7 +24,7 @@ import java.util.List;
  * 修改备注：
  */
 @RestController
-@RequestMapping("dept")
+@RequestMapping("/dept")
 public class DeptController {
 
     private static final Logger logger = LoggerFactory.getLogger(DeptController.class);

@@ -22,6 +22,8 @@ public interface IWorkAttendanceService {
 
     WorkAttendanceVO getWorkAttendance(QueryUserVO queryUserVO);
 
+    void updateWorkAttendance(WorkAttendance workAttendance);
+
     void addWorkAttendance(WorkAttendance workAttendance);
 
     void addAllWorkAttendance(List<WorkAttendance> workAttendanceList);

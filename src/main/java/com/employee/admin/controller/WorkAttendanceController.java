@@ -133,7 +133,7 @@ public class WorkAttendanceController {
         // 获取签退使用的电脑ip
         workAttendance.setStartIp(IpUtils.getIpAddr(request));
         workAttendance.setAttendanceTime(DateTimeFormatter.ofPattern("yyyy-MM-dd").format(LocalDateTime.now()));
-        workAttendanceService.addWorkAttendance(workAttendance);
+        workAttendanceService.updateWorkAttendance(workAttendance);
         logger.info("WorkAttendanceController addWorkAttendance end ... ");
         return new ResultVO();
     }
@@ -169,7 +169,7 @@ public class WorkAttendanceController {
         // 获取签退使用的电脑ip
         workAttendance.setEndIp(IpUtils.getIpAddr(request));
         workAttendance.setAttendanceTime(DateTimeFormatter.ofPattern("yyyy-MM-dd").format(LocalDateTime.now()));
-        workAttendanceService.addWorkAttendance(workAttendance);
+        workAttendanceService.updateWorkAttendance(workAttendance);
         logger.info("WorkAttendanceController addWorkAttendance end ... ");
         return new ResultVO();
     }

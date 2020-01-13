@@ -2,20 +2,16 @@ package com.employee.admin.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.employee.admin.entity.StaffBase;
-import com.employee.admin.entity.StaffDept;
-import com.employee.admin.entity.StaffDetail;
 import com.employee.admin.entity.StaffRole;
+import com.employee.admin.entity.StaffUser;
+import com.employee.admin.entity.WorkAttendance;
 import com.employee.admin.enums.ExceptionEnum;
 import com.employee.admin.exception.ExtenException;
-import com.employee.admin.mapper.IStaffDeptMapper;
-import com.employee.admin.mapper.IStaffDetailMapper;
-import com.employee.admin.mapper.IStaffRoleMapper;
-import com.employee.admin.service.IStaffBaseService;
-import com.employee.admin.service.IStaffDeptService;
-import com.employee.admin.service.IUserService;
+import com.employee.admin.service.*;
 import com.employee.admin.utils.IdWorkerUtils;
-import com.employee.admin.vo.*;
+import com.employee.admin.vo.AddStaffBaseParam;
+import com.employee.admin.vo.ResultVO;
+import com.employee.admin.vo.StaffBaseVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +19,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -53,7 +50,13 @@ public class StaffBaseController {
     private IUserService userService;
 
     @Autowired
-    private IStaffRoleMapper staffRoleMapper;
+    private IStaffRoleService staffRoleService;
+
+    @Autowired
+    private IStaffUserService staffUserService;
+
+    @Autowired
+    private IWorkAttendanceService workAttendanceService;
 
     @Value("${idWorker.workerId}")
     private Integer workerId;
@@ -114,7 +117,19 @@ public class StaffBaseController {
         StaffRole staffRole = new StaffRole();
         staffRole.setUserId(userId);
         staffRole.setRoleId("ROLE003");
-        staffRoleMapper.addStaffRole(staffRole);
+        staffRoleService.addStaffRole(staffRole);
+        // 关联员工的员工号和用户id
+        StaffUser staffUser = new StaffUser();
+        staffUser.setEmpId(params.getStaffBase().getEmpId());
+        staffUser.setUserId(params.getStaffDetail().getUserId());
+        staffUserService.addStaffUser(staffUser);
+        // 为当前用户添加注册当天的签到信息
+        WorkAttendance workAttendance = new WorkAttendance();
+        workAttendance.setEmpId(params.getStaffBase().getEmpId());
+        workAttendance.setEmpName(params.getStaffBase().getEmpName());
+        workAttendance.setAttendanceTime(DateTimeFormatter.ofPattern("yyyy-MM-dd").format(LocalDateTime.now()));
+        workAttendance.setCreateTime(LocalDateTime.now());
+        workAttendanceService.addWorkAttendance(workAttendance);
         return new ResultVO();
     }
 

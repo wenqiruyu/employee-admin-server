@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.employee.admin.mapper.IStaffUserMapper">
+    <resultMap id="staffUserResultMap" type="com.employee.admin.vo.StaffUserVO">
+        <result property="userId" jdbcType="BIGINT" column="user_id" />
+        <result property="empId" jdbcType="VARCHAR" column="emp_id" />
+    </resultMap>
+
+    <sql id="staffUserList">
+        user_id, emp_id
+    </sql>
+
+    <insert id="addStaffUser">
+        insert into employee_staff_user_t(user_id, emp_id)
+        values (#{userId}, #{empId})
+    </insert>
+</mapper>

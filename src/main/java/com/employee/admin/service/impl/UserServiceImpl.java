@@ -12,10 +12,7 @@ import com.employee.admin.exception.ExtenException;
 import com.employee.admin.mapper.IStaffBaseMapper;
 import com.employee.admin.mapper.IStaffDetailMapper;
 import com.employee.admin.service.IUserService;
-import com.employee.admin.vo.LoginUserVO;
-import com.employee.admin.vo.QueryUserVO;
-import com.employee.admin.vo.RegisterUserVO;
-import com.employee.admin.vo.StaffDetailVO;
+import com.employee.admin.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -85,10 +82,10 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public IPage<StaffDetailVO> getAllUser(StaffDetailVO staffDetailVO, int page, int pageSize) {
+    public IPage<AllStaffDetailVO> getAllUser(AllStaffDetailVO allStaffDetailVO, int page, int pageSize) {
 
-        Page<StaffDetailVO> staffDetailVOPage = new Page<>(page, pageSize);
-        staffDetailVOPage.setRecords(staffDetailMapper.getPageUser(staffDetailVOPage, staffDetailVO));
+        Page<AllStaffDetailVO> staffDetailVOPage = new Page<>(page, pageSize);
+        staffDetailVOPage.setRecords(staffDetailMapper.getPageUser(staffDetailVOPage, allStaffDetailVO));
         return staffDetailVOPage;
     }
 

@@ -29,7 +29,12 @@
         </foreach >
     </insert>
 
-    <update id="addWorkAttendance">
+    <insert id="addWorkAttendance">
+        insert into employee_work_attendance_t(emp_id, emp_name, attendance_time, create_time)
+        values(#{empId}, #{empName}, #{attendanceTime}, #{createTime})
+    </insert>
+
+    <update id="updateWorkAttendance">
         update employee_work_attendance_t
         <set>
             <if test="startTime != null and startTime != ''">

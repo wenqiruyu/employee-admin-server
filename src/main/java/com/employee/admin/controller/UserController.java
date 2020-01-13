@@ -100,7 +100,7 @@ public class UserController {
             // 注册成功添加用户权限 注册用户都默认为普通用户
             StaffRole staffRole = new StaffRole();
             staffRole.setUserId(userId);
-            staffRole.setRoleId(1L);
+            staffRole.setRoleId("ROLE003");
             userService.addStaffRole(staffRole);
             logger.info("UserController register end ... userId:{}", userId);
             return new ResultVO();
@@ -180,9 +180,9 @@ public class UserController {
     public ResultVO getAllUser(@RequestBody PageVO pageVO) {
 
         logger.info("UserController getAllUser start ...page:{},pageSize:{}", pageVO.getPage(), pageVO.getPageSize());
-        List<StaffDetailVO> records = null;
+        List<AllStaffDetailVO> records = null;
         try {
-            IPage<StaffDetailVO> allUser = userService.getAllUser(new StaffDetailVO(), pageVO.getPage(), pageVO.getPageSize());
+            IPage<AllStaffDetailVO> allUser = userService.getAllUser(new AllStaffDetailVO(), pageVO.getPage(), pageVO.getPageSize());
             records = allUser.getRecords();
         } catch (Exception e) {
             logger.error("UserController getAllUser error ...", e);
