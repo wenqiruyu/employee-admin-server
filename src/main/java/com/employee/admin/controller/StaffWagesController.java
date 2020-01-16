@@ -54,6 +54,10 @@ public class StaffWagesController {
             throw new ExtenException("addAllWages", ExceptionEnum.PARAM_VALIDATED_UN_PASS_NULL.getCode(),
                     ExceptionEnum.PARAM_VALIDATED_UN_PASS_NULL.getMessage());
         }
+        // 获取所有员工信息
+
+
+
         staffWagesService.addAllStaffWages(staffWagesVOS);
         logger.info("StaffWagesController addAllWages end ...");
         return new ResultVO();

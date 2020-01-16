@@ -182,7 +182,7 @@ public class UserController {
         logger.info("UserController getAllUser start ...page:{},pageSize:{}", pageVO.getPage(), pageVO.getPageSize());
         List<AllStaffDetailVO> records = null;
         try {
-            IPage<AllStaffDetailVO> allUser = userService.getAllUser(new AllStaffDetailVO(), pageVO.getPage(), pageVO.getPageSize());
+            IPage<AllStaffDetailVO> allUser = userService.getAllUserPage(new AllStaffDetailVO(), pageVO.getPage(), pageVO.getPageSize());
             records = allUser.getRecords();
         } catch (Exception e) {
             logger.error("UserController getAllUser error ...", e);

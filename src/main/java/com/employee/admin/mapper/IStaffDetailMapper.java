@@ -30,6 +30,8 @@ public interface IStaffDetailMapper {
 
     StaffDetailVO getStaffDetailByEmpId(String empId);
 
+    List<StaffDetailVO> getAllStaffDetail();
+
     List<AllStaffDetailVO> getPageUser(Page<AllStaffDetailVO> venusUserPage, AllStaffDetailVO venusUser);
 
     int updateStaffDate(StaffDetailVO staffDetailVO);

@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.employee.admin.entity.StaffRole;
 import com.employee.admin.vo.*;
 
+import java.util.List;
+
 /**
  * 项目名称：employee-admin-server
  * 类名称：IUserService
@@ -24,7 +26,9 @@ public interface IUserService {
 
     StaffDetailVO getUserByEmpId(String empId);
 
-    IPage<AllStaffDetailVO> getAllUser(AllStaffDetailVO allStaffDetailVO, int page, int pageSize);
+    List<StaffDetailVO> getAllUser();
+
+    IPage<AllStaffDetailVO> getAllUserPage(AllStaffDetailVO allStaffDetailVO, int page, int pageSize);
 
     void updateUser(StaffDetailVO staffDetailVO);
 
