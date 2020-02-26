@@ -13,8 +13,16 @@
         <result column="attendance_time" jdbcType="VARCHAR" property="attendanceTime"/>
     </resultMap>
 
+    <resultMap id="monthWorkAttendanceResultMap" type="com.employee.admin.vo.MonthWorkAttendanceVO">
+        <result column="normalNum" jdbcType="INTEGER" property="normalNum"/>
+        <result column="lackNum" jdbcType="INTEGER" property="lackNum"/>
+        <result column="lateNum" jdbcType="INTEGER" property="lateNum"/>
+        <result column="leaveEarlyNum" jdbcType="INTEGER" property="leaveEarlyNum"/>
+        <result column="noSignBackNum" jdbcType="INTEGER" property="noSignBackNum"/>
+    </resultMap>
+
     <sql id="WorkAttendance">
-        emp_id, emp_name, start_time, end_time, start_ip, end_ip, reason, attendance_time
+        emp_id, emp_name, start_time, end_time, start_ip, end_ip, absence_duty_flag, reason, attendance_time
     </sql>
 
     <insert id="addAllWorkAttendance" parameterType="java.util.List">
@@ -83,6 +91,64 @@
         where delete_flag = 0
         and user.emp_id = att.emp_id
         and attendance_time = DATE_FORMAT(now(),'%Y-%m-%d')
+        order by attendance_time desc
+    </select>
+
+    <select id="getUserWorkAttendance" resultMap="WorkAttendanceResultMap">
+        select
+        att.<include refid="WorkAttendance"/>
+        from employee_work_attendance_t att
+        where delete_flag = 0
+        and att.emp_id = #{empId}
+        order by attendance_time desc
+    </select>
+
+    <select id="getUserSubEmpWorkAttendance" resultMap="WorkAttendanceResultMap" parameterType="com.employee.admin.vo.StaffDeptVO">
+        select
+        att.<include refid="WorkAttendance"/>
+        from employee_work_attendance_t att
+        <where>
+            att.emp_id in (
+            <foreach collection="staffDeptVOS"  item="item" index="index" separator=",">
+                #{item.empId}
+            </foreach>
+            )
+        </where>
+        and delete_flag = 0
+        order by attendance_time desc,id asc
+    </select>
+
+    <select id="getMonthWorkAttendance" resultMap="monthWorkAttendanceResultMap">
+        select sum(case absence_duty_flag when 0 then 1 else 0 end) as normalNum,
+            sum(case absence_duty_flag when 1 then 1 else 0 end) as lackNum,
+            sum(case absence_duty_flag when 4 then 1 else 0 end) as lateNum,
+            sum(case absence_duty_flag when 3 then 1 else 0 end) as leaveEarlyNum,
+            sum(case absence_duty_flag when 2 then 1 else 0 end) as noSignBackNum
+        from employee_work_attendance_t ewat, (
+            select *
+            from employee_staff_user_t
+            <where>
+                <if test="userId != null">
+                    user_id = #{userId}
+                </if>
+            </where>
+        ) user
+        <where>
+            <if test="month == 1">
+                and date_format(create_time,'%Y-%m') = date_format(now(),'%Y-%m')
+            </if>
+            <if test="month == 2">
+                and date_format(create_time,'%Y-%m') = date_format(DATE_SUB(curdate(), INTERVAL 1 MONTH), '%Y-%m')
+            </if>
+            <if test="month == 3">
+                and create_time between date_sub(now(),interval 3 month) and now()
+            </if>
+            <if test="month == 0">
+                and 1 = 1
+            </if>
+        </where>
+        and delete_flag = 0
+        and ewat.emp_id = user.emp_id
     </select>
 </mapper>
 

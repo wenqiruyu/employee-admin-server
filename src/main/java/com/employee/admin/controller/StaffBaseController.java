@@ -88,7 +88,7 @@ public class StaffBaseController {
     /**
      * 管理员进行录入新员工
      *
-     * @param
+     * @param requestParam
      * @return com.employee.admin.vo.ResultVO
      * @author yingx
      * @date 2019/12/27

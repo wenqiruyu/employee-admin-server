@@ -1,6 +1,10 @@
 package com.employee.admin.mapper;
 
 import com.employee.admin.entity.StaffDept;
+import com.employee.admin.vo.StaffDeptVO;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * 项目名称：employee-admin-server
@@ -15,4 +19,6 @@ import com.employee.admin.entity.StaffDept;
 public interface IStaffDeptMapper {
 
     int addStaffDept(StaffDept staffDept);
+
+    List<StaffDeptVO> getSubEmp(@Param("empId") String empId);
 }

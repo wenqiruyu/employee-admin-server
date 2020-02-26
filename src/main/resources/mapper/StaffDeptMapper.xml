@@ -3,12 +3,14 @@
 <mapper namespace="com.employee.admin.mapper.IStaffDeptMapper">
     <resultMap id="staffDeptResultMap" type="com.employee.admin.vo.StaffDeptVO">
         <result column="emp_id" jdbcType="VARCHAR" property="empId"/>
+        <result column="emp_name" jdbcType="VARCHAR" property="empName"/>
+        <result column="emp_position" jdbcType="VARCHAR" property="empPosition"/>
         <result column="super_emp_id" jdbcType="VARCHAR" property="superEmpId"/>
         <result column="dept_id" jdbcType="VARCHAR" property="deptId"/>
     </resultMap>
 
     <sql id="staffBaseList">
-        emp_id, super_emp_id, dept_id
+        emp_id, emp_position, super_emp_id, dept_id
     </sql>
 
     <insert id="addStaffDept">
@@ -16,4 +18,14 @@
         values (#{empId}, #{empPosition}, #{superEmpId}, #{deptId})
     </insert>
 
+    <select id="getSubEmp" resultMap="staffDeptResultMap">
+        select result.<include refid="staffBaseList" />, esbt.emp_name
+        from (
+            select <include refid="staffBaseList" />
+            from employee_staff_dept_t esdt
+            where delete_flag = 0
+            and esdt.super_emp_id = #{empId}) result
+        left join employee_staff_base_t esbt
+        on result.emp_id = esbt.emp_id
+    </select>
 </mapper>

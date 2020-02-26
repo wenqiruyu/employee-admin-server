@@ -1,8 +1,9 @@
 package com.employee.admin.mapper;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.employee.admin.entity.WorkAttendance;
-import com.employee.admin.vo.QueryUserVO;
-import com.employee.admin.vo.WorkAttendanceVO;
+import com.employee.admin.vo.*;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -21,6 +22,12 @@ public interface IWorkAttendanceMapper {
     List<WorkAttendanceVO> getAllWorkAttendance();
 
     WorkAttendanceVO getWorkAttendance(QueryUserVO queryUserVO);
+
+    MonthWorkAttendanceVO getMonthWorkAttendance(MonthWorkAttendanceParam monthWorkAttendanceParam);
+
+    List<WorkAttendanceVO> getUserWorkAttendance(Page<WorkAttendanceVO> workAttendanceVOPage, @Param("empId")String empId);
+
+    List<WorkAttendanceVO> getUserSubEmpWorkAttendance(Page<WorkAttendanceVO> workAttendanceVOPage, List<StaffDeptVO> staffDeptVOS);
 
     int updateWorkAttendance(WorkAttendance workAttendance);
 

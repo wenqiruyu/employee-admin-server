@@ -31,6 +31,14 @@ public class MenusController {
     @Autowired
     private IMenuService menuService;
 
+    /**
+      * 获取用户的相应菜单列表
+      *
+      * @param queryUserVO
+      * @return com.employee.admin.vo.ResultVO
+      * @author yingx
+      * @date 2020/2/18
+     */
     @PostMapping("/getMenu")
     @CrossOrigin
     public ResultVO getMenu(@RequestBody QueryUserVO queryUserVO) {

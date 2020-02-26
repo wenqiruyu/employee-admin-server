@@ -1,15 +1,15 @@
 package com.employee.admin.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.employee.admin.entity.WorkAttendance;
 import com.employee.admin.enums.ExceptionEnum;
 import com.employee.admin.exception.ExtenException;
 import com.employee.admin.mapper.IStaffDetailMapper;
 import com.employee.admin.mapper.IWorkAttendanceMapper;
 import com.employee.admin.service.IWorkAttendanceService;
-import com.employee.admin.vo.QueryUserVO;
-import com.employee.admin.vo.StaffDetailAllUserVO;
-import com.employee.admin.vo.WorkAttendanceVO;
+import com.employee.admin.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +43,29 @@ public class WorkAttendanceServiceImpl implements IWorkAttendanceService {
 
         WorkAttendanceVO workAttendance = workAttendanceMapper.getWorkAttendance(queryUserVO);
         return workAttendance;
+    }
+
+    @Override
+    public MonthWorkAttendanceVO getMonthWorkAttendance(MonthWorkAttendanceParam monthWorkAttendanceParam) {
+
+        MonthWorkAttendanceVO monthWorkAttendance = workAttendanceMapper.getMonthWorkAttendance(monthWorkAttendanceParam);
+        return monthWorkAttendance;
+    }
+
+    @Override
+    public IPage<WorkAttendanceVO> getUserWorkAttendance(WorkAttendanceVO workAttendanceVO, int page, int pageSize) {
+
+        Page<WorkAttendanceVO> workAttendanceVOPage = new Page<>(page, pageSize);
+        workAttendanceVOPage.setRecords(workAttendanceMapper.getUserWorkAttendance(workAttendanceVOPage, workAttendanceVO.getEmpId()));
+        return workAttendanceVOPage;
+    }
+
+    @Override
+    public IPage<WorkAttendanceVO> getUseSubEmpAttendance(List<StaffDeptVO> staffDeptVOS, int page, int pageSize) {
+
+        Page<WorkAttendanceVO> workAttendanceVOPage = new Page<>(page, pageSize);
+        workAttendanceVOPage.setRecords(workAttendanceMapper.getUserSubEmpWorkAttendance(workAttendanceVOPage, staffDeptVOS));
+        return workAttendanceVOPage;
     }
 
     @Override

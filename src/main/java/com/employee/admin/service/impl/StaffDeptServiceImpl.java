@@ -5,8 +5,14 @@ import com.employee.admin.enums.ExceptionEnum;
 import com.employee.admin.exception.ExtenException;
 import com.employee.admin.mapper.IStaffDeptMapper;
 import com.employee.admin.service.IStaffDeptService;
+import com.employee.admin.vo.StaffDeptVO;
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * 项目名称：employee-admin-server
@@ -21,6 +27,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class StaffDeptServiceImpl implements IStaffDeptService {
 
+
+    private static final Logger logger = LoggerFactory.getLogger(StaffDeptServiceImpl.class);
+
     @Autowired
     private IStaffDeptMapper staffDeptMapper;
 
@@ -32,5 +41,18 @@ public class StaffDeptServiceImpl implements IStaffDeptService {
             throw new ExtenException("addStaffDept", ExceptionEnum.UNEXPECTED_ERROR.getCode(),
                     ExceptionEnum.UNEXPECTED_ERROR.getMessage());
         }
+    }
+
+    @Override
+    public List<StaffDeptVO> getSubEmp(String empId) {
+
+        logger.info("StaffDeptServiceImpl getSubEmp start ... empId:{}", empId);
+        if (StringUtils.isBlank(empId)) {
+            throw new ExtenException("getSubEmp", ExceptionEnum.PARAM_VALIDATED_UN_PASS.getCode(),
+                    ExceptionEnum.PARAM_VALIDATED_UN_PASS.getMessage());
+        }
+        List<StaffDeptVO> subEmp = staffDeptMapper.getSubEmp(empId);
+        logger.info("StaffDeptServiceImpl getSubEmp end ... result:{}", subEmp);
+        return subEmp;
     }
 }

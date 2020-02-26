@@ -40,6 +40,14 @@
         where delete_flag = 0
     </select>
 
+    <select id="getPageWages" resultMap="staffWagesResultMap">
+        select
+        <include refid="staffWages"/>
+        from employee_staff_wages_t
+        where delete_flag = 0
+    </select>
+
+
     <select id="getStaffWagesByUserId" resultMap="staffWagesResultMap" parameterType="Long">
         select
         <include refid="staffWages"/>

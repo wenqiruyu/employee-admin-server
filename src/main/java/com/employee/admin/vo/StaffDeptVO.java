@@ -18,6 +18,11 @@ public class StaffDeptVO {
     private String empId;
 
     /**
+     * 员工名
+     */
+    private String empName;
+
+    /**
      * 员工职称
      */
     private String empPosition;
@@ -42,6 +47,14 @@ public class StaffDeptVO {
 
     public void setEmpId(String empId) {
         this.empId = empId;
+    }
+
+    public String getEmpName() {
+        return empName;
+    }
+
+    public void setEmpName(String empName) {
+        this.empName = empName;
     }
 
     public String getEmpPosition() {
@@ -79,10 +92,11 @@ public class StaffDeptVO {
     @Override
     public String toString() {
         return "StaffDeptVO{" +
-                "empId=" + empId +
+                "empId='" + empId + '\'' +
+                ", empName='" + empName + '\'' +
                 ", empPosition='" + empPosition + '\'' +
-                ", superEmpId=" + superEmpId +
-                ", deptId=" + deptId +
+                ", superEmpId='" + superEmpId + '\'' +
+                ", deptId='" + deptId + '\'' +
                 ", deptName='" + deptName + '\'' +
                 '}';
     }

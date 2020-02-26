@@ -1,8 +1,8 @@
 package com.employee.admin.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.employee.admin.entity.WorkAttendance;
-import com.employee.admin.vo.QueryUserVO;
-import com.employee.admin.vo.WorkAttendanceVO;
+import com.employee.admin.vo.*;
 
 import java.util.List;
 
@@ -21,6 +21,12 @@ public interface IWorkAttendanceService {
     List<WorkAttendanceVO> getAllWorkAttendance();
 
     WorkAttendanceVO getWorkAttendance(QueryUserVO queryUserVO);
+
+    MonthWorkAttendanceVO getMonthWorkAttendance(MonthWorkAttendanceParam monthWorkAttendanceParam);
+
+    IPage<WorkAttendanceVO> getUserWorkAttendance(WorkAttendanceVO workAttendanceVO, int page, int pageSize);
+
+    IPage<WorkAttendanceVO> getUseSubEmpAttendance(List<StaffDeptVO> staffDeptVOS, int page, int pageSize);
 
     void updateWorkAttendance(WorkAttendance workAttendance);
 

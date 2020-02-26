@@ -1,19 +1,15 @@
 package com.employee.admin.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.employee.admin.enums.ExceptionEnum;
 import com.employee.admin.exception.ExtenException;
 import com.employee.admin.service.IStaffWagesService;
-import com.employee.admin.vo.QueryUserVO;
-import com.employee.admin.vo.ResultVO;
-import com.employee.admin.vo.StaffWagesVO;
+import com.employee.admin.vo.*;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -91,12 +87,19 @@ public class StaffWagesController {
      */
     @PostMapping("/getAllWages")
     @CrossOrigin
-    public ResultVO getAllWages() {
+    public ResultVO getAllWages(@RequestBody PageVO pageVO) {
 
         logger.info("StaffWagesController getAllWages start ...");
-        List<StaffWagesVO> allStaffWages = staffWagesService.getAllStaffWages();
-        logger.info("StaffWagesController getAllWages end ... result:{}", allStaffWages);
-        return new ResultVO(allStaffWages);
+        List<StaffWagesVO> records;
+        try {
+            IPage<StaffWagesVO> allStaffWages = staffWagesService.getAllStaffWages(new StaffWagesVO(), pageVO.getPage(), pageVO.getPageSize());
+            records = allStaffWages.getRecords();
+        } catch (Exception e) {
+            logger.error("UserController getAllUser error ...", e);
+            throw new ExtenException("getAllUser", ExceptionEnum.UNEXPECTED_ERROR.getCode(), ExceptionEnum.UNEXPECTED_ERROR.getMessage());
+        }
+        logger.info("StaffWagesController getAllWages end ... result:{}", records);
+        return new ResultVO(records);
     }
 
     /**
@@ -116,7 +119,7 @@ public class StaffWagesController {
             throw new ExtenException("getWages", ExceptionEnum.PARAM_VALIDATED_UN_PASS_NULL.getCode(),
                     ExceptionEnum.PARAM_VALIDATED_UN_PASS_NULL.getMessage());
         }
-        List<StaffWagesVO> allStaffWages = staffWagesService.getAllStaffWages();
+        List<StaffWagesVO> allStaffWages = staffWagesService.getStaffWagesByUserId(queryUserVO.getUserId());
         logger.info("StaffWagesController getWages end ... result:{}", allStaffWages);
         return new ResultVO(allStaffWages);
     }

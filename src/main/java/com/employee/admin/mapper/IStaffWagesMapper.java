@@ -1,5 +1,7 @@
 package com.employee.admin.mapper;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.employee.admin.vo.AllStaffDetailVO;
 import com.employee.admin.vo.StaffWagesVO;
 
 import java.util.List;
@@ -17,6 +19,8 @@ import java.util.List;
 public interface IStaffWagesMapper {
 
     List<StaffWagesVO> getAllStaffWages();
+
+    List<StaffWagesVO> getPageWages(Page<StaffWagesVO> staffWagesVOPage, StaffWagesVO staffWagesVO);
 
     List<StaffWagesVO> getStaffWagesByUserId(Long userId);
 

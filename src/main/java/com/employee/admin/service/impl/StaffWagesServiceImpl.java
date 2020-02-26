@@ -1,9 +1,12 @@
 package com.employee.admin.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.employee.admin.enums.ExceptionEnum;
 import com.employee.admin.exception.ExtenException;
 import com.employee.admin.mapper.IStaffWagesMapper;
 import com.employee.admin.service.IStaffWagesService;
+import com.employee.admin.vo.AllStaffDetailVO;
 import com.employee.admin.vo.StaffWagesVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,10 +30,13 @@ public class StaffWagesServiceImpl implements IStaffWagesService {
     private IStaffWagesMapper staffWagesMapper;
 
     @Override
-    public List<StaffWagesVO> getAllStaffWages() {
+    public IPage<StaffWagesVO> getAllStaffWages(StaffWagesVO staffWagesVO, int page, int pageSize) {
 
-        List<StaffWagesVO> allStaffWages = staffWagesMapper.getAllStaffWages();
-        return allStaffWages;
+//        List<StaffWagesVO> allStaffWages = staffWagesMapper.getAllStaffWages();
+//        return allStaffWages;
+        Page<StaffWagesVO> staffWagesVOPage = new Page<>(page, pageSize);
+        staffWagesVOPage.setRecords(staffWagesMapper.getPageWages(staffWagesVOPage, staffWagesVO));
+        return staffWagesVOPage;
     }
 
     @Override

@@ -47,7 +47,7 @@ public class WorkAttendance {
     private String endIp;
 
     /**
-     * 考勤标识
+     * 考勤标识 0正常 1缺勤 2未签退 3早退 4迟到
      */
     private Integer absenceDutyFlag;
 
