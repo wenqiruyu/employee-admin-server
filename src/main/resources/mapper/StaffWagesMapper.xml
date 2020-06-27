@@ -11,6 +11,12 @@
         <result column="real_wages" jdbcType="DECIMAL" property="realWages"/>
     </resultMap>
 
+    <resultMap id="getEmpByWagesVOResultMap" type="com.employee.admin.vo.GetEmpByWagesVO">
+        <result column="emp_id" jdbcType="VARCHAR" property="empId"/>
+        <result column="emp_name" jdbcType="VARCHAR" property="empName"/>
+        <result column="role_id" jdbcType="VARCHAR" property="roleId"/>
+    </resultMap>
+
     <sql id="staffWages">
         emp_id, emp_name, period, base_wages, subsidy, tax, real_wages
     </sql>
@@ -23,15 +29,35 @@
             #{item.empId},
             #{item.empName},
             #{item.period},
-            #{item.baseWages}
-            #{item.subsidy}
-            #{item.tax}
-            #{item.deleteFlag}
-            #{item.createTime}
+            #{item.baseWages},
+            #{item.subsidy},
+            #{item.tax},
+            #{item.realWages},
+            #{item.deleteFlag},
+            #{item.createTime},
             #{item.updateTime}
             from dual
         </foreach >
     </insert>
+
+    <update id="updateAllWages" parameterType="java.util.List">
+        update employee_staff_wages_t
+        set delete_flag =
+        <foreach collection="list" item="item" index="index"
+                 separator=" " open="case emp_id" close="end">
+            when #{item.empId,jdbcType=VARCHAR} then #{item.deleteFlag}
+        </foreach>
+        , subsidy =
+        <foreach collection="list" item="item" index="index"
+                 separator=" " open="case emp_id" close="end">
+            when #{item.empId,jdbcType=VARCHAR} then #{item.subsidy}
+        </foreach>
+        where emp_id in
+        <foreach collection="list" index="index" item="item"
+                 separator="," open="(" close=")">
+            #{item.empId,jdbcType=VARCHAR}
+        </foreach>
+    </update>
 
     <select id="getAllStaffWages" resultMap="staffWagesResultMap">
         select
@@ -45,8 +71,16 @@
         <include refid="staffWages"/>
         from employee_staff_wages_t
         where delete_flag = 0
+        order by period desc
     </select>
 
+    <select id="getStaffWagesPageByUserId" resultMap="staffWagesResultMap">
+        select
+        <include refid="staffWages"/>
+        from employee_staff_wages_t
+        where delete_flag = 0
+        and emp_id = #{empId}
+    </select>
 
     <select id="getStaffWagesByUserId" resultMap="staffWagesResultMap" parameterType="Long">
         select
@@ -55,5 +89,46 @@
         where delete_flag = 0
         and user_id = #{userId}
     </select>
+
+    <select id="getWagesByEmpName" resultMap="staffWagesResultMap">
+        select *
+        from (
+            select
+            <include refid="staffWages"/>
+            from employee_staff_wages_t
+            where delete_flag = 0
+        ) res
+        where res.emp_name like "%"#{empName}"%"
+    </select>
+
+    <select id="getEmpByWages" resultMap="getEmpByWagesVOResultMap">
+        select esbt.emp_id,esbt.emp_name,res.role_id
+        from employee_staff_base_t esbt, (
+            select emp_id, userRole.role_id
+            from (
+            select role_id, user_id
+            from employee_staff_role_t
+            where role_id = 'ROLE002'
+            or role_id = 'ROLE003'
+            and  delete_flag = 0
+            ) userRole, employee_staff_user_t userAndEmp
+            where userAndEmp.user_id = userRole.user_id
+        )res
+        where esbt.emp_id = res.emp_id
+    </select>
+
+    <select id="getAllWagesByPeriod" resultMap="staffWagesResultMap" parameterType="String">
+        select
+        <include refid="staffWages"/>
+        from employee_staff_wages_t
+        where period = #{period}
+        and delete_flag = 1
+    </select>
+
+    <update id="updateStatus">
+        update employee_staff_wages_t
+        set delete_flag = 1
+        where emp_id=#{empId}
+    </update>
 </mapper>
 

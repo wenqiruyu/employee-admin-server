@@ -5,6 +5,9 @@ import com.employee.admin.enums.ExceptionEnum;
 import com.employee.admin.exception.ExtenException;
 import com.employee.admin.mapper.IStaffDeptMapper;
 import com.employee.admin.service.IStaffDeptService;
+import com.employee.admin.vo.EmpParamVO;
+import com.employee.admin.vo.QueryUserVO;
+import com.employee.admin.vo.ResultVO;
 import com.employee.admin.vo.StaffDeptVO;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -44,6 +47,20 @@ public class StaffDeptServiceImpl implements IStaffDeptService {
     }
 
     @Override
+    public StaffDeptVO getStaffDept(String empId) {
+
+        StaffDeptVO staffDept = staffDeptMapper.getStaffDept(empId);
+        return staffDept;
+    }
+
+    @Override
+    public StaffDeptVO getSuperEmp(QueryUserVO queryUserVO) {
+
+        StaffDeptVO superEmp = staffDeptMapper.getSuperEmp(queryUserVO);
+        return superEmp;
+    }
+
+    @Override
     public List<StaffDeptVO> getSubEmp(String empId) {
 
         logger.info("StaffDeptServiceImpl getSubEmp start ... empId:{}", empId);
@@ -51,8 +68,19 @@ public class StaffDeptServiceImpl implements IStaffDeptService {
             throw new ExtenException("getSubEmp", ExceptionEnum.PARAM_VALIDATED_UN_PASS.getCode(),
                     ExceptionEnum.PARAM_VALIDATED_UN_PASS.getMessage());
         }
-        List<StaffDeptVO> subEmp = staffDeptMapper.getSubEmp(empId);
+
+        EmpParamVO empParamVO = new EmpParamVO();
+        empParamVO.setEmpId(empId);
+
+        List<StaffDeptVO> subEmp = staffDeptMapper.getSubEmp(empParamVO);
         logger.info("StaffDeptServiceImpl getSubEmp end ... result:{}", subEmp);
         return subEmp;
+    }
+
+    @Override
+    public ResultVO updateEmpSuper(List<StaffDeptVO> staffDeptVO) {
+
+        staffDeptMapper.updateEmpSuper(staffDeptVO);
+        return new ResultVO();
     }
 }

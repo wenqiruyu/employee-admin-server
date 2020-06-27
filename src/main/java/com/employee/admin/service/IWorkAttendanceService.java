@@ -20,6 +20,8 @@ public interface IWorkAttendanceService {
 
     List<WorkAttendanceVO> getAllWorkAttendance();
 
+    List<WorkAttendanceVO> getAllWorkAttendanceByDate(String date);
+
     WorkAttendanceVO getWorkAttendance(QueryUserVO queryUserVO);
 
     MonthWorkAttendanceVO getMonthWorkAttendance(MonthWorkAttendanceParam monthWorkAttendanceParam);
@@ -33,4 +35,6 @@ public interface IWorkAttendanceService {
     void addWorkAttendance(WorkAttendance workAttendance);
 
     void addAllWorkAttendance(List<WorkAttendance> workAttendanceList);
+
+    void updateAbsenceDuty(List<WorkAttendanceVO> allWorkAttendance);
 }

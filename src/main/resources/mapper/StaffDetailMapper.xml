@@ -19,7 +19,7 @@
         <result column="national" jdbcType="VARCHAR" property="national"/>
         <result column="marriage" jdbcType="VARCHAR" property="marriage"/>
         <result column="education" jdbcType="VARCHAR" property="education"/>
-        <result column="userFace" jdbcType="VARCHAR" property="userFace"/>
+        <result column="userface" jdbcType="VARCHAR" property="userface"/>
         <result column="remark" jdbcType="VARCHAR" property="remark"/>
     </resultMap>
 
@@ -41,7 +41,7 @@
         <result column="national" jdbcType="VARCHAR" property="national"/>
         <result column="marriage" jdbcType="VARCHAR" property="marriage"/>
         <result column="education" jdbcType="VARCHAR" property="education"/>
-        <result column="userFace" jdbcType="VARCHAR" property="userFace"/>
+        <result column="userface" jdbcType="VARCHAR" property="userface"/>
         <result column="remark" jdbcType="VARCHAR" property="remark"/>
         <result column="emp_id" jdbcType="VARCHAR" property="empId"/>
         <result column="emp_name" jdbcType="VARCHAR" property="empName"/>
@@ -95,9 +95,14 @@
         from employee_staff_base_t staffB, (
             select emp_id
             from employee_staff_user_t staffU, (
-                select user_id
-                from employee_staff_detail_t
-                where delete_flag = 0
+                select staffE.user_id
+								from(
+									select user_id
+									from employee_staff_detail_t
+									where delete_flag = 0
+								) staffE, employee_staff_role_t esrt
+								where staffE.user_id = esrt.user_id
+								and esrt.role_id > 'ROLE001'
             ) staffD
             where staffU.user_id = staffD.user_id
         ) staffA
@@ -134,7 +139,7 @@
     <select id="getPageUser" resultMap="allStaffDetailResultMap">
         select result.<include refid="staffDeptList" />, result.dept_name,
             result.<include refid="staffDetailList"/>, result.emp_id, result.emp_name, result.participate_time,
-            result.leave_time, result.leave_reason, result_esb.emp_name as super_emp_name
+            result.leave_time, result.leave_reason, result_esb.emp_name super_emp_name
         from
             (select esde_ed.<include refid="staffDeptList" />, esde_ed.dept_name,
             esdu_esb.<include refid="staffDetailList"/>, esdu_esb.<include refid="staffBaseList" />
@@ -164,11 +169,52 @@
         on result.super_emp_id = result_esb.emp_id
     </select>
 
+    <select id="getPageUserByDept" resultMap="allStaffDetailResultMap">
+        select *
+        from (
+        select result.<include refid="staffDeptList" />, result.dept_name,
+        result.<include refid="staffDetailList"/>, result.emp_id, result.emp_name, result.participate_time,
+        result.leave_time, result.leave_reason, result_esb.emp_name as super_emp_name
+        from
+        (select esde_ed.<include refid="staffDeptList" />, esde_ed.dept_name,
+        esdu_esb.<include refid="staffDetailList"/>, esdu_esb.<include refid="staffBaseList" />
+        from (
+        select esde.emp_position, esde.super_emp_id, esde.dept_id, esde.emp_id, ed.dept_name
+        from employee_staff_dept_t esde
+        left join employee_dept_t ed
+        on esde.dept_id = ed.dept_id
+        where esde.delete_flag = 0
+        and ed.delete_flag = 0
+        ) esde_ed
+        left join (
+        select esdu.<include refid="staffDetailList"/>, esb.<include refid="staffBaseList" />
+        from (
+        select esd.<include refid="staffDetailList"/>,esu.emp_id
+        from employee_staff_detail_t esd
+        left join employee_staff_user_t esu
+        on esd.user_id = esu.user_id
+        where esd.delete_flag = 0
+        ) esdu
+        left join employee_staff_base_t esb
+        on esdu.emp_id = esb.emp_id
+        where esb.delete_flag = 0
+        ) esdu_esb
+        on esde_ed.emp_id = esdu_esb.emp_id) result
+        left join employee_staff_base_t result_esb
+        on result.super_emp_id = result_esb.emp_id
+        ) res
+        where res.dept_name = #{deptName}
+        or res.emp_position = #{deptName}
+    </select>
+
     <update id="updateStaffDate"  parameterType="com.employee.admin.vo.StaffDetailVO">
         update employee_staff_detail_t
         <set>
             <if test="username != null and username != ''">
                 username=#{username}
+            </if>
+            <if test="password != null and password != ''">
+                password=#{password}
             </if>
             <if test="sex != null">
                 ,sex=#{sex}
@@ -190,5 +236,82 @@
             </if>
         </set>
          where user_id=#{userId}
+    </update>
+
+    <select id="getEmail" resultMap="staffDetailResultMap">
+        select *
+        from employee_staff_detail_t
+        where delete_flag = 0
+        and email = #{email}
+    </select>
+
+    <update id="updateUserByEmail">
+        update employee_staff_detail_t
+        <set>
+            <if test="password != null and password != ''">
+                password=#{password}
+            </if>
+        </set>
+        where email=#{email}
+    </update>
+
+    <select id="getUserByName" resultMap="allStaffDetailResultMap">
+        select *
+        from (
+        select result.<include refid="staffDeptList" />, result.dept_name,
+        result.<include refid="staffDetailList"/>, result.emp_id, result.emp_name, result.participate_time,
+        result.leave_time, result.leave_reason, result_esb.emp_name as super_emp_name
+        from
+        (select esde_ed.<include refid="staffDeptList" />, esde_ed.dept_name,
+        esdu_esb.<include refid="staffDetailList"/>, esdu_esb.<include refid="staffBaseList" />
+        from (
+        select esde.emp_position, esde.super_emp_id, esde.dept_id, esde.emp_id, ed.dept_name
+        from employee_staff_dept_t esde
+        left join employee_dept_t ed
+        on esde.dept_id = ed.dept_id
+        where esde.delete_flag = 0
+        and ed.delete_flag = 0
+        ) esde_ed
+        left join (
+        select esdu.<include refid="staffDetailList"/>, esb.<include refid="staffBaseList" />
+        from (
+        select esd.<include refid="staffDetailList"/>,esu.emp_id
+        from employee_staff_detail_t esd
+        left join employee_staff_user_t esu
+        on esd.user_id = esu.user_id
+        where esd.delete_flag = 0
+        ) esdu
+        left join employee_staff_base_t esb
+        on esdu.emp_id = esb.emp_id
+        where esb.delete_flag = 0
+        ) esdu_esb
+        on esde_ed.emp_id = esdu_esb.emp_id) result
+        left join employee_staff_base_t result_esb
+        on result.super_emp_id = result_esb.emp_id
+        ) lyx
+        where lyx.emp_name like "%"#{empName}"%"
+    </select>
+
+    <select id="getUserByEmail" resultMap="staffDetailResultMap">
+        select <include refid="staffDetailList" />
+        from employee_staff_detail_t
+        where delete_flag = 0
+        and email = #{email}
+    </select>
+
+    <update id="updateUserFace">
+        update employee_staff_detail_t
+        <set>
+            <if test="destFileName != null and destFileName != ''">
+                userface=#{destFileName}
+            </if>
+        </set>
+        where username=#{username}
+    </update>
+
+    <update id="updateUserStatus">
+        update employee_staff_detail_t
+        set delete_flag = 1
+        where user_id=#{userId}
     </update>
 </mapper>

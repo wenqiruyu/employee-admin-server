@@ -5,6 +5,8 @@ import com.employee.admin.vo.EmpParamVO;
 import com.employee.admin.vo.QueryUserVO;
 import com.employee.admin.vo.StaffBaseVO;
 
+import java.util.List;
+
 /**
  * 项目名称：employee-admin-server
  * 类名称：IStaffBaseMapper
@@ -26,4 +28,8 @@ public interface IStaffBaseMapper {
     StaffBaseVO getStaffBaseByEmp(EmpParamVO empParamVO);
 
     StaffBaseVO getStaffBaseByUser(QueryUserVO queryUserVO);
+
+    List<StaffBaseVO> getAllSuperEmp();
+
+    void updateUserStatus(String empId);
 }

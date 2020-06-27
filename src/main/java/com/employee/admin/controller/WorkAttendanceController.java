@@ -179,6 +179,11 @@ public class WorkAttendanceController {
         StaffBaseVO staffBaseByUser = staffBaseService.getStaffBaseByUser(queryUserVO);
         // 通过员工号查询下属列表
         List<StaffDeptVO> subEmp = staffDeptService.getSubEmp(staffBaseByUser.getEmpId());
+
+        if (subEmp == null || subEmp.size() == 0) {
+            return new ResultVO();
+        }
+
         // 批量查询
         List<WorkAttendanceVO> records = null;
         try {

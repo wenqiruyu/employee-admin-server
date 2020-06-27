@@ -14,5 +14,11 @@
         insert into employee_staff_role_t(user_id, role_id)
         values ( #{userId},#{roleId})
     </insert>
+
+    <update id="updateStatus">
+        update employee_staff_role_t
+        set delete_flag = 1
+        where user_id=#{userId}
+    </update>
 </mapper>
 

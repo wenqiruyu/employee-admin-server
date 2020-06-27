@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.employee.admin.mapper.IEmailVerifyCodeMapper">
+    <resultMap id="emailVerifyCodeMap" type="com.employee.admin.entity.EmailVerifyCode">
+        <result column="email" jdbcType="BIGINT" property="email"/>
+        <result column="verify_code" jdbcType="VARCHAR" property="verifyCode"/>
+        <result column="start_time" jdbcType="VARCHAR" property="startTime"/>
+        <result column="email_msg" jdbcType="VARCHAR" property="emailMsg"/>
+    </resultMap>
+
+    <sql id="emailVerifyCodeList">
+        email, verify_code, start_time, email_msg
+    </sql>
+
+    <insert id="insertEmailVerifyCode">
+        insert into employee_user_email_verify_t(email, verify_code, start_time, email_msg)
+        values (#{email}, #{verifyCode}, #{startTime}, #{emailMsg})
+    </insert>
+
+    <select id="getEmailVerifyCode" resultMap="emailVerifyCodeMap">
+        select <include refid="emailVerifyCodeList" />
+        from employee_user_email_verify_t
+        where delete_flag = 0
+        and email = #{email}
+    </select>
+
+    <update id="updateEmailVerifyCodeStatus">
+        update employee_user_email_verify_t
+        set delete_flag = 1
+        where email = #{email}
+    </update>
+</mapper>

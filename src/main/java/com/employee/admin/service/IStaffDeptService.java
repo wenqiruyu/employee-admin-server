@@ -1,8 +1,9 @@
 package com.employee.admin.service;
 
 import com.employee.admin.entity.StaffDept;
+import com.employee.admin.vo.QueryUserVO;
+import com.employee.admin.vo.ResultVO;
 import com.employee.admin.vo.StaffDeptVO;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -20,5 +21,11 @@ public interface IStaffDeptService {
 
     void addStaffDept(StaffDept staffDept);
 
+    StaffDeptVO getStaffDept(String empId);
+
+    StaffDeptVO getSuperEmp(QueryUserVO queryUserVO);
+
     List<StaffDeptVO> getSubEmp(String empId);
+
+    ResultVO updateEmpSuper(List<StaffDeptVO> staffDeptVO);
 }

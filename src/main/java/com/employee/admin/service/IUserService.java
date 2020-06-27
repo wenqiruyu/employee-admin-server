@@ -3,6 +3,9 @@ package com.employee.admin.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.employee.admin.entity.StaffRole;
 import com.employee.admin.vo.*;
+import org.apache.tomcat.util.http.fileupload.FileItem;
+
+import java.util.List;
 
 /**
  * 项目名称：employee-admin-server
@@ -18,7 +21,9 @@ public interface IUserService {
 
     void userRegister(RegisterUserVO registerUserVO);
 
-    void userLogin(LoginUserVO loginUserVO);
+    ResultVO userLogin(LoginUserVO loginUserVO);
+
+    ResultVO getEmail(String email);
 
     StaffDetailVO getUser(QueryUserVO queryUserVO);
 
@@ -26,7 +31,21 @@ public interface IUserService {
 
     IPage<AllStaffDetailVO> getAllUser(AllStaffDetailVO allStaffDetailVO, int page, int pageSize);
 
+    IPage<AllStaffDetailVO> getUserByDept(String deptName, int page, int pageSize);
+
     void updateUser(StaffDetailVO staffDetailVO);
 
     void addStaffRole(StaffRole staffRole);
+
+    ResultVO updateUserByEmail(UpdateUserPwdVO updateUserPwdVO);
+
+    ResultVO getUserByName(String empName);
+
+    ResultVO getUserByEmail(String email);
+
+    ResultVO updateUserFace(UpdateUserFaceVO updateUserFaceVO);
+
+    ResultVO deleteUser(StaffUserVO staffUserVO);
+
+    ResultVO getAllSuperEmp();
 }

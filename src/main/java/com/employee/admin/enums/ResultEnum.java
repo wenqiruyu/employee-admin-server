@@ -24,7 +24,11 @@ public enum ResultEnum {
     INVALID_ACCESS(1001L, "用户无权访问"),
     USER_NEED_AUTHORITIES(1002L, "用户未进行登录"),
     USER_LOGOUT_SUCCESS(1003L, "用户注销登录成功"),
-    UNKNOWN_USER_INFO(1004L, "用户信息不存在"),;
+    UNKNOWN_USER_INFO(1004L, "用户信息不存在"),
+    UNKNOWN_USER_EMAIL(1005L, "该邮箱号未绑定账号哦"),
+    SEND_VERIFY_ERROR(1006L, "发送邮箱验证码失败"),
+    SEND_VERIFY_EXPIRED(1006L, "邮箱验证码已过期失效，请重新获取"),
+    SEND_VERIFY_UNTRUE(1006L, "邮箱验证码不正确");
 
     private Long code;
 

@@ -22,6 +22,14 @@ public class EmpParamVO {
      */
     private String empName;
 
+    public EmpParamVO() {
+    }
+
+    public EmpParamVO(String empId, String empName) {
+        this.empId = empId;
+        this.empName = empName;
+    }
+
     public String getEmpId() {
         return empId;
     }

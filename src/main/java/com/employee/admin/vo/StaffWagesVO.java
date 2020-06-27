@@ -14,6 +14,8 @@ import java.math.BigDecimal;
  */
 public class StaffWagesVO {
 
+    private Long userId;
+
     /**
      * 员工号
      */
@@ -48,6 +50,19 @@ public class StaffWagesVO {
      * 实发工资
      */
     private BigDecimal realWages;
+
+    /**
+     * 数据状态
+     */
+    private Integer deleteFlag;
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
     public String getEmpId() {
         return empId;
@@ -103,6 +118,14 @@ public class StaffWagesVO {
 
     public void setRealWages(BigDecimal realWages) {
         this.realWages = realWages;
+    }
+
+    public Integer getDeleteFlag() {
+        return deleteFlag;
+    }
+
+    public void setDeleteFlag(Integer deleteFlag) {
+        this.deleteFlag = deleteFlag;
     }
 
     @Override

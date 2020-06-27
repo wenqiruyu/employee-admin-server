@@ -15,4 +15,6 @@ import com.employee.admin.entity.StaffRole;
 public interface IStaffRoleMapper {
 
     int addStaffRole(StaffRole staffRole);
+
+    void updateStatus(Long userId);
 }

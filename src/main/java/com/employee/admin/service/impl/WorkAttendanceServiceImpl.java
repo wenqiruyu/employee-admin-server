@@ -39,6 +39,14 @@ public class WorkAttendanceServiceImpl implements IWorkAttendanceService {
     }
 
     @Override
+    public List<WorkAttendanceVO> getAllWorkAttendanceByDate(String attendanceTime) {
+
+        List<WorkAttendanceVO> allWorkAttendanceByDate = workAttendanceMapper.getAllWorkAttendanceByDate(attendanceTime);
+
+        return allWorkAttendanceByDate;
+    }
+
+    @Override
     public WorkAttendanceVO getWorkAttendance(QueryUserVO queryUserVO) {
 
         WorkAttendanceVO workAttendance = workAttendanceMapper.getWorkAttendance(queryUserVO);
@@ -92,9 +100,14 @@ public class WorkAttendanceServiceImpl implements IWorkAttendanceService {
     public void addAllWorkAttendance(List<WorkAttendance> workAttendanceList) {
 
         int result = workAttendanceMapper.addAllWorkAttendance(workAttendanceList);
-        if (result != 1) {
+        if (result == 0) {
             throw new ExtenException("addAllStaffWages", ExceptionEnum.UNEXPECTED_ERROR.getCode(),
                     ExceptionEnum.UNEXPECTED_ERROR.getMessage());
         }
+    }
+
+    @Override
+    public void updateAbsenceDuty(List<WorkAttendanceVO> allWorkAttendance) {
+        workAttendanceMapper.updateAbsenceDuty(allWorkAttendance);
     }
 }

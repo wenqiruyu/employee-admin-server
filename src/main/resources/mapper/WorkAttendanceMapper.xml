@@ -150,5 +150,32 @@
         and delete_flag = 0
         and ewat.emp_id = user.emp_id
     </select>
+
+    <update id="updateAbsenceDuty">
+        update employee_work_attendance_t
+        set absence_duty_flag =
+        <foreach collection="list" item="item" index="index"
+                 separator=" " open="case emp_id" close="end">
+            when #{item.empId,jdbcType=VARCHAR} then #{item.absenceDutyFlag}
+        </foreach>
+        where emp_id in
+        <foreach collection="list" index="index" item="item"
+                 separator="," open="(" close=")">
+            #{item.empId,jdbcType=VARCHAR}
+        </foreach>
+        and attendance_time in
+        <foreach collection="list" index="index" item="item"
+                 separator="," open="(" close=")">
+            #{item.attendanceTime,jdbcType=VARCHAR}
+        </foreach>
+    </update>
+
+    <select id="getAllWorkAttendanceByDate" resultMap="WorkAttendanceResultMap">
+        select
+        <include refid="WorkAttendance"/>
+        from employee_work_attendance_t
+        where delete_flag = 0
+        and attendance_time = #{attendanceTime}
+    </select>
 </mapper>
 

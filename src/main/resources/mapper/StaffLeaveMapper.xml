@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.employee.admin.mapper.IStaffLeaveMapper">
+    <resultMap id="staffLeaveResult" type="com.employee.admin.entity.StaffLeave">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="emp_id" jdbcType="VARCHAR" property="empId"/>
+        <result column="emp_name" jdbcType="VARCHAR" property="empName"/>
+        <result column="start_time" jdbcType="DATE" property="startTime"/>
+        <result column="end_time" jdbcType="DATE" property="endTime"/>
+        <result column="leave_type" jdbcType="VARCHAR" property="leaveType"/>
+        <result column="leave_reason" jdbcType="VARCHAR" property="leaveReason"/>
+        <result column="super_emp_id" jdbcType="VARCHAR" property="superEmpId"/>
+        <result column="super_emp_name" jdbcType="VARCHAR" property="superEmpName"/>
+        <result column="super_plus_emp_id" jdbcType="VARCHAR" property="superPlusEmpId"/>
+        <result column="super_plus_emp_name" jdbcType="VARCHAR" property="superPlusEmpName"/>
+        <result column="procedure_flag" jdbcType="INTEGER" property="procedureFlag"/>
+        <result column="leave_detail" jdbcType="VARCHAR" property="leaveDetail"/>
+    </resultMap>
+
+    <sql id="staffLeaveList">
+        user_id, emp_id, start_time, end_time, leave_type, leave_reason, super_emp_id, super_emp_name, super_plus_emp_id,
+        super_plus_emp_name, procedure_flag, leave_detail
+    </sql>
+
+    <insert id="addStaffLeave">
+        insert into
+        employee_staff_Leave_t(user_id, emp_id, emp_name, start_time, end_time, leave_type, leave_reason, super_emp_id, super_emp_name, super_plus_emp_id,
+        super_plus_emp_name, procedure_flag, leave_detail, delete_flag,create_time, update_time)
+        values(#{userId}, #{empId}, #{empName}, #{startTime}, #{endTime}, #{leaveType}, #{leaveReason}, #{superEmpId}, #{superEmpName}, #{superPlusEmpId},
+        #{superPlusEmpName}, #{procedureFlag}, #{leaveDetail}, #{deleteFlag}, #{createTime}, #{updateTime})
+    </insert>
+
+    <select id="getSubEmpLeave" resultMap="staffLeaveResult">
+        select *
+        from employee_staff_leave_t
+        where super_emp_id = (
+            select emp_id
+            from employee_staff_user_t
+            where user_id = (
+                select user_id
+                from employee_staff_detail_t
+                where username = #{username}
+            )
+        )
+        and procedure_flag = 1
+        and delete_flag = 0
+    </select>
+
+    <select id="getSubEmpLeaveByPlus" resultMap="staffLeaveResult">
+        select *
+        from employee_staff_leave_t
+        where super_plus_emp_id = (
+            select emp_id
+            from employee_staff_user_t
+            where user_id = (
+                select user_id
+                from employee_staff_detail_t
+                where username = #{username}
+            )
+        )
+        and procedure_flag = 2
+        and delete_flag = 0
+    </select>
+
+    <update id="updateEmpLeaveSuccess">
+        update employee_staff_leave_t
+        set procedure_flag = 3
+        where id = #{id}
+    </update>
+
+    <update id="updateEmpLeave">
+        update employee_staff_leave_t
+        set procedure_flag = procedure_flag + 1
+        where id = #{id}
+    </update>
+
+    <update id="updateEmpLeaveError">
+        update employee_staff_leave_t
+        set procedure_flag = 0
+        where id = #{id}
+    </update>
+
+    <select id="getEmpLeaveById" resultMap="staffLeaveResult">
+        select *
+        from employee_staff_leave_t
+        where id = #{id}
+    </select>
+
+    <select id="getEmpAllLeave" resultMap="staffLeaveResult">
+        select *
+        from employee_staff_leave_t
+        where emp_id = (
+            select emp_id
+            from employee_staff_user_t
+            where user_id = (
+                select user_id
+                from employee_staff_detail_t
+                where username = #{username}
+            )
+        )
+        and delete_flag = 0
+        order by create_time desc;
+    </select>
+</mapper>

@@ -47,4 +47,25 @@
         where user.emp_id = staffB.emp_id
         and delete_flag = 0
     </select>
+
+    <update id="updateUserStatus">
+        update employee_staff_base_t
+        set delete_flag = 1
+        where emp_id=#{empId}
+    </update>
+
+    <select id="getAllSuperEmp" resultMap="staffBaseResultMap">
+        select esb.emp_id, esb.emp_name
+				from employee_staff_base_t esb,(
+					select emp_id
+					from employee_staff_user_t
+					where user_id in (
+							select user_id
+							from employee_staff_role_t
+							where delete_flag = 0
+							and role_id= 'ROLE002'
+					)
+				) result
+				where esb.emp_id = result.emp_id
+    </select>
 </mapper>

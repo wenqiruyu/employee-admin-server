@@ -1,8 +1,11 @@
 package com.employee.admin.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.employee.admin.entity.StaffDetail;
 import com.employee.admin.enums.ExceptionEnum;
 import com.employee.admin.exception.ExtenException;
+import com.employee.admin.mapper.IStaffDetailMapper;
+import com.employee.admin.service.IStaffBaseService;
 import com.employee.admin.service.IStaffWagesService;
 import com.employee.admin.vo.*;
 import org.apache.commons.lang.StringUtils;
@@ -33,6 +36,46 @@ public class StaffWagesController {
     @Autowired
     private IStaffWagesService staffWagesService;
 
+    @Autowired
+    private IStaffDetailMapper staffDetailMapper;
+
+    @Autowired
+    private IStaffBaseService staffBaseService;
+
+    /**
+     * 批量添加员工薪资 发放工资
+     *
+     * @param staffWagesVO
+     * @return com.employee.admin.vo.ResultVO
+     * @author yingx
+     * @date 2020/1/6
+     */
+    @PostMapping("/addAllUserWages")
+    @CrossOrigin
+    public ResultVO addAllUserWages(@RequestBody StaffWagesVO staffWagesVO) {
+
+        logger.info("StaffWagesController addAllUserWages start ...");
+        if (staffWagesVO.getPeriod() == null) {
+            throw new ExtenException("addAllUserWages", ExceptionEnum.PARAM_VALIDATED_UN_PASS_NULL.getCode(),
+                    ExceptionEnum.PARAM_VALIDATED_UN_PASS_NULL.getMessage());
+        }
+
+        List<StaffWagesVO> wagesByPeriod = staffWagesService.getAllWagesByPeriod(staffWagesVO.getPeriod());
+
+        if(wagesByPeriod != null && wagesByPeriod.size() != 0){
+            logger.info("StaffWagesController addAllUserWages end ...Result:{}", wagesByPeriod);
+            return new ResultVO(wagesByPeriod);
+        }else{
+            // 获取所有员工信息
+            staffWagesService.addAllUserWages(staffWagesVO.getPeriod());
+        }
+        // 获取当月的薪资列表
+        List<StaffWagesVO> allWagesByPeriod = staffWagesService.getAllWagesByPeriod(staffWagesVO.getPeriod());
+
+        logger.info("StaffWagesController addAllUserWages end ...Result:{}", allWagesByPeriod);
+        return new ResultVO(allWagesByPeriod);
+    }
+
     /**
      * 批量添加员工薪资 发放工资
      *
@@ -41,17 +84,19 @@ public class StaffWagesController {
      * @author yingx
      * @date 2020/1/6
      */
-    @PostMapping("/addAllWages")
+    @PostMapping("/updateAllWages")
     @CrossOrigin
-    public ResultVO addAllWages(List<StaffWagesVO> staffWagesVOS) {
+    public ResultVO updateAllWages(@RequestBody UpdateAllWagesVO updateAllWagesVO) {
 
-        logger.info("StaffWagesController addAllWages start ...");
-        if (staffWagesVOS == null || staffWagesVOS.size() == 0) {
-            throw new ExtenException("addAllWages", ExceptionEnum.PARAM_VALIDATED_UN_PASS_NULL.getCode(),
+        logger.info("StaffWagesController updateAllWages start ... param:{}", updateAllWagesVO.getStaffWagesVOS());
+        if (updateAllWagesVO.getStaffWagesVOS() == null || updateAllWagesVO.getStaffWagesVOS().size() == 0) {
+            throw new ExtenException("updateAllWages", ExceptionEnum.PARAM_VALIDATED_UN_PASS_NULL.getCode(),
                     ExceptionEnum.PARAM_VALIDATED_UN_PASS_NULL.getMessage());
         }
-        staffWagesService.addAllStaffWages(staffWagesVOS);
-        logger.info("StaffWagesController addAllWages end ...");
+
+        staffWagesService.updateAllWages(updateAllWagesVO.getStaffWagesVOS());
+
+        logger.info("StaffWagesController updateAllWages end ...");
         return new ResultVO();
     }
 
@@ -65,7 +110,7 @@ public class StaffWagesController {
      */
     @PostMapping("/addWages")
     @CrossOrigin
-    public ResultVO addWages(StaffWagesVO staffWagesVO) {
+    public ResultVO addWages(@RequestBody StaffWagesVO staffWagesVO) {
 
         logger.info("StaffWagesController addWages start ...");
         if (staffWagesVO == null) {
@@ -103,24 +148,55 @@ public class StaffWagesController {
     }
 
     /**
+     * 管理员获取全部员工薪资信息
+     *
+     * @param
+     * @return com.employee.admin.vo.ResultVO
+     * @author yingx
+     * @date 2020/1/6
+     */
+    @PostMapping("/getWagesByEmpName")
+    @CrossOrigin
+    public ResultVO getWagesByEmpName(@RequestBody EmpParamVO empParamVO) {
+
+        logger.info("StaffWagesController getWagesByEmpName start ...empName:{}", empParamVO.getEmpName());
+
+        ResultVO wagesByEmpName = staffWagesService.getWagesByEmpName(empParamVO);
+
+        return wagesByEmpName;
+    }
+
+    /**
      * 员工获取本人薪资信息
      *
-     * @param queryUserVO
+     * @param getWages
      * @return com.employee.admin.vo.ResultVO
      * @author yingx
      * @date 2020/1/6
      */
     @PostMapping("/getWages")
     @CrossOrigin
-    public ResultVO getWages(QueryUserVO queryUserVO) {
+    public ResultVO getWages(@RequestBody GetWages getWages) {
 
         logger.info("StaffWagesController getWages start ...");
-        if (StringUtils.isBlank(queryUserVO.getUserId().toString())) {
+        if (getWages == null) {
             throw new ExtenException("getWages", ExceptionEnum.PARAM_VALIDATED_UN_PASS_NULL.getCode(),
                     ExceptionEnum.PARAM_VALIDATED_UN_PASS_NULL.getMessage());
         }
-        List<StaffWagesVO> allStaffWages = staffWagesService.getStaffWagesByUserId(queryUserVO.getUserId());
-        logger.info("StaffWagesController getWages end ... result:{}", allStaffWages);
-        return new ResultVO(allStaffWages);
+
+        StaffDetail staffDetail = new StaffDetail();
+        staffDetail.setUsername(getWages.getUsername());
+        // 根据用户名查找用户信息
+        StaffDetailVO staffDetailResult = staffDetailMapper.getStaffDetail(staffDetail);
+
+        QueryUserVO queryUserVO = new QueryUserVO();
+        queryUserVO.setUserId(Long.parseLong(staffDetailResult.getUserId()));
+        StaffBaseVO staffBaseByUser = staffBaseService.getStaffBaseByUser(queryUserVO);
+
+        IPage<StaffWagesVO> staffWagesByUserId = staffWagesService.getStaffWagesByUserId(staffBaseByUser.getEmpId(),
+                getWages.getPage(), getWages.getPageSize());
+        List<StaffWagesVO> records = staffWagesByUserId.getRecords();
+        logger.info("StaffWagesController getWages end ... result:{}", records);
+        return new ResultVO(records);
     }
 }

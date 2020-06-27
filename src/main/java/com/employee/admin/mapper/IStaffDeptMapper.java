@@ -1,6 +1,8 @@
 package com.employee.admin.mapper;
 
 import com.employee.admin.entity.StaffDept;
+import com.employee.admin.vo.EmpParamVO;
+import com.employee.admin.vo.QueryUserVO;
 import com.employee.admin.vo.StaffDeptVO;
 import org.apache.ibatis.annotations.Param;
 
@@ -20,5 +22,13 @@ public interface IStaffDeptMapper {
 
     int addStaffDept(StaffDept staffDept);
 
-    List<StaffDeptVO> getSubEmp(@Param("empId") String empId);
+    StaffDeptVO getStaffDept(@Param("empId") String empId);
+
+    StaffDeptVO getSuperEmp(QueryUserVO queryUserV);
+
+    List<StaffDeptVO> getSubEmp(EmpParamVO empParamVO);
+
+    void updateStatus(String empId);
+
+    void updateEmpSuper(List<StaffDeptVO> staffDeptVO);
 }

@@ -1,6 +1,8 @@
 package com.employee.admin.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.employee.admin.vo.EmpParamVO;
+import com.employee.admin.vo.ResultVO;
 import com.employee.admin.vo.StaffWagesVO;
 
 import java.util.List;
@@ -19,9 +21,16 @@ public interface IStaffWagesService {
 
     IPage<StaffWagesVO> getAllStaffWages(StaffWagesVO staffWagesVO, int page, int pageSize);
 
-    List<StaffWagesVO> getStaffWagesByUserId(Long userId);
+    ResultVO getWagesByEmpName(EmpParamVO empParamVO);
 
-    void addAllStaffWages(List<StaffWagesVO> staffWagesVOS);
+    IPage<StaffWagesVO> getStaffWagesByUserId(String empId, int page, int pageSize);
+
+    void updateAllWages(List<StaffWagesVO> staffWagesVOS);
 
     void addStaffWages(StaffWagesVO staffWagesVO);
+
+    void addAllUserWages(String period);
+
+    List<StaffWagesVO> getAllWagesByPeriod(String period);
 }
+

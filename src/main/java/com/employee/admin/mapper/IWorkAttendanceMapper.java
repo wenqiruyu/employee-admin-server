@@ -34,4 +34,8 @@ public interface IWorkAttendanceMapper {
     int addWorkAttendance(WorkAttendance workAttendance);
 
     int addAllWorkAttendance(List<WorkAttendance> workAttendanceList);
+
+    void updateAbsenceDuty(List<WorkAttendanceVO> allWorkAttendance);
+
+    List<WorkAttendanceVO> getAllWorkAttendanceByDate(String attendanceTime);
 }

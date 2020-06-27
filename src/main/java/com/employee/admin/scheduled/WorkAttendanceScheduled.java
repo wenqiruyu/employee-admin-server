@@ -6,14 +6,19 @@ import com.employee.admin.mapper.IStaffDetailMapper;
 import com.employee.admin.service.IWorkAttendanceService;
 import com.employee.admin.vo.StaffDetailAllUserVO;
 import com.employee.admin.vo.WorkAttendanceVO;
+import net.minidev.json.JSONUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
 import java.util.List;
 
 /**
@@ -69,6 +74,7 @@ public class WorkAttendanceScheduled {
      * @author yingx
      * @date 2020/1/3
      */
+    @Scheduled(cron = "0 0 6 * * ?")
     public void toGetWorkAttendance() throws Exception {
 
         // 正常考勤的员工进行设置正常考勤的标识
@@ -76,23 +82,51 @@ public class WorkAttendanceScheduled {
         try {
             // 获取前一天的员工考勤信息
             String startTime = "09:00:00";
+            String endTime = "18:00:00";
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-            LocalDateTime localDateTime = LocalDateTime.parse(startTime, dateTimeFormatter);
-            List<WorkAttendanceVO> allWorkAttendance = workAttendanceService.getAllWorkAttendance();
+
+            LocalTime localDateTimeStart = LocalTime.parse("09:00:00", DateTimeFormatter.ofPattern("HH:mm:ss"));
+            LocalTime localDateTimeEnd = LocalTime.parse("09:00:00", DateTimeFormatter.ofPattern("HH:mm:ss"));
+
+            String format = DateTimeFormatter.ofPattern("yyyy-MM-dd").format(LocalDateTime.now().plusDays(-1));
+
+            List<WorkAttendanceVO> allWorkAttendance = workAttendanceService.getAllWorkAttendanceByDate(format);
             for (WorkAttendanceVO workAttendanceVO : allWorkAttendance) {
                 if (workAttendanceVO.getStartTime() != null) {
-//                    String format = workAttendanceVO.getStartTime().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
-                    /*if (localDateTime.isBefore()) {
-
-                    }*/
+                    // 用户签到时间是否在九点之前
+                    if (localDateTimeStart.isBefore(LocalTime.parse(workAttendanceVO.getStartTime(), dateTimeFormatter))) {
+                        if (workAttendanceVO.getEndTime() != null) {
+                            if (localDateTimeEnd.isBefore(LocalTime.parse(workAttendanceVO.getStartTime(), dateTimeFormatter))) {
+                                // 迟到加早退定为旷工
+                                workAttendanceVO.setAbsenceDutyFlag(3);
+                            }else{
+                                workAttendanceVO.setAbsenceDutyFlag(0);
+                            }
+                        }else{
+                            workAttendanceVO.setAbsenceDutyFlag(2);
+                        }
+                    }else{
+                        if (workAttendanceVO.getEndTime() != null) {
+                            if (localDateTimeEnd.isBefore(LocalTime.parse(workAttendanceVO.getStartTime(), dateTimeFormatter))) {
+                                // 迟到加早退定为旷工
+                                workAttendanceVO.setAbsenceDutyFlag(1);
+                            }else{
+                                workAttendanceVO.setAbsenceDutyFlag(4);
+                            }
+                        }else{
+                            workAttendanceVO.setAbsenceDutyFlag(1);
+                        }
+                    }
                 } else {
                     workAttendanceVO.setAbsenceDutyFlag(1);
                 }
             }
+
+            workAttendanceService.updateAbsenceDuty(allWorkAttendance);
+
             logger.info("WorkAttendanceScheduled toAddWorkAttendance end ...");
         } catch (Exception e) {
             logger.error("WorkAttendanceScheduled toAddWorkAttendance error ... message:{}", e);
         }
-        // 异常考勤设置异常标识
     }
 }
