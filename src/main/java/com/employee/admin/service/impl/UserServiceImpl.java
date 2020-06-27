@@ -100,7 +100,14 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public IPage<AllStaffDetailVO> getAllUser(AllStaffDetailVO allStaffDetailVO, int page, int pageSize) {
+    public List<StaffDetailVO> getAllUser() {
+
+//        staffDetailMapper.get
+        return null;
+    }
+
+    @Override
+    public IPage<AllStaffDetailVO> getAllUserPage(AllStaffDetailVO allStaffDetailVO, int page, int pageSize) {
 
         Page<AllStaffDetailVO> staffDetailVOPage = new Page<>(page, pageSize);
         staffDetailVOPage.setRecords(staffDetailMapper.getPageUser(staffDetailVOPage, allStaffDetailVO));

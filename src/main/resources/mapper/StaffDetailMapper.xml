@@ -136,6 +136,20 @@
         and delete_flag = 0
     </select>
 
+    <select id="getAllStaffDetail" resultMap="staffDetailResultMap">
+        select
+        from (
+            select detail.<include refid="staffDetailList"/>
+            from employee_staff_detail_t detail
+            left join employee_staff_role_t role
+            on detail.user_id = role.user_id
+            where detail.delete_flag = 0
+            and role.delete_flag = 0
+            and role.role_id = 'ROLE003'
+        )
+        left join employee
+    </select>
+
     <select id="getPageUser" resultMap="allStaffDetailResultMap">
         select result.<include refid="staffDeptList" />, result.dept_name,
             result.<include refid="staffDetailList"/>, result.emp_id, result.emp_name, result.participate_time,

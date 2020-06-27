@@ -7,6 +7,8 @@ import org.apache.tomcat.util.http.fileupload.FileItem;
 
 import java.util.List;
 
+import java.util.List;
+
 /**
  * 项目名称：employee-admin-server
  * 类名称：IUserService
@@ -29,7 +31,9 @@ public interface IUserService {
 
     StaffDetailVO getUserByEmpId(String empId);
 
-    IPage<AllStaffDetailVO> getAllUser(AllStaffDetailVO allStaffDetailVO, int page, int pageSize);
+    List<StaffDetailVO> getAllUser();
+
+    IPage<AllStaffDetailVO> getAllUserPage(AllStaffDetailVO allStaffDetailVO, int page, int pageSize);
 
     IPage<AllStaffDetailVO> getUserByDept(String deptName, int page, int pageSize);
 

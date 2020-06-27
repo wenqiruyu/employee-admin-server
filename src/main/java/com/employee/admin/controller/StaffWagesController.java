@@ -93,10 +93,19 @@ public class StaffWagesController {
             throw new ExtenException("updateAllWages", ExceptionEnum.PARAM_VALIDATED_UN_PASS_NULL.getCode(),
                     ExceptionEnum.PARAM_VALIDATED_UN_PASS_NULL.getMessage());
         }
+<<<<<<< HEAD
 
         staffWagesService.updateAllWages(updateAllWagesVO.getStaffWagesVOS());
 
         logger.info("StaffWagesController updateAllWages end ...");
+=======
+        // 获取所有员工信息
+
+
+
+        staffWagesService.addAllStaffWages(staffWagesVOS);
+        logger.info("StaffWagesController addAllWages end ...");
+>>>>>>> 9977908157202d9a81c534878830b2945a9b42d7
         return new ResultVO();
     }
 
